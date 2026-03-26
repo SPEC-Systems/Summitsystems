@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesman Dashboard — SPEC Systems</title>
+<meta name="description" content="SPEC Systems Salesman Dashboard — manage leads, run site visits, and generate estimates on the go.">
+<link rel="icon" type="image/svg+xml" href="logo-icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0908;
+  --slate: #161412;
+  --stone: #201E18;
+  --navy: #0C1829;
+  --mist: #918A7A;
+  --cloud: #C8C2B4;
+  --snow: #F2EFE8;
+  --white: #FFFFFF;
+  --gold: #BF9438;
+  --gold-light: #CDA44A;
+  --gold-glow: rgba(175,135,55,0.15);
+  --green: #1E9476;
+  --green-glow: rgba(30,148,118,0.14);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--snow);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 12px 0;
+  background: rgba(10,9,8,0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(191,148,56,0.12);
+}
+nav .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.logo-img { height: 30px; width: auto; }
+.logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 600;
+  color: var(--gold-light); letter-spacing: -0.01em;
+}
+.nav-links { display: flex; align-items: center; gap: 20px; }
+.nav-links a {
+  color: var(--mist); text-decoration: none;
+  font-size: 0.79rem; font-weight: 500;
+  letter-spacing: 0.01em; transition: color 0.18s;
+  white-space: nowrap;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--white); }
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--gold-glow);
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700;
+  color: var(--gold-light); letter-spacing: 0.04em;
+  flex-shrink: 0; cursor: pointer;
+  transition: all 0.18s;
+}
+.avatar:hover { background: rgba(191,148,56,0.25); }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 6px;
+}
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--cloud); border-radius: 2px; transition: all 0.25s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav {
+  display: none; position: fixed; top: 57px; left: 0; right: 0;
+  background: var(--slate);
+  border-bottom: 1px solid rgba(191,148,56,0.12);
+  padding: 18px 24px 24px;
+  z-index: 199; flex-direction: column; gap: 16px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a { color: var(--cloud); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+/* ── PAGE LAYOUT ── */
+.page-wrap { padding-top: 57px; min-height: 100vh; }
+.main-content { padding: 0 0 60px; }
+
+/* ── GREETING BAR ── */
+.greeting-bar {
+  background: var(--slate);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding: 18px 0;
+}
+.greeting-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.greeting-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 600;
+  color: var(--white); letter-spacing: -0.02em;
+  margin-bottom: 3px;
+}
+.greeting-text p { font-size: 0.82rem; color: var(--mist); }
+.btn-new-visit {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold); color: var(--ink);
+  padding: 9px 18px; border-radius: 7px;
+  font-size: 0.78rem; font-weight: 700;
+  border: none; cursor: pointer;
+  font-family: inherit; text-decoration: none;
+  white-space: nowrap; transition: all 0.18s;
+  letter-spacing: -0.01em;
+}
+.btn-new-visit:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ── SECTIONS ── */
+.section { padding: 28px 0; }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 600;
+  color: var(--white); letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.section-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.count-badge {
+  background: var(--gold-glow);
+  border: 1px solid rgba(191,148,56,0.3);
+  color: var(--gold-light);
+  font-size: 0.68rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 20px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+
+/* ── SCHEDULE STRIP ── */
+.schedule-strip {
+  display: flex; gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.schedule-strip::-webkit-scrollbar { display: none; }
+.consult-card {
+  flex-shrink: 0;
+  background: var(--stone);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 16px 18px;
+  min-width: 260px;
+  max-width: 300px;
+  width: calc(50% - 6px);
+}
+.consult-time {
+  font-size: 0.7rem; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.consult-name {
+  font-size: 1rem; font-weight: 600; color: var(--white);
+  margin-bottom: 2px;
+}
+.consult-type {
+  font-size: 0.8rem; color: var(--mist); margin-bottom: 6px;
+}
+.consult-addr {
+  font-size: 0.76rem; color: var(--cloud);
+  margin-bottom: 14px; line-height: 1.4;
+}
+.btn-start {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 16px; border-radius: 6px;
+  font-size: 0.78rem; font-weight: 700;
+  border: none; cursor: pointer; font-family: inherit;
+  transition: all 0.18s; width: 100%; justify-content: center;
+}
+.btn-start-solid {
+  background: var(--gold); color: var(--ink);
+}
+.btn-start-solid:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-start-outline {
+  background: transparent;
+  color: var(--cloud);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.btn-start-outline:hover { border-color: rgba(191,148,56,0.4); color: var(--gold-light); background: var(--gold-glow); }
+
+/* ── PIPELINE ── */
+.pipeline-card {
+  background: var(--stone);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.lead-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.15s;
+}
+.lead-row:last-child { border-bottom: none; }
+.lead-row:hover { background: rgba(255,255,255,0.025); }
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 1px;
+}
+.dot-gold { background: var(--gold); box-shadow: 0 0 5px rgba(191,148,56,0.5); }
+.dot-green { background: var(--green); box-shadow: 0 0 5px rgba(30,148,118,0.5); }
+.dot-mist { background: var(--mist); }
+.lead-info { flex: 1; min-width: 0; }
+.lead-name { font-size: 0.9rem; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+.lead-sub { font-size: 0.76rem; color: var(--mist); }
+.lead-meta { text-align: right; flex-shrink: 0; }
+.lead-est { font-size: 0.85rem; font-weight: 600; color: var(--gold-light); margin-bottom: 3px; }
+.lead-age { font-size: 0.7rem; color: var(--mist); }
+.lead-status-tag {
+  display: inline-block;
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 2px 7px; border-radius: 4px;
+  white-space: nowrap;
+}
+.tag-proposal { background: rgba(191,148,56,0.14); color: var(--gold-light); }
+.tag-booked { background: rgba(191,148,56,0.14); color: var(--gold-light); }
+.tag-new { background: var(--green-glow); color: #4ECCA8; }
+.tag-estimate { background: rgba(145,138,122,0.18); color: var(--cloud); }
+
+/* ── JOB SITE FORM ── */
+.form-section { padding: 28px 0 32px; }
+.form-card {
+  background: var(--stone);
+  border: 1px solid rgba(191,148,56,0.18);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.35);
+}
+.form-header {
+  background: linear-gradient(135deg, rgba(191,148,56,0.2) 0%, rgba(191,148,56,0.08) 100%);
+  border-bottom: 1px solid rgba(191,148,56,0.2);
+  padding: 20px 22px;
+}
+.form-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--white); margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+.form-header-sub { font-size: 0.8rem; color: var(--mist); line-height: 1.5; }
+.form-body { padding: 22px; }
+.form-section-label {
+  font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--gold); margin-bottom: 12px; margin-top: 22px;
+}
+.form-section-label:first-child { margin-top: 0; }
+.form-row { display: grid; gap: 12px; margin-bottom: 0; }
+.form-row-2 { grid-template-columns: 1fr 1fr; }
+.form-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 0.75rem; font-weight: 600; color: var(--cloud); }
+.form-input, .form-select, .form-textarea {
+  background: var(--slate);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: none;
+}
+.form-input::placeholder { color: var(--mist); opacity: 0.7; }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(191,148,56,0.5);
+  box-shadow: 0 0 0 3px rgba(191,148,56,0.08);
+}
+.form-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23918A7A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+}
+.form-select option { background: var(--slate); color: var(--white); }
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+/* ── ROOM BUILDER ── */
+.room-builder { display: flex; flex-direction: column; gap: 14px; }
+.room-card {
+  background: rgba(10,9,8,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.room-card-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.room-number {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--gold-glow);
+  border: 1px solid rgba(191,148,56,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; color: var(--gold);
+  flex-shrink: 0;
+}
+.room-name-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.room-name-input::placeholder { color: var(--mist); font-weight: 400; }
+.remove-room-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--mist); font-size: 1.1rem;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; transition: all 0.18s;
+  flex-shrink: 0;
+}
+.remove-room-btn:hover { color: #E05C5C; background: rgba(224,92,92,0.1); }
+.room-card-body { padding: 16px; }
+
+/* ── SCOPE ITEMS ── */
+.scope-label {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--mist); margin-bottom: 10px;
+}
+.scope-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.scope-btn {
+  min-height: 48px; padding: 8px 6px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.09);
+  background: var(--slate);
+  color: var(--mist);
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1.25;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px;
+  position: relative;
+}
+.scope-btn:hover:not(.active) {
+  border-color: rgba(191,148,56,0.3);
+  color: var(--cloud);
+  background: rgba(255,255,255,0.04);
+}
+.scope-btn.active {
+  background: rgba(191,148,56,0.18);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+.scope-measure {
+  display: none;
+  margin-top: 4px;
+  align-items: center; gap: 4px;
+  width: 100%;
+}
+.scope-btn.active .scope-measure { display: flex; }
+.scope-measure-input {
+  background: rgba(10,9,8,0.6);
+  border: 1px solid rgba(191,148,56,0.3);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 3px 6px;
+  border-radius: 5px;
+  width: 52px;
+  outline: none;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.scope-measure-input::-webkit-outer-spin-button,
+.scope-measure-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.scope-measure-unit {
+  font-size: 0.62rem; color: var(--mist); white-space: nowrap; flex-shrink: 0;
+}
+.custom-scope-field {
+  display: none;
+  margin-top: 6px;
+  width: 100%;
+}
+.scope-btn.active .custom-scope-field { display: block; }
+.custom-scope-input {
+  background: rgba(10,9,8,0.6);
+  border: 1px solid rgba(191,148,56,0.3);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 5px;
+  width: 100%;
+  outline: none;
+}
+.custom-scope-input::placeholder { color: var(--mist); }
+
+/* ── MATERIAL GRADE ── */
+.grade-label {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--mist); margin-bottom: 8px;
+}
+.grade-pills {
+  display: flex; gap: 8px;
+}
+.grade-pill {
+  flex: 1;
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  background: var(--slate);
+  color: var(--mist);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+.grade-pill:hover:not(.selected) {
+  border-color: rgba(191,148,56,0.3);
+  color: var(--cloud);
+}
+.grade-pill.selected {
+  background: rgba(191,148,56,0.16);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+.add-room-link {
+  display: flex; align-items: center; gap: 7px;
+  background: none; border: none; cursor: pointer;
+  color: var(--gold); font-family: inherit;
+  font-size: 0.82rem; font-weight: 600;
+  padding: 10px 0 0;
+  transition: color 0.18s;
+  text-decoration: none;
+}
+.add-room-link:hover { color: var(--gold-light); }
+.add-room-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; line-height: 1;
+}
+
+/* ── SUBMIT ── */
+.form-footer { margin-top: 24px; }
+.btn-generate {
+  width: 100%; padding: 16px 24px;
+  background: var(--gold); color: var(--ink);
+  border: none; border-radius: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+  letter-spacing: -0.01em;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-generate:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(175,135,55,0.3); }
+.btn-generate:active { transform: translateY(0); }
+.btn-generate.loading { opacity: 0.8; cursor: not-allowed; }
+.form-footer-note { text-align: center; font-size: 0.75rem; color: var(--mist); margin-top: 10px; line-height: 1.5; }
+.submit-success {
+  display: none;
+  background: var(--green-glow);
+  border: 1px solid rgba(30,148,118,0.35);
+  border-radius: 10px;
+  padding: 18px 20px;
+  text-align: center;
+}
+.submit-success.visible { display: block; }
+.submit-success-icon { font-size: 1.5rem; margin-bottom: 6px; }
+.submit-success-title { font-weight: 700; color: #4ECCA8; font-size: 0.95rem; margin-bottom: 4px; }
+.submit-success-sub { font-size: 0.8rem; color: var(--mist); }
+
+/* ── RECENT ESTIMATES ── */
+.estimates-card {
+  background: var(--stone);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.estimate-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.15s;
+}
+.estimate-row:last-child { border-bottom: none; }
+.estimate-row:hover { background: rgba(255,255,255,0.02); }
+.estimate-info { flex: 1; min-width: 0; }
+.estimate-name { font-size: 0.9rem; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+.estimate-detail { font-size: 0.76rem; color: var(--mist); }
+.estimate-amount { font-size: 1rem; font-weight: 700; color: var(--gold-light); flex-shrink: 0; margin-right: 12px; }
+.estimate-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.btn-sm {
+  padding: 6px 12px; border-radius: 6px;
+  font-size: 0.72rem; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+  transition: all 0.15s; white-space: nowrap; border: none;
+}
+.btn-sm-ghost {
+  background: transparent;
+  color: var(--mist);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.btn-sm-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+.btn-sm-gold {
+  background: var(--gold-glow);
+  color: var(--gold-light);
+  border: 1px solid rgba(191,148,56,0.25);
+}
+.btn-sm-gold:hover { background: rgba(191,148,56,0.25); border-color: rgba(191,148,56,0.45); }
+
+/* ── DIVIDER ── */
+.form-divider {
+  border: none; border-top: 1px solid rgba(255,255,255,0.07);
+  margin: 20px 0 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 767px) {
+  .container { padding: 0 16px; }
+  .greeting-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .btn-new-visit { align-self: stretch; justify-content: center; }
+  .consult-card { min-width: 230px; width: 80vw; max-width: 280px; }
+  .form-row-2 { grid-template-columns: 1fr; }
+  .form-row-3 { grid-template-columns: 1fr; }
+  .scope-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .estimate-amount { display: none; }
+  .estimate-row { flex-wrap: wrap; }
+  .estimate-info { flex: 1 1 100%; margin-bottom: 6px; }
+  .estimate-actions { gap: 6px; }
+}
+@media (max-width: 480px) {
+  .grade-pills { flex-direction: column; }
+  .grade-pill { padding: 10px; }
+}
+
+/* ── SCROLL PADDING FOR ANCHOR ── */
+#visit-form { scroll-margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="logo-icon.svg" alt="SPEC" class="logo-img">
+      <span class="logo-name">SPEC Systems</span>
+    </a>
+    <div class="nav-links">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Leads</a>
+      <a href="#">Estimates</a>
+      <a href="#">Schedule</a>
+      <a href="#">Settings</a>
+      <div class="avatar" title="Tyler Webb">TW</div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#" class="active">Dashboard</a>
+  <a href="#">Leads</a>
+  <a href="#">Estimates</a>
+  <a href="#">Schedule</a>
+  <a href="#">Settings</a>
+</div>
+
+<!-- ── PAGE ── -->
+<div class="page-wrap">
+  <div class="main-content">
+
+    <!-- ── GREETING BAR ── -->
+    <div class="greeting-bar">
+      <div class="container">
+        <div class="greeting-inner">
+          <div class="greeting-text">
+            <h1>Good morning, Tyler.</h1>
+            <p>You have 2 consultations today.</p>
+          </div>
+          <a href="#visit-form" class="btn-new-visit">New Job Site Visit →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TODAY'S SCHEDULE ── -->
+    <div class="section">
+      <div class="container">
+        <div class="section-hdr">
+          <span class="section-title">Today's Schedule</span>
+          <span class="count-badge">2 today</span>
+        </div>
+        <div class="schedule-strip">
+
+          <div class="consult-card">
+            <div class="consult-time">10:00 AM</div>
+            <div class="consult-name">Marcus Webb</div>
+            <div class="consult-type">Kitchen Remodel</div>
+            <div class="consult-addr">5842 Larimer St, Denver, CO</div>
+            <button class="btn-start btn-start-solid"
+              data-name="Marcus Webb" data-addr="5842 Larimer St, Denver, CO"
+              onclick="startVisit(this)">
+              ▶ Start Visit
+            </button>
+          </div>
+
+          <div class="consult-card">
+            <div class="consult-time">2:30 PM</div>
+            <div class="consult-name">Sarah Chen</div>
+            <div class="consult-type">Bathroom Remodel</div>
+            <div class="consult-addr">1204 Pearl St, Boulder, CO</div>
+            <button class="btn-start btn-start-outline"
+              data-name="Sarah Chen" data-addr="1204 Pearl St, Boulder, CO"
+              onclick="startVisit(this)">
+              ▶ Start Visit
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PIPELINE ── -->
+    <div class="section" style="padding-top:4px;">
+      <div class="container">
+        <div class="section-hdr">
+          <span class="section-title">Your Pipeline</span>
+          <span class="count-badge">4 leads</span>
+        </div>
+        <div class="pipeline-card">
+
+          <div class="lead-row">
+            <div class="status-dot dot-gold"></div>
+            <div class="lead-info">
+              <div class="lead-name">Marcus Webb</div>
+              <div class="lead-sub">Kitchen · <span class="lead-status-tag tag-proposal">Proposal Sent</span></div>
+            </div>
+            <div class="lead-meta">
+              <div class="lead-est">$35,000</div>
+              <div class="lead-age">3 days ago</div>
+            </div>
+          </div>
+
+          <div class="lead-row">
+            <div class="status-dot dot-gold"></div>
+            <div class="lead-info">
+              <div class="lead-name">Sarah Chen</div>
+              <div class="lead-sub">Bathroom · <span class="lead-status-tag tag-booked">Consultation Booked</span></div>
+            </div>
+            <div class="lead-meta">
+              <div class="lead-est">$18,000</div>
+              <div class="lead-age">Today</div>
+            </div>
+          </div>
+
+          <div class="lead-row">
+            <div class="status-dot dot-green"></div>
+            <div class="lead-info">
+              <div class="lead-name">James Park</div>
+              <div class="lead-sub">Deck Addition · <span class="lead-status-tag tag-new">New Lead</span></div>
+            </div>
+            <div class="lead-meta">
+              <div class="lead-est">$12,000</div>
+              <div class="lead-age">1 hr ago</div>
+            </div>
+          </div>
+
+          <div class="lead-row">
+            <div class="status-dot dot-mist"></div>
+            <div class="lead-info">
+              <div class="lead-name">Diana Torres</div>
+              <div class="lead-sub">Full Renovation · <span class="lead-status-tag tag-estimate">Estimate Ready</span></div>
+            </div>
+            <div class="lead-meta">
+              <div class="lead-est">$65,000</div>
+              <div class="lead-age">1 day ago</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── JOB SITE VISIT FORM ── -->
+    <div class="form-section" id="visit-form">
+      <div class="container">
+        <div class="form-card">
+
+          <div class="form-header">
+            <div class="form-header-title">📐 Job Site Form — Build an Estimate</div>
+            <div class="form-header-sub">Fill this out during your walkthrough. The Estimate Agent handles the rest.</div>
+          </div>
+
+          <div class="form-body">
+            <form id="estimate-form" novalidate>
+
+              <!-- Client Info -->
+              <div class="form-section-label">Client Information</div>
+              <div class="form-row form-row-2" style="margin-bottom:12px;">
+                <div class="form-group">
+                  <label class="form-label" for="client-name">Client Name</label>
+                  <input class="form-input" id="client-name" type="text" placeholder="e.g. Marcus Webb" autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="client-addr">Address</label>
+                  <input class="form-input" id="client-addr" type="text" placeholder="5842 Larimer St, Denver" autocomplete="street-address">
+                </div>
+              </div>
+              <div class="form-row" style="margin-bottom:0;">
+                <div class="form-group">
+                  <label class="form-label" for="project-type">Project Type</label>
+                  <select class="form-select" id="project-type">
+                    <option value="">Select project type</option>
+                    <option>Kitchen Remodel</option>
+                    <option>Bathroom Remodel</option>
+                    <option>Addition</option>
+                    <option>Full Renovation</option>
+                    <option>Roofing</option>
+                    <option>Flooring</option>
+                    <option>Exterior</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Room Builder -->
+              <hr class="form-divider">
+              <div class="form-section-label" style="margin-top:20px;">Rooms &amp; Scope</div>
+              <div class="room-builder" id="room-builder">
+                <!-- Rooms injected by JS -->
+              </div>
+
+              <!-- Notes -->
+              <hr class="form-divider">
+              <div class="form-section-label" style="margin-top:20px;">Additional Notes</div>
+              <div class="form-group">
+                <textarea class="form-textarea" id="notes" rows="3"
+                  placeholder="Anything the agent should know — access issues, client preferences, special conditions, existing damage..."></textarea>
+              </div>
+
+              <!-- Timeline -->
+              <hr class="form-divider">
+              <div class="form-section-label" style="margin-top:20px;">Estimated Timeline</div>
+              <div class="form-row form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="start-date">Preferred Start Date</label>
+                  <input class="form-input" id="start-date" type="date">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="duration">Duration Estimate</label>
+                  <select class="form-select" id="duration">
+                    <option value="">Select duration</option>
+                    <option>1 week</option>
+                    <option>2 weeks</option>
+                    <option>3–4 weeks</option>
+                    <option>6–8 weeks</option>
+                    <option>3+ months</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div class="form-footer">
+                <div id="submit-success" class="submit-success">
+                  <div class="submit-success-icon">✓</div>
+                  <div class="submit-success-title">Estimate Queued</div>
+                  <div class="submit-success-sub">You'll be notified when it's ready (usually under 60 seconds).</div>
+                </div>
+                <button class="btn-generate" type="submit" id="generate-btn">
+                  Generate Estimate with AI Agent →
+                </button>
+                <p class="form-footer-note">Estimate typically ready in under 60 seconds. You'll receive a notification.</p>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RECENT ESTIMATES ── -->
+    <div class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="section-hdr">
+          <span class="section-title">Recent Estimates</span>
+        </div>
+        <div class="estimates-card">
+
+          <div class="estimate-row">
+            <div class="estimate-info">
+              <div class="estimate-name">Diana Torres</div>
+              <div class="estimate-detail">Full Renovation · Generated 1 day ago</div>
+            </div>
+            <div class="estimate-amount">$87,400</div>
+            <div class="estimate-actions">
+              <button class="btn-sm btn-sm-ghost">View</button>
+              <button class="btn-sm btn-sm-gold">Send to Client</button>
+            </div>
+          </div>
+
+          <div class="estimate-row">
+            <div class="estimate-info">
+              <div class="estimate-name">Rick Johnson</div>
+              <div class="estimate-detail">Roofing · Generated 3 days ago</div>
+            </div>
+            <div class="estimate-amount">$14,200</div>
+            <div class="estimate-actions">
+              <button class="btn-sm btn-sm-ghost">View</button>
+              <button class="btn-sm btn-sm-gold">Send to Client</button>
+            </div>
+          </div>
+
+          <div class="estimate-row">
+            <div class="estimate-info">
+              <div class="estimate-name">Amy Walsh</div>
+              <div class="estimate-detail">Kitchen · Generated 5 days ago</div>
+            </div>
+            <div class="estimate-amount">$42,100</div>
+            <div class="estimate-actions">
+              <button class="btn-sm btn-sm-ghost">View</button>
+              <button class="btn-sm btn-sm-gold">Send to Client</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.main-content -->
+</div><!-- /.page-wrap -->
+
+<script>
+/* ── SCOPE ITEMS CONFIG ── */
+const SCOPE_ITEMS = [
+  { key: 'cabinets',     label: 'Cabinets',      unit: 'Lin ft',  type: 'number' },
+  { key: 'countertops',  label: 'Countertops',   unit: 'Sq ft',   type: 'number' },
+  { key: 'flooring',     label: 'Flooring',      unit: 'Sq ft',   type: 'number' },
+  { key: 'backsplash',   label: 'Backsplash',    unit: 'Sq ft',   type: 'number' },
+  { key: 'electrical',   label: 'Electrical',    unit: 'Est hrs', type: 'number' },
+  { key: 'plumbing',     label: 'Plumbing',      unit: 'Est hrs', type: 'number' },
+  { key: 'demo',         label: 'Demo / Haul-off', unit: 'Est hrs', type: 'number' },
+  { key: 'painting',     label: 'Painting',      unit: 'Est hrs', type: 'number' },
+  { key: 'drywall',      label: 'Drywall',       unit: 'Sq ft',   type: 'number' },
+  { key: 'windows',      label: 'Windows',       unit: 'Qty',     type: 'number' },
+  { key: 'doors',        label: 'Doors',         unit: 'Qty',     type: 'number' },
+  { key: 'lighting',     label: 'Lighting',      unit: 'Qty',     type: 'number' },
+  { key: 'hvac',         label: 'HVAC',          unit: 'Est hrs', type: 'number' },
+  { key: 'insulation',   label: 'Insulation',    unit: 'Sq ft',   type: 'number' },
+  { key: 'tile',         label: 'Tile Work',     unit: 'Sq ft',   type: 'number' },
+  { key: 'custom',       label: 'Custom',        unit: null,      type: 'text'   },
+];
+
+let roomCount = 0;
+
+function buildScopeGrid(roomIdx) {
+  return SCOPE_ITEMS.map(item => {
+    const isCustom = item.key === 'custom';
+    const measureHtml = isCustom
+      ? `<div class="custom-scope-field"><input class="custom-scope-input" type="text" placeholder="Describe scope…"></div>`
+      : `<div class="scope-measure">
+           <input class="scope-measure-input" type="number" min="0" placeholder="0">
+           <span class="scope-measure-unit">${item.unit}</span>
+         </div>`;
+    return `<button type="button" class="scope-btn" data-key="${item.key}" onclick="toggleScope(this)">${item.label}${measureHtml}</button>`;
+  }).join('');
+}
+
+function buildRoomCard(idx, isFirst) {
+  const removeBtn = isFirst
+    ? ''
+    : `<button type="button" class="remove-room-btn" onclick="removeRoom(this)" title="Remove room">✕</button>`;
+  return `
+  <div class="room-card" data-room-idx="${idx}">
+    <div class="room-card-header">
+      <div class="room-number">${idx}</div>
+      <input class="room-name-input" type="text" placeholder="Room name (e.g. Kitchen)" value="${isFirst ? '' : ''}">
+      ${removeBtn}
+    </div>
+    <div class="room-card-body">
+      <div class="scope-label">Select all that apply</div>
+      <div class="scope-grid">
+        ${buildScopeGrid(idx)}
+      </div>
+      <div class="grade-label">Material Grade</div>
+      <div class="grade-pills">
+        <button type="button" class="grade-pill" onclick="selectGrade(this)">Budget</button>
+        <button type="button" class="grade-pill selected" onclick="selectGrade(this)">Standard</button>
+        <button type="button" class="grade-pill" onclick="selectGrade(this)">Premium</button>
+      </div>
+      <button type="button" class="add-room-link" onclick="addRoom()">
+        <span class="add-room-icon">+</span> Add Another Room
+      </button>
+    </div>
+  </div>`;
+}
+
+function addRoom() {
+  roomCount++;
+  const builder = document.getElementById('room-builder');
+  const div = document.createElement('div');
+  div.innerHTML = buildRoomCard(roomCount, false);
+  const card = div.firstElementChild;
+  builder.appendChild(card);
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  // update first room remove button state — first room never removable
+  renumberRooms();
+}
+
+function removeRoom(btn) {
+  const card = btn.closest('.room-card');
+  card.remove();
+  renumberRooms();
+}
+
+function renumberRooms() {
+  const cards = document.querySelectorAll('#room-builder .room-card');
+  cards.forEach((card, i) => {
+    const num = card.querySelector('.room-number');
+    if (num) num.textContent = i + 1;
+    card.setAttribute('data-room-idx', i + 1);
+  });
+}
+
+function toggleScope(btn) {
+  btn.classList.toggle('active');
+  // stop inner input clicks from toggling the button
+}
+
+// Prevent clicks inside measure inputs from toggling the scope button
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('scope-measure-input') ||
+      e.target.classList.contains('custom-scope-input')) {
+    e.stopPropagation();
+  }
+}, true);
+
+function selectGrade(pill) {
+  const group = pill.closest('.grade-pills');
+  group.querySelectorAll('.grade-pill').forEach(p => p.classList.remove('selected'));
+  pill.classList.add('selected');
+}
+
+function startVisit(btn) {
+  const name = btn.getAttribute('data-name');
+  const addr = btn.getAttribute('data-addr');
+  document.getElementById('client-name').value = name;
+  document.getElementById('client-addr').value = addr;
+  document.getElementById('visit-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Flash the field
+  setTimeout(() => {
+    const nameField = document.getElementById('client-name');
+    nameField.focus();
+    nameField.style.borderColor = 'var(--gold)';
+    nameField.style.boxShadow = '0 0 0 3px rgba(191,148,56,0.18)';
+    setTimeout(() => {
+      nameField.style.borderColor = '';
+      nameField.style.boxShadow = '';
+    }, 1800);
+  }, 600);
+}
+
+// ── COLLECT FORM DATA ──
+function collectEstimateData() {
+  const rooms = [];
+  document.querySelectorAll('#room-builder .room-card').forEach(card => {
+    const roomName = card.querySelector('.room-name-input')?.value?.trim() || 'Room';
+    const grade = card.querySelector('.grade-pill.selected')?.textContent?.trim() || 'Standard';
+    const scopeItems = [];
+    card.querySelectorAll('.scope-btn.active').forEach(btn => {
+      const key = btn.dataset.key;
+      if (key === 'custom') {
+        const desc = btn.querySelector('.custom-scope-input')?.value?.trim();
+        if (desc) scopeItems.push({ item: 'custom', description: desc });
+      } else {
+        const val = btn.querySelector('.scope-measure-input')?.value?.trim();
+        const unit = btn.querySelector('.scope-measure-unit')?.textContent?.trim();
+        scopeItems.push({ item: key, measurement: val || '', unit: unit || '' });
+      }
+    });
+    if (scopeItems.length > 0) {
+      rooms.push({ room: roomName, grade, scope: scopeItems });
+    }
+  });
+
+  return {
+    source: 'job_site_form',
+    clientName: document.getElementById('client-name')?.value?.trim() || '',
+    jobAddress: document.getElementById('client-addr')?.value?.trim() || '',
+    projectType: document.getElementById('project-type')?.value?.trim() || '',
+    startDate: document.getElementById('start-date')?.value || '',
+    duration: document.getElementById('duration')?.value?.trim() || '',
+    notes: document.getElementById('notes')?.value?.trim() || '',
+    rooms
+  };
+}
+
+// ── FORM SUBMIT → ESTIMATE AGENT ──
+const AGENT_ENDPOINT = 'https://spec-agent-production.up.railway.app/estimate';
+
+document.getElementById('estimate-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('generate-btn');
+  const success = document.getElementById('submit-success');
+  const footerNote = document.querySelector('.form-footer-note');
+
+  const payload = collectEstimateData();
+
+  if (!payload.clientName) {
+    document.getElementById('client-name').focus();
+    document.getElementById('client-name').style.borderColor = 'var(--red)';
+    setTimeout(() => document.getElementById('client-name').style.borderColor = '', 1800);
+    return;
+  }
+  if (payload.rooms.length === 0) {
+    alert('Please add at least one room with scope items selected.');
+    return;
+  }
+
+  btn.textContent = '⚡ Sending to Estimate Agent...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(AGENT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) throw new Error('Agent returned ' + response.status);
+
+    btn.style.display = 'none';
+    if (footerNote) footerNote.style.display = 'none';
+    success.querySelector('.submit-success-title').textContent = 'Estimate Sent to Agent';
+    success.querySelector('.submit-success-sub').textContent = 'Your structured job data is processing. Expect a full estimate draft in your inbox within 2 minutes.';
+    success.classList.add('visible');
+    success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  } catch (err) {
+    // Agent not yet wired — show success UI anyway (dev mode)
+    console.warn('Agent endpoint not reachable yet:', err.message);
+    console.log('=== SPEC JOB SITE PAYLOAD ===');
+    console.log(JSON.stringify(payload, null, 2));
+
+    btn.style.display = 'none';
+    if (footerNote) footerNote.style.display = 'none';
+    success.querySelector('.submit-success-title').textContent = 'Estimate Queued (Demo)';
+    success.querySelector('.submit-success-sub').textContent = 'Agent endpoint not live yet — data logged to console. Will connect when ready.';
+    success.classList.add('visible');
+    success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+});
+
+// Hamburger nav
+document.getElementById('hamburger').addEventListener('click', function() {
+  this.classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+});
+
+// Init first room
+(function init() {
+  roomCount = 1;
+  const builder = document.getElementById('room-builder');
+  const div = document.createElement('div');
+  div.innerHTML = buildRoomCard(1, true);
+  builder.appendChild(div.firstElementChild);
+})();
+</script>
+</body>
+</html>
