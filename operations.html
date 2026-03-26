@@ -3,19 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Full CRM — 15 AI Agents for Service Businesses | SPEC Systems</title>
-<meta name="description" content="SPEC Systems Full CRM includes 15 AI agents that handle every part of your business — leads, proposals, contracts, project planning, invoicing, and marketing.">
-<meta property="og:title" content="Full CRM — SPEC Systems">
-<meta property="og:description" content="15 agents working around the clock so you don't have to. The complete AI CRM for home service businesses.">
+<title>Full System — 15 AI Agents for Service Businesses | SPEC Systems</title>
+<meta name="description" content="SPEC Systems deploys 15 AI agents that run a home service business end to end — leads, proposals, contracts, job management, invoicing, and marketing.">
+<meta property="og:title" content="The Full System — SPEC Systems">
+<meta property="og:description" content="15 agents. Every stage of your business. Nothing falls through.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="logo-icon.svg">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0A0908;--slate:#161412;--stone:#201E18;--mist:#918A7A;--cloud:#C8C2B4;--snow:#F2EFE8;--white:#FFFFFF;--gold:#BF9438;--gold-light:#CDA44A;--gold-glow:rgba(175,135,55,0.15);--gold-deep:#7A5A1A;--teal:#1E9476;--teal-glow:rgba(30,148,118,0.14);--red:#E05C5C;}
+:root{
+  --ink:#0A0908;--slate:#161412;--stone:#201E18;--navy:#0C1829;
+  --mist:#918A7A;--cloud:#C8C2B4;--snow:#F2EFE8;--white:#FFFFFF;
+  --gold:#BF9438;--gold-light:#CDA44A;--gold-glow:rgba(175,135,55,0.15);--gold-deep:#7A5A1A;
+  --green:#1E9476;--green-glow:rgba(30,148,118,0.14);
+  --blue:#2563EB;--blue-glow:rgba(37,99,235,0.10);
+  --teal:#1E9476;--teal-glow:rgba(30,148,118,0.14);--red:#E05C5C;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--snow);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-.container{max-width:1100px;margin:0 auto;padding:0 32px;}
+.container{max-width:1140px;margin:0 auto;padding:0 32px;}
 
 /* Nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;background:rgba(10,9,8,0.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(175,135,55,0.15);}
@@ -44,103 +51,125 @@ nav .container{display:flex;align-items:center;justify-content:space-between;}
 
 /* Shared */
 .section-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--gold);font-weight:700;margin-bottom:14px;}
-.section-header{text-align:center;margin-bottom:56px;}
+.section-header{text-align:center;margin-bottom:60px;}
 .section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);color:var(--white);font-weight:600;letter-spacing:-0.02em;margin-bottom:14px;line-height:1.2;}
-.section-header p{font-size:1rem;color:var(--mist);max-width:500px;margin:0 auto;line-height:1.68;}
+.section-header p{font-size:1rem;color:var(--mist);max-width:540px;margin:0 auto;line-height:1.68;}
 section{border-top:1px solid rgba(255,255,255,0.04);}
 
 /* Hero */
-.page-hero{padding:140px 0 90px;text-align:center;position:relative;overflow:hidden;}
-.page-hero::before{content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:700px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(175,135,55,0.1) 0%,transparent 65%);}
-.page-hero::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:2px;background:linear-gradient(90deg,transparent,rgba(175,135,55,0.5),transparent);}
-.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;color:var(--white);line-height:1.15;letter-spacing:-0.03em;max-width:720px;margin:0 auto 20px;position:relative;}
-.page-hero h1 em{font-style:italic;background:linear-gradient(125deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.page-hero p{font-size:1.1rem;color:var(--mist);max-width:520px;margin:0 auto 36px;line-height:1.75;position:relative;}
+.page-hero{padding:148px 0 96px;text-align:center;position:relative;overflow:hidden;}
+.page-hero::before{content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:1000px;height:700px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(175,135,55,0.11) 0%,transparent 65%);}
+.page-hero::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:2px;background:linear-gradient(90deg,transparent,rgba(175,135,55,0.55),transparent);}
+.page-hero .page-hero-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:700;margin-bottom:18px;position:relative;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,5.5vw,3.7rem);font-weight:700;color:var(--white);line-height:1.12;letter-spacing:-0.03em;max-width:760px;margin:0 auto 22px;position:relative;}
+.page-hero h1 strong{font-weight:700;background:linear-gradient(125deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:1.08rem;color:var(--mist);max-width:560px;margin:0 auto 40px;line-height:1.75;position:relative;}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:44px;position:relative;}
 .proof-strip{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;position:relative;}
 .proof-item{font-size:0.82rem;color:var(--cloud);display:flex;align-items:center;gap:7px;}
 .proof-item svg{color:var(--gold);}
 
-/* Agents section */
-.agents{padding:90px 0;}
-.agent-category{margin-bottom:60px;}
-.category-label{display:inline-flex;align-items:center;gap:10px;background:var(--gold-glow);border:1px solid rgba(175,135,55,0.25);border-radius:8px;padding:8px 18px;margin-bottom:28px;}
-.category-label span{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:700;}
-.category-label .cat-icon{font-size:1rem;}
-.category-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--white);font-weight:600;margin-bottom:8px;}
-.category-desc{font-size:0.9rem;color:var(--mist);margin-bottom:24px;line-height:1.6;max-width:600px;}
-.agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.agent-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;transition:all 0.3s;}
-.agent-card:hover{border-color:rgba(175,135,55,0.3);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.25);}
-.agent-name{font-size:0.9rem;font-weight:600;color:var(--white);margin-bottom:6px;}
-.agent-desc{font-size:0.82rem;color:var(--mist);line-height:1.55;}
-.agent-tag{display:inline-block;font-size:0.7rem;background:rgba(175,135,55,0.1);border:1px solid rgba(175,135,55,0.25);color:var(--gold-light);padding:2px 10px;border-radius:4px;margin-top:10px;font-weight:500;}
+/* Category sections */
+.agents-section{padding:0 0 20px;}
+.category-block{padding:80px 0;}
+.category-block.alt-bg{background:var(--navy);}
+.category-block.alt-bg section{border-top-color:transparent;}
+.category-header{margin-bottom:48px;}
+.cat-eyebrow{display:inline-flex;align-items:center;gap:9px;background:var(--gold-glow);border:1px solid rgba(175,135,55,0.25);border-radius:8px;padding:7px 16px;margin-bottom:16px;}
+.cat-eyebrow.green-eye{background:var(--green-glow);border-color:rgba(30,148,118,0.3);}
+.cat-eyebrow.blue-eye{background:var(--blue-glow);border-color:rgba(37,99,235,0.2);}
+.cat-eyebrow span{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;}
+.cat-eyebrow.green-eye span{color:var(--green);}
+.cat-eyebrow.blue-eye span{color:#60A5FA;}
+.cat-eyebrow:not(.green-eye):not(.blue-eye) span{color:var(--gold);}
+.cat-eyebrow .cat-num{font-size:0.68rem;opacity:0.7;}
+.cat-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);color:var(--white);font-weight:600;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.25;}
+.cat-desc{font-size:0.95rem;color:var(--mist);line-height:1.65;max-width:620px;}
 
-/* Dashboard */
-.dashboard{padding:90px 0;background:rgba(255,255,255,0.01);}
-.dashboard-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;max-width:1000px;margin:0 auto;}
-.dashboard-text{}
-.dashboard-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--white);font-weight:600;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.25;}
-.dashboard-text p{font-size:0.95rem;color:var(--mist);line-height:1.7;margin-bottom:20px;}
-.dash-feature{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;}
-.dash-feature-icon{width:38px;height:38px;border-radius:9px;background:var(--gold-glow);border:1px solid rgba(175,135,55,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;}
-.dash-feature-text h4{font-size:0.9rem;color:var(--white);font-weight:600;margin-bottom:4px;}
-.dash-feature-text p{font-size:0.82rem;color:var(--mist);line-height:1.5;margin:0;}
-.dashboard-visual{background:var(--slate);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;position:relative;overflow:hidden;}
-.dashboard-visual::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-light));}
-.dash-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
-.dash-dot{width:10px;height:10px;border-radius:50%;}
-.dash-dot.red{background:#E05C5C;}.dash-dot.yellow{background:#CDA44A;}.dash-dot.green{background:#1E9476;}
-.dash-title{font-size:0.72rem;color:var(--stone);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;}
-.dash-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
-.dash-row:last-child{border-bottom:none;}
-.dash-row-label{font-size:0.8rem;color:var(--mist);}
-.dash-row-value{font-size:0.8rem;color:var(--cloud);font-weight:500;}
-.dash-row-badge{font-size:0.68rem;padding:3px 10px;border-radius:4px;font-weight:600;}
-.dash-row-badge.hot{background:rgba(224,92,92,0.15);color:#E05C5C;}
-.dash-row-badge.warm{background:rgba(205,164,74,0.15);color:var(--gold-light);}
-.dash-row-badge.active{background:rgba(30,148,118,0.15);color:var(--teal);}
-.dash-stat-row{display:flex;gap:12px;margin-top:16px;}
-.dash-stat{flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;text-align:center;}
-.dash-stat-num{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);font-weight:600;}
-.dash-stat-label{font-size:0.68rem;color:var(--stone);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+/* Agent card grid */
+.agent-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.agent-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px 28px 28px;transition:all 0.3s;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.agent-card::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.agent-card.gold-accent::before{background:linear-gradient(180deg,var(--gold-light),var(--gold-deep));}
+.agent-card.green-accent::before{background:linear-gradient(180deg,#2DB896,var(--green));}
+.agent-card.blue-accent::before{background:linear-gradient(180deg,#60A5FA,var(--blue));}
+.agent-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.3);}
+.agent-card.gold-accent:hover{border-color:rgba(175,135,55,0.3);}
+.agent-card.green-accent:hover{border-color:rgba(30,148,118,0.3);}
+.agent-card.blue-accent:hover{border-color:rgba(37,99,235,0.3);}
+.agent-num{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:12px;}
+.gold-accent .agent-num{color:var(--gold);}
+.green-accent .agent-num{color:var(--green);}
+.blue-accent .agent-num{color:#60A5FA;}
+.agent-name{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--white);font-weight:600;margin-bottom:18px;line-height:1.2;}
+.agent-fires{display:flex;align-items:flex-start;gap:9px;background:var(--green-glow);border:1px solid rgba(30,148,118,0.2);border-radius:8px;padding:10px 13px;margin-bottom:16px;}
+.agent-fires-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--green);white-space:nowrap;margin-top:1px;flex-shrink:0;}
+.agent-fires-text{font-size:0.83rem;color:rgba(200,255,230,0.8);line-height:1.4;}
+.agent-does{margin-bottom:14px;}
+.agent-does-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cloud);margin-bottom:6px;}
+.agent-does p{font-size:0.87rem;color:var(--mist);line-height:1.6;}
+.agent-experience{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);}
+.agent-experience-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--mist);margin-bottom:5px;}
+.agent-experience p{font-size:0.83rem;color:var(--cloud);line-height:1.5;font-style:italic;}
 
-/* Integrations */
-.integrations{padding:80px 0;}
-.int-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:900px;margin:0 auto;}
-.int-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:22px 14px;text-align:center;transition:all 0.3s;}
-.int-card:hover{border-color:rgba(175,135,55,0.35);background:rgba(175,135,55,0.04);transform:translateY(-4px);}
-.int-icon{font-size:1.8rem;margin-bottom:8px;display:block;}
-.int-name{font-size:0.78rem;color:var(--cloud);font-weight:500;}
+/* Tier table */
+.tier-section{padding:90px 0;background:var(--navy);}
+.tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:900px;margin:0 auto;}
+.tier-box{border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,0.07);}
+.tier-box.tier1{background:rgba(30,148,118,0.06);border-color:rgba(30,148,118,0.2);}
+.tier-box.tier2{background:rgba(175,135,55,0.06);border-color:rgba(175,135,55,0.25);}
+.tier-box-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.tier-box-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);font-weight:600;}
+.tier-box-badge{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;padding:4px 12px;border-radius:20px;}
+.tier1 .tier-box-badge{background:var(--green-glow);color:var(--green);border:1px solid rgba(30,148,118,0.3);}
+.tier2 .tier-box-badge{background:var(--gold-glow);color:var(--gold);border:1px solid rgba(175,135,55,0.3);}
+.tier-box-sub{font-size:0.82rem;color:var(--mist);margin-bottom:20px;}
+.tier-agent-list{list-style:none;}
+.tier-agent-list li{font-size:0.86rem;color:var(--cloud);padding:8px 0 8px 22px;position:relative;border-bottom:1px solid rgba(255,255,255,0.04);}
+.tier-agent-list li:last-child{border-bottom:none;}
+.tier-agent-list li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:8px;border-radius:50%;}
+.tier1 .tier-agent-list li::before{background:var(--green);}
+.tier2 .tier-agent-list li::before{background:var(--gold);}
+.tier-agent-list li span{color:var(--mist);font-size:0.79rem;}
 
-/* Pricing */
-.ops-pricing{padding:90px 0 100px;background:rgba(255,255,255,0.01);}
-.ops-pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:0 auto;}
-.price-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:36px 32px;transition:all 0.35s;position:relative;display:flex;flex-direction:column;}
+/* Pricing section */
+.pricing-section{padding:90px 0 100px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1060px;margin:0 auto;}
+.price-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:30px 24px 28px;transition:all 0.35s;position:relative;display:flex;flex-direction:column;}
 .price-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.35);border-color:rgba(175,135,55,0.25);}
-.price-card.popular{border-color:rgba(175,135,55,0.35);background:rgba(175,135,55,0.05);}
-.price-card.popular:hover{border-color:rgba(175,135,55,0.55);}
-.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:0.7rem;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap;letter-spacing:0.05em;text-transform:uppercase;}
-.price-tier{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:700;margin-bottom:10px;}
-.price-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);margin-bottom:16px;font-weight:600;}
-.price-amount{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-weight:700;line-height:1;margin-bottom:4px;}
-.price-amount span{font-size:1rem;font-weight:400;color:var(--mist);}
-.price-monthly{font-size:0.85rem;color:var(--mist);margin-bottom:24px;}
-.price-divider{height:1px;background:rgba(255,255,255,0.06);margin-bottom:20px;}
-.price-features{list-style:none;margin-bottom:28px;flex:1;}
-.price-features li{font-size:0.86rem;color:var(--cloud);padding:8px 0 8px 22px;position:relative;border-bottom:1px solid rgba(255,255,255,0.04);}
+.price-card.popular{border-color:rgba(175,135,55,0.4);background:rgba(175,135,55,0.05);}
+.price-card.popular:hover{border-color:rgba(175,135,55,0.6);}
+.popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:0.67rem;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap;letter-spacing:0.06em;text-transform:uppercase;}
+.price-tier-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--gold);font-weight:700;margin-bottom:8px;}
+.price-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);margin-bottom:14px;font-weight:600;line-height:1.2;}
+.price-amount{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold);font-weight:700;line-height:1;margin-bottom:3px;}
+.price-amount span{font-size:0.9rem;font-weight:400;color:var(--mist);}
+.price-monthly{font-size:0.82rem;color:var(--mist);margin-bottom:20px;}
+.price-divider{height:1px;background:rgba(255,255,255,0.06);margin-bottom:18px;}
+.price-features{list-style:none;margin-bottom:24px;flex:1;}
+.price-features li{font-size:0.82rem;color:var(--cloud);padding:7px 0 7px 20px;position:relative;border-bottom:1px solid rgba(255,255,255,0.04);}
 .price-features li:last-child{border-bottom:none;}
-.price-features li::before{content:"\2713";position:absolute;left:0;color:var(--gold);font-weight:700;font-size:0.8rem;top:9px;}
-.price-cta{display:block;text-align:center;background:transparent;border:1px solid rgba(175,135,55,0.35);color:var(--gold);padding:13px 20px;border-radius:8px;font-size:0.9rem;font-weight:600;text-decoration:none;transition:all 0.22s;font-family:inherit;}
+.price-features li::before{content:"\2713";position:absolute;left:0;color:var(--gold);font-weight:700;font-size:0.78rem;top:8px;}
+.price-cta{display:block;text-align:center;background:transparent;border:1px solid rgba(175,135,55,0.35);color:var(--gold);padding:12px 16px;border-radius:8px;font-size:0.86rem;font-weight:600;text-decoration:none;transition:all 0.22s;font-family:inherit;}
 .price-cta:hover{background:var(--gold);color:var(--ink);}
 .price-card.popular .price-cta{background:var(--gold);color:var(--ink);border-color:var(--gold);}
 .price-card.popular .price-cta:hover{background:var(--gold-light);border-color:var(--gold-light);}
 
-/* Final CTA */
+/* Integrations */
+.integrations{padding:80px 0;background:var(--navy);}
+.int-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;max-width:960px;margin:0 auto;}
+.int-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:20px 12px;text-align:center;transition:all 0.3s;}
+.int-card:hover{border-color:rgba(175,135,55,0.35);background:rgba(175,135,55,0.04);transform:translateY(-4px);}
+.int-icon{font-size:1.7rem;margin-bottom:7px;display:block;}
+.int-name{font-size:0.73rem;color:var(--cloud);font-weight:500;}
+.int-tier{font-size:0.62rem;color:var(--mist);margin-top:3px;}
+
+/* CTA section */
 .cta-section{padding:100px 0;text-align:center;position:relative;overflow:hidden;}
 .cta-section::before{content:"";position:absolute;bottom:-300px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(175,135,55,0.08) 0%,transparent 65%);}
 .cta-section::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:700px;height:1px;background:linear-gradient(90deg,transparent,rgba(175,135,55,0.45),transparent);}
 .cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);font-weight:600;letter-spacing:-0.02em;margin-bottom:18px;position:relative;}
-.cta-section p{font-size:1rem;color:var(--mist);max-width:440px;margin:0 auto 36px;line-height:1.68;position:relative;}
+.cta-section p{font-size:1rem;color:var(--mist);max-width:460px;margin:0 auto 36px;line-height:1.68;position:relative;}
 
 /* Footer */
 footer{padding:48px 0 32px;border-top:1px solid rgba(255,255,255,0.05);}
@@ -154,9 +183,25 @@ footer{padding:48px 0 32px;border-top:1px solid rgba(255,255,255,0.05);}
 .footer-bottom p{font-size:0.76rem;color:var(--stone);}
 
 /* Responsive */
-@media(max-width:1100px){.nav-links{display:none;}.mobile-menu{display:block;}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(10,9,8,0.98);padding:20px 32px;gap:16px;border-bottom:1px solid rgba(175,135,55,0.12);}}
-@media(max-width:860px){.agent-grid{grid-template-columns:1fr 1fr;}.dashboard-inner{grid-template-columns:1fr;gap:40px;}.int-grid{grid-template-columns:repeat(3,1fr);}.ops-pricing-grid{grid-template-columns:1fr;max-width:440px;}}
-@media(max-width:600px){.agent-grid{grid-template-columns:1fr;}.page-hero h1{font-size:2rem;}.int-grid{grid-template-columns:repeat(2,1fr);}.proof-strip{gap:16px;}}
+@media(max-width:1100px){
+  .nav-links{display:none;}
+  .mobile-menu{display:block;}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(10,9,8,0.98);padding:20px 32px;gap:16px;border-bottom:1px solid rgba(175,135,55,0.12);}
+  .pricing-grid{grid-template-columns:repeat(2,1fr);}
+  .int-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media(max-width:860px){
+  .agent-grid{grid-template-columns:1fr;}
+  .tier-grid{grid-template-columns:1fr;max-width:480px;}
+  .pricing-grid{grid-template-columns:repeat(2,1fr);}
+  .int-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:600px){
+  .pricing-grid{grid-template-columns:1fr;max-width:380px;margin:0 auto;}
+  .int-grid{grid-template-columns:repeat(2,1fr);}
+  .proof-strip{gap:16px;}
+  .page-hero h1{font-size:2.1rem;}
+}
 </style>
 </head>
 <body>
@@ -173,22 +218,24 @@ footer{padding:48px 0 32px;border-top:1px solid rgba(255,255,255,0.05);}
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="how-it-works.html">How It Works</a>
-      <a href="index.html#pricing">Pricing</a>
+      <a href="operations.html" class="active">Full System</a>
       <a href="automation.html">Custom Agents</a>
       <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
       <a href="https://calendly.com/specsystems/discovery" target="_blank" class="btn-nav">Book a Demo</a>
     </div>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="page-hero" style="border-top:none;">
   <div class="container" style="position:relative;z-index:2;">
-    <div class="section-label fade-in">Tier 2 &amp; 3</div>
-    <h1 class="fade-in fade-in-d1">The Complete AI CRM for<br><em>Service Businesses</em></h1>
-    <p class="fade-in fade-in-d2">15 agents working around the clock so you don't have to. Leads get responded to, proposals go out, projects get planned, invoices get sent — without you lifting a finger.</p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;" class="fade-in fade-in-d3">
+    <div class="page-hero-label fade-in">The Full System</div>
+    <h1 class="fade-in fade-in-d1">15 agents. Every stage of your business.<br><strong>Nothing falls through.</strong></h1>
+    <p class="fade-in fade-in-d2">From the moment a lead submits your form to the day you collect the final payment — and the Google review after — every step has an agent handling it.</p>
+    <div class="hero-ctas fade-in fade-in-d3">
       <a href="https://calendly.com/specsystems/discovery" target="_blank" class="btn-primary">Book a Discovery Call &rarr;</a>
-      <a href="index.html#pricing" class="btn-secondary">See All Pricing</a>
+      <a href="#pricing" class="btn-secondary">See Pricing</a>
     </div>
     <div class="proof-strip fade-in fade-in-d4">
       <div class="proof-item">
@@ -207,363 +254,461 @@ footer{padding:48px 0 32px;border-top:1px solid rgba(255,255,255,0.05);}
   </div>
 </section>
 
-<section class="agents">
+<!-- AGENT CARDS: LEAD & SALES -->
+<div class="category-block fade-in">
+  <div class="container">
+    <div class="category-header">
+      <div class="cat-eyebrow green-eye">
+        <span>Lead &amp; Sales</span>
+        <span class="cat-num">Agents 01–04 &middot; Tier 1+</span>
+      </div>
+      <div class="cat-title">Every lead responded to, followed up, and booked</div>
+      <p class="cat-desc">These four agents handle everything from the first form submission to the booked appointment — scoring leads, writing personalized outreach, following up on silence, and managing every inbound email that comes in.</p>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card green-accent fade-in">
+        <div class="agent-num">Agent 01 &mdash; Lead &amp; Sales</div>
+        <div class="agent-name">Lead Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A lead submits your contact form — within seconds of submission, day or night.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Scores the lead 0–100 based on project type, stated budget, timeline urgency, and service area. Sends a personalized outreach email that references their specific project — not a generic "thanks for reaching out." Hot leads (75+) also trigger an SMS to the lead and an instant alert to you. All CRM fields update automatically.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>A phone notification when a hot lead comes in — and the knowledge that every single submission, no matter the time, got a real, thoughtful response in under 3 minutes.</p>
+        </div>
+      </div>
+
+      <div class="agent-card green-accent fade-in fade-in-d1">
+        <div class="agent-num">Agent 02 &mdash; Lead &amp; Sales</div>
+        <div class="agent-name">Nurture Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A lead hasn't responded after the initial outreach — and keeps checking until they do.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Follows up 3 times over 7–10 days, and each message is different. First is a casual check-in. Second is a project-specific tip relevant to what they described. Third is a soft close with a clear call to action. The moment they reply — to any message — the sequence stops permanently. It never sends another message after that.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>Leads that were about to go cold coming back warm — without you writing a single follow-up yourself.</p>
+        </div>
+      </div>
+
+      <div class="agent-card green-accent fade-in">
+        <div class="agent-num">Agent 03 &mdash; Lead &amp; Sales</div>
+        <div class="agent-name">Calendly Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A lead books a consultation through your Calendly link.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Sends the lead a confirmation email with appointment details and what to expect on the call. Sends them a text reminder. Fires an alert to you with the lead's project summary so you walk into the call prepared. Updates the CRM to reflect "Appointment Scheduled" status and logs the booking details.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>A text notification with a full summary of who you're meeting and what their project is — so you never go into a call blind.</p>
+        </div>
+      </div>
+
+      <div class="agent-card green-accent fade-in fade-in-d1">
+        <div class="agent-num">Agent 04 &mdash; Lead &amp; Sales</div>
+        <div class="agent-name">Email Reply Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">Any inbound email arrives from a lead or active client.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Reads the full email thread for context — not just the latest message — to understand what they're actually asking. Then replies like a real person: answering questions, addressing concerns, moving the conversation forward. If the message is complex, urgent, or shows signs of frustration, the agent holds its response and routes the thread directly to you instead.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>An inbox that handles itself — and a flag in your notifications when something genuinely needs your attention.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- AGENT CARDS: ESTIMATES & PROPOSALS -->
+<div class="category-block alt-bg fade-in">
+  <div class="container">
+    <div class="category-header">
+      <div class="cat-eyebrow">
+        <span>Estimates &amp; Proposals</span>
+        <span class="cat-num">Agents 05–07 &middot; Tier 2+</span>
+      </div>
+      <div class="cat-title">Proposals out the same day as the site visit</div>
+      <p class="cat-desc">Enter your notes after a walkthrough and these agents take it from there — building a full estimate, turning it into a polished proposal document, and following up automatically if it sits unanswered.</p>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card gold-accent fade-in">
+        <div class="agent-num">Agent 05 &mdash; Estimates &amp; Proposals</div>
+        <div class="agent-name">Estimate Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">You log job details after completing a site visit.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Pulls from your pricing settings — labor rates, material costs, markup rules — and generates a full itemized estimate for the job. Breaks it down by labor, materials, and overhead. Applies your standard markup and flags any line items that need review. No spreadsheet hunting, no manual math.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>A complete cost estimate ready to review the moment you close the site visit form — typically in under 60 seconds.</p>
+        </div>
+      </div>
+
+      <div class="agent-card gold-accent fade-in fade-in-d1">
+        <div class="agent-num">Agent 06 &mdash; Estimates &amp; Proposals</div>
+        <div class="agent-name">Proposal Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">An estimate is finalized and marked ready to send.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Turns your raw estimate into a complete, branded proposal document: full scope of work in plain language, project timeline, itemized pricing, payment schedule, and what's explicitly included versus excluded. Formats it in Google Docs with your company branding and emails it directly to the client.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>A professional proposal in the client's inbox the same afternoon as the walkthrough — not three days later after chasing someone to write it up.</p>
+        </div>
+      </div>
+
+      <div class="agent-card gold-accent fade-in">
+        <div class="agent-num">Agent 07 &mdash; Estimates &amp; Proposals</div>
+        <div class="agent-name">Proposal Follow-up Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A sent proposal hasn't received a response after 3 days.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Sends up to 3 follow-up messages with completely different angles. First is a simple check-in. Second addresses the most common objection for that project type. Third creates gentle urgency around scheduling and availability. Each message stops the moment the client responds or declines — no chasing someone who already said no.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>Jobs that would have quietly died coming back to life — and no more wondering whether a proposal was even read.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- AGENT CARDS: CONTRACTS & ONBOARDING -->
+<div class="category-block fade-in">
+  <div class="container">
+    <div class="category-header">
+      <div class="cat-eyebrow green-eye">
+        <span>Contracts &amp; Onboarding</span>
+        <span class="cat-num">Agents 08–09 &middot; Tier 2+</span>
+      </div>
+      <div class="cat-title">From "yes" to signed contract without lifting a finger</div>
+      <p class="cat-desc">The moment a proposal is accepted, the system takes over — generating the contract, sending it for signature, and welcoming the client with everything they need to know before day one.</p>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card green-accent fade-in">
+        <div class="agent-num">Agent 08 &mdash; Contracts &amp; Onboarding</div>
+        <div class="agent-name">Contract Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A client accepts a proposal and the status is updated to "Accepted."</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Generates a complete contract pre-filled with the client's details, the exact scope from the proposal, agreed pricing, payment schedule, and standard legal terms. Sends it directly to the client for digital signature. If the contract sits unsigned for more than a day, sends a follow-up reminder. Updates job status automatically when the signature is received.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>A notification that the contract was signed — without you having written a single word of it or chased anyone to sign it.</p>
+        </div>
+      </div>
+
+      <div class="agent-card green-accent fade-in fade-in-d1">
+        <div class="agent-num">Agent 09 &mdash; Contracts &amp; Onboarding</div>
+        <div class="agent-name">Welcome Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A contract is signed and the job officially becomes active.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Sends the new client a warm, professional welcome email that outlines exactly what happens next — when work starts, what the first week looks like, how to reach someone if they have questions, and what to expect throughout the job. Simultaneously triggers the deposit invoice so billing starts immediately without a separate manual step.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>A client who feels confident and informed from day one — and a deposit invoice already in their inbox before you've left the driveway.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- AGENT CARDS: JOB MANAGEMENT -->
+<div class="category-block alt-bg fade-in">
+  <div class="container">
+    <div class="category-header">
+      <div class="cat-eyebrow">
+        <span>Job Management</span>
+        <span class="cat-num">Agents 10–11 &middot; Tier 2+</span>
+      </div>
+      <div class="cat-title">Every job planned, every client updated, every complaint routed</div>
+      <p class="cat-desc">Once a job kicks off, two agents take over — one keeping the work organized and subs informed, the other keeping the client happy and informed all the way through completion.</p>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card gold-accent fade-in">
+        <div class="agent-num">Agent 10 &mdash; Job Management</div>
+        <div class="agent-name">Job Planning Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A job is activated after the contract is signed.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Breaks the job into phases with task lists and realistic timelines based on project type. Notifies each subcontractor with their specific scope of work, start date, site access information, and any special notes. Logs all assignments and timelines into the CRM so everything is in one place and nothing gets communicated verbally and forgotten.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>A fully planned job in your dashboard before the crew shows up on day one — and subs who already know exactly what they're doing and when.</p>
+        </div>
+      </div>
+
+      <div class="agent-card gold-accent fade-in fade-in-d1">
+        <div class="agent-num">Agent 11 &mdash; Job Management</div>
+        <div class="agent-name">Client Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A job is active — runs continuously until job completion.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Sends weekly progress updates to the client so they always know where things stand without calling you. Reads and responds to any messages they send in during the job. Runs a mid-job satisfaction check to catch issues before they become complaints. If a client message shows any sign of frustration, urgency, or a complaint — the agent skips the automated response and routes it directly to you immediately.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>Clients who feel informed and cared for — and an alert in your pocket the moment anything starts going sideways on a job.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- AGENT CARDS: FINANCE -->
+<div class="category-block fade-in">
+  <div class="container">
+    <div class="category-header">
+      <div class="cat-eyebrow green-eye">
+        <span>Finance</span>
+        <span class="cat-num">Agent 12 &middot; Tier 2+</span>
+      </div>
+      <div class="cat-title">Invoices out automatically. Follow-ups handled. Payments tracked.</div>
+      <p class="cat-desc">From deposit to final payment, one agent handles the entire billing cycle — including the uncomfortable follow-up calls you've been avoiding.</p>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card green-accent fade-in">
+        <div class="agent-num">Agent 12 &mdash; Finance</div>
+        <div class="agent-name">Invoice Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A contract is signed (deposit invoice), a job is marked complete (final invoice), or an invoice goes unpaid past due.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Generates and sends the deposit invoice automatically when the contract is signed. Generates and sends the final invoice when the job closes. If either invoice goes unpaid, sends up to 3 follow-up reminders on a scheduled cadence — each escalating slightly in tone. Marks the payment received and updates the job record when confirmed. All invoice data syncs to QuickBooks in Tier 3.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>Money hitting your account faster — because invoices go out the moment they should, and someone always follows up when they don't.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- AGENT CARDS: COMPLETION & GROWTH -->
+<div class="category-block alt-bg fade-in">
+  <div class="container">
+    <div class="category-header">
+      <div class="cat-eyebrow">
+        <span>Completion &amp; Growth</span>
+        <span class="cat-num">Agents 13–15 &middot; Tier 2+</span>
+      </div>
+      <div class="cat-title">Close jobs strong. Build your reputation. Improve with every job.</div>
+      <p class="cat-desc">The agents that run after the job is done — collecting reviews, staying in touch, running your marketing, and making the next job cheaper to estimate and easier to plan.</p>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card gold-accent fade-in">
+        <div class="agent-num">Agent 13 &mdash; Completion &amp; Growth</div>
+        <div class="agent-name">Completion Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A job is marked complete in the CRM.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Sends the client a job closeout summary — a recap of what was completed, final photos if available, and a thank-you note. Within 24 hours, sends a Google review request with a direct link that takes one tap to leave a review. Schedules a 30-day check-in to follow up on how everything is holding up and open the door for any punch-list items or future work.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>Google reviews coming in consistently after every job — and clients who remember you a month later when their neighbor asks for a recommendation.</p>
+        </div>
+      </div>
+
+      <div class="agent-card gold-accent fade-in fade-in-d1">
+        <div class="agent-num">Agent 14 &mdash; Completion &amp; Growth</div>
+        <div class="agent-name">Marketing Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">Scheduled campaigns trigger, or cold leads hit defined re-engagement thresholds.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Runs re-engagement campaigns to past clients who haven't heard from you in 90+ days. Sends referral outreach to recent happy clients — personalized based on their job type. Re-engages cold leads at 30, 60, and 90-day intervals with fresh messaging. Generates a full monthly performance report — lead volume, conversion rates, revenue, and team performance stats — and emails it directly to you.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>Inbound leads from past clients and referrals — and a clean monthly report sitting in your inbox every first of the month.</p>
+        </div>
+      </div>
+
+      <div class="agent-card blue-accent fade-in">
+        <div class="agent-num">Agent 15 &mdash; Completion &amp; Growth</div>
+        <div class="agent-name">Learning Agent</div>
+        <div class="agent-fires">
+          <div class="agent-fires-label">Fires when</div>
+          <div class="agent-fires-text">A job is marked complete and all final data is recorded.</div>
+        </div>
+        <div class="agent-does">
+          <div class="agent-does-label">What it does</div>
+          <p>Reviews every completed job for three things: timeline accuracy (estimated vs. actual), cost accuracy (estimate vs. final invoice), and client satisfaction score. Synthesizes patterns across all jobs over time — flagging project types that consistently run over budget, job phases that take longer than planned, and lead sources that convert at higher rates. Feeds insights back into estimate templates so your numbers get sharper with every job.</p>
+        </div>
+        <div class="agent-experience">
+          <div class="agent-experience-label">You experience</div>
+          <p>Estimates that get more accurate over time — and a monthly flag if a specific project type or subcontractor is quietly draining your margins.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TIER BREAKDOWN -->
+<section class="tier-section" id="tier-breakdown">
   <div class="container">
     <div class="section-header fade-in">
-      <div class="section-label">What's Included</div>
-      <h2>Every agent. Every category.</h2>
-      <p>15 AI agents organized across six functional areas — from the moment a lead submits a form to the moment you collect the final payment.</p>
+      <div class="section-label">Tier Breakdown</div>
+      <h2>Which agents are in which tier</h2>
+      <p>Tier 1 gives you the core lead and sales layer. Tier 2 unlocks the full 15-agent system.</p>
     </div>
-
-    <!-- Lead Management -->
-    <div class="agent-category fade-in">
-      <div class="category-label">
-        <span class="cat-icon">📥</span>
-        <span>Lead Management</span>
+    <div class="tier-grid">
+      <div class="tier-box tier1 fade-in">
+        <div class="tier-box-head">
+          <div class="tier-box-title">Tier 1 — AI Automation Layer</div>
+          <div class="tier-box-badge">5 Agents</div>
+        </div>
+        <div class="tier-box-sub">$1,500 setup + $197/month &mdash; The core lead engine</div>
+        <ul class="tier-agent-list">
+          <li>01 Lead Agent <span>— score, respond, alert</span></li>
+          <li>02 Nurture Agent <span>— 3-touch follow-up sequence</span></li>
+          <li>03 Calendly Agent <span>— booking confirmation + alerts</span></li>
+          <li>04 Email Reply Agent <span>— two-way email handling</span></li>
+          <li>SMS Follow-up <span>— hot lead text + reminders</span></li>
+        </ul>
       </div>
-      <div class="category-title">Turn every lead into a booked appointment — automatically</div>
-      <div class="category-desc">No lead sits unanswered. The moment a form is submitted, the Lead Agent fires — scoring, responding, and scheduling follow-ups without any human input.</div>
-      <div class="agent-grid">
-        <div class="agent-card">
-          <div class="agent-name">Lead Agent</div>
-          <div class="agent-desc">Scores every new lead as Hot, Warm, or Cold based on project details, budget, and timeline. Fires within 3 minutes of form submission.</div>
-          <span class="agent-tag">Auto-scoring</span>
+      <div class="tier-box tier2 fade-in fade-in-d1">
+        <div class="tier-box-head">
+          <div class="tier-box-title">Tier 2 — Full CRM</div>
+          <div class="tier-box-badge">All 15 Agents</div>
         </div>
-        <div class="agent-card">
-          <div class="agent-name">Welcome Agent</div>
-          <div class="agent-desc">Sends a personalized, AI-written first response to every lead — referencing their specific project and setting expectations for next steps.</div>
-          <span class="agent-tag">Personalized outreach</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Email Reply Handler</div>
-          <div class="agent-desc">Reads incoming replies, understands context, and responds intelligently. Flags anything that needs human attention and logs the full thread.</div>
-          <span class="agent-tag">Two-way email</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">SMS Agent</div>
-          <div class="agent-desc">Two-way SMS via Twilio. Handles lead texts, follow-up confirmations, and appointment reminders — all automated.</div>
-          <span class="agent-tag">Twilio SMS</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Nurture Agent</div>
-          <div class="agent-desc">Runs a 5-touch email sequence for leads that don't book immediately. Spaced 2, 5, 10, 21, and 45 days out. Stops the moment they reply.</div>
-          <span class="agent-tag">5-touch sequence</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Smart Orchestrator</div>
-          <div class="agent-desc">Coordinates between agents to prevent duplicate outreach, route leads to the right next step, and escalate anything that's gone quiet too long.</div>
-          <span class="agent-tag">Routing &amp; escalation</span>
-        </div>
+        <div class="tier-box-sub">$3,500 setup + $397/month &mdash; The complete system</div>
+        <ul class="tier-agent-list">
+          <li>All 5 Tier 1 agents included</li>
+          <li>05 Estimate Agent <span>— itemized estimates from job notes</span></li>
+          <li>06 Proposal Agent <span>— branded Google Docs proposals</span></li>
+          <li>07 Proposal Follow-up Agent <span>— 3-touch follow-up</span></li>
+          <li>08 Contract Agent <span>— auto-generated + e-signature</span></li>
+          <li>09 Welcome Agent <span>— client onboarding + deposit trigger</span></li>
+          <li>10 Job Planning Agent <span>— phases, tasks, sub notifications</span></li>
+          <li>11 Client Agent <span>— weekly updates + satisfaction checks</span></li>
+          <li>12 Invoice Agent <span>— deposit, final, follow-up reminders</span></li>
+          <li>13 Completion Agent <span>— closeout + review + 30-day check-in</span></li>
+          <li>14 Marketing Agent <span>— re-engagement, referrals, reports</span></li>
+          <li>15 Learning Agent <span>— job analysis + estimate improvement</span></li>
+        </ul>
       </div>
     </div>
-
-    <!-- Sales Pipeline -->
-    <div class="agent-category fade-in">
-      <div class="category-label">
-        <span class="cat-icon">📋</span>
-        <span>Sales Pipeline</span>
-      </div>
-      <div class="category-title">Proposals and contracts that close while you're on the job</div>
-      <div class="category-desc">Enter job details once after your site visit. The system generates a branded proposal, sends it to the client, follows up automatically, and handles the contract when they say yes.</div>
-      <div class="agent-grid">
-        <div class="agent-card">
-          <div class="agent-name">Pricing &amp; Estimate Agent</div>
-          <div class="agent-desc">Calculates an estimate range from your pricing tiers based on project type, square footage, materials, and labor. No spreadsheet hunting required.</div>
-          <span class="agent-tag">AI estimates</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Proposal Agent</div>
-          <div class="agent-desc">Generates a fully branded proposal in Google Docs — scope of work, pricing, timeline, and payment terms — and emails it to the client the same day as the visit.</div>
-          <span class="agent-tag">Google Docs output</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Contract Agent</div>
-          <div class="agent-desc">Creates a complete contract on proposal acceptance — with scope, pricing, and legal terms filled in. Sends for e-signature and follows up automatically if unsigned.</div>
-          <span class="agent-tag">E-signature ready</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Change Order Agent</div>
-          <div class="agent-desc">Handles scope changes mid-project. Generates a change order document, gets client approval, and updates the job record and invoice automatically.</div>
-          <span class="agent-tag">Mid-project changes</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project Operations -->
-    <div class="agent-category fade-in">
-      <div class="category-label">
-        <span class="cat-icon">🏗️</span>
-        <span>Project Operations</span>
-      </div>
-      <div class="category-title">Every job planned before the crew shows up</div>
-      <div class="category-desc">Contract signing triggers the Project Planning Agent. Within minutes, your team has a full project plan — phases, materials, assignments, and a kickoff document — before day one.</div>
-      <div class="agent-grid">
-        <div class="agent-card">
-          <div class="agent-name">Project Planning Agent</div>
-          <div class="agent-desc">Builds a full project plan on contract signing — phases, milestones, estimated hours per phase, materials list, and crew assignment recommendations.</div>
-          <span class="agent-tag">AI project plans</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Sub Confirmation Agent</div>
-          <div class="agent-desc">Notifies subcontractors of their assignments via email or SMS. Collects confirmations, tracks responses, and flags anyone who hasn't confirmed 48 hours out.</div>
-          <span class="agent-tag">Sub coordination</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Learning Agent</div>
-          <div class="agent-desc">Tracks completion times, cost vs. estimate, and client satisfaction scores across all jobs. Feeds insights back to improve future estimates and planning.</div>
-          <span class="agent-tag">Continuous improvement</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Client Experience -->
-    <div class="agent-category fade-in">
-      <div class="category-label">
-        <span class="cat-icon">🤝</span>
-        <span>Client Experience</span>
-      </div>
-      <div class="category-title">Happy clients without the phone calls</div>
-      <div class="category-desc">Proactive communication every week. Clients stay informed, feel taken care of, and don't feel the need to call you for updates — because the system already sent them one.</div>
-      <div class="agent-grid">
-        <div class="agent-card">
-          <div class="agent-name">Client Agent</div>
-          <div class="agent-desc">Sends weekly progress emails written in plain English — what got done this week, what's next, and any items that need client input. Zero effort from you.</div>
-          <span class="agent-tag">Weekly updates</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Mid-Job Satisfaction Check</div>
-          <div class="agent-desc">At the project midpoint, sends a satisfaction check-in. Positive responses get logged; concerns get flagged to you immediately for follow-up.</div>
-          <span class="agent-tag">Concern flagging</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Payment Agent</div>
-          <div class="agent-desc">Handles deposit and final invoice delivery, tracks payment status, and sends polite follow-ups at Day 3, 7, and 14 for outstanding invoices.</div>
-          <span class="agent-tag">Invoice follow-up</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Financial -->
-    <div class="agent-category fade-in">
-      <div class="category-label">
-        <span class="cat-icon">💰</span>
-        <span>Financial</span>
-      </div>
-      <div class="category-title">Get paid faster without chasing anyone</div>
-      <div class="category-desc">Invoices go out automatically — deposit on signing, final on completion. Stripe payment links included. QuickBooks sync available on Tier 3.</div>
-      <div class="agent-grid">
-        <div class="agent-card">
-          <div class="agent-name">Deposit Invoice Generator</div>
-          <div class="agent-desc">Fires automatically on contract signing. Generates a branded deposit invoice and emails it with a Stripe payment link — within minutes of signing.</div>
-          <span class="agent-tag">Stripe payment link</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Final Invoice Generator</div>
-          <div class="agent-desc">Triggered on job completion. Pulls in the final scope, any approved change orders, and generates the final invoice with Stripe payment link.</div>
-          <span class="agent-tag">Auto-generated</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">QuickBooks Sync</div>
-          <div class="agent-desc">All invoices, payments, and job records sync to QuickBooks automatically. Available on Tier 3. Keeps your books clean without manual data entry.</div>
-          <span class="agent-tag">Tier 3 only</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Marketing -->
-    <div class="agent-category fade-in">
-      <div class="category-label">
-        <span class="cat-icon">📣</span>
-        <span>Marketing</span>
-      </div>
-      <div class="category-title">A pipeline that fills itself while you sleep</div>
-      <div class="category-desc">Re-engage past clients, run referral campaigns, and send seasonal promotions — all on autopilot. The Marketing Agent tracks performance and reports back every month.</div>
-      <div class="agent-grid">
-        <div class="agent-card">
-          <div class="agent-name">Marketing Agent</div>
-          <div class="agent-desc">Runs re-engagement campaigns to past clients every 90 days. Sends referral requests after positive job completions. Deploys seasonal promotions on schedule.</div>
-          <span class="agent-tag">Auto-campaigns</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Dead Lead Re-engagement</div>
-          <div class="agent-desc">Identifies leads that went cold and fires a re-engagement sequence at 30, 60, and 90 days. Recovers a percentage of leads that were written off.</div>
-          <span class="agent-tag">Lead recovery</span>
-        </div>
-        <div class="agent-card">
-          <div class="agent-name">Monthly Performance Report</div>
-          <div class="agent-desc">Compiles a full report every month — leads, conversion rate, jobs completed, revenue, team performance — and emails it directly to you.</div>
-          <span class="agent-tag">Monthly reports</span>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<section class="dashboard">
-  <div class="container">
-    <div class="dashboard-inner">
-      <div class="dashboard-text fade-in">
-        <div class="section-label">Dashboard</div>
-        <h2>A command center built for the field</h2>
-        <p>Not a complex CRM nobody uses. A clean, role-based dashboard that shows the owner what's happening, gives sales what they need to close, and keeps field crews on task.</p>
-        <div class="dash-feature">
-          <div class="dash-feature-icon">📱</div>
-          <div class="dash-feature-text">
-            <h4>Mobile PWA App</h4>
-            <p>Install it on your phone like a native app. Works offline. Built for people who spend their days on job sites, not at a desk.</p>
-          </div>
-        </div>
-        <div class="dash-feature">
-          <div class="dash-feature-icon">🎯</div>
-          <div class="dash-feature-text">
-            <h4>Role-Based Views</h4>
-            <p>Owner sees revenue, pipeline, and agent activity. Sales sees leads and proposals. Field sees jobs, phases, and schedules. Everyone gets exactly what they need.</p>
-          </div>
-        </div>
-        <div class="dash-feature">
-          <div class="dash-feature-icon">🤖</div>
-          <div class="dash-feature-text">
-            <h4>Live AI Agent Feed</h4>
-            <p>See every action every agent has taken in real time. Lead responded to at 2:14 AM. Proposal sent at 7:50 AM. Invoice delivered at 9:02 AM. It never stops working.</p>
-          </div>
-        </div>
-        <div class="dash-feature">
-          <div class="dash-feature-icon">📅</div>
-          <div class="dash-feature-text">
-            <h4>Schedule Strip &amp; Inventory</h4>
-            <p>Visual schedule across all active jobs. Materials inventory tracked by job. Crew assignments visible at a glance.</p>
-          </div>
-        </div>
-      </div>
-      <div class="dashboard-visual fade-in fade-in-d2">
-        <div class="dash-bar">
-          <div class="dash-dot red"></div>
-          <div class="dash-dot yellow"></div>
-          <div class="dash-dot green"></div>
-          <div class="dash-title" style="margin-left:8px;">SPEC Dashboard — Owner View</div>
-        </div>
-        <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--stone);font-weight:700;margin-bottom:10px;">Active Leads</div>
-        <div class="dash-row">
-          <div class="dash-row-label">Johnson — Kitchen Remodel</div>
-          <div class="dash-row-badge hot">Hot</div>
-        </div>
-        <div class="dash-row">
-          <div class="dash-row-label">Martinez — Roof Replacement</div>
-          <div class="dash-row-badge warm">Warm</div>
-        </div>
-        <div class="dash-row">
-          <div class="dash-row-label">Chen — HVAC Install</div>
-          <div class="dash-row-badge warm">Warm</div>
-        </div>
-        <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--stone);font-weight:700;margin:16px 0 10px;">Active Jobs</div>
-        <div class="dash-row">
-          <div class="dash-row-label">Williams — Bath Addition</div>
-          <div class="dash-row-badge active">Phase 3/5</div>
-        </div>
-        <div class="dash-row">
-          <div class="dash-row-label">Thompson — Deck Build</div>
-          <div class="dash-row-badge active">Phase 1/3</div>
-        </div>
-        <div class="dash-stat-row">
-          <div class="dash-stat">
-            <div class="dash-stat-num">$84K</div>
-            <div class="dash-stat-label">Pipeline</div>
-          </div>
-          <div class="dash-stat">
-            <div class="dash-stat-num">7</div>
-            <div class="dash-stat-label">Active Jobs</div>
-          </div>
-          <div class="dash-stat">
-            <div class="dash-stat-num">94%</div>
-            <div class="dash-stat-label">On Schedule</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="integrations">
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
   <div class="container">
     <div class="section-header fade-in">
-      <div class="section-label">Integrations</div>
-      <h2>Built on tools you already know</h2>
-      <p>No proprietary black box. Every integration uses widely-adopted tools — which means your data is portable and your team isn't learning something new.</p>
+      <div class="section-label">Pricing</div>
+      <h2>Four tiers. One system.</h2>
+      <p>Start with the automation layer and scale up as you grow — or go full system from day one.</p>
     </div>
-    <div class="int-grid">
-      <div class="int-card fade-in">
-        <span class="int-icon">📧</span>
-        <div class="int-name">Gmail</div>
-      </div>
-      <div class="int-card fade-in fade-in-d1">
-        <span class="int-icon">📊</span>
-        <div class="int-name">Google Sheets</div>
-      </div>
-      <div class="int-card fade-in fade-in-d2">
-        <span class="int-icon">💬</span>
-        <div class="int-name">Twilio SMS</div>
-      </div>
-      <div class="int-card fade-in fade-in-d3">
-        <span class="int-icon">📅</span>
-        <div class="int-name">Calendly</div>
-      </div>
-      <div class="int-card fade-in fade-in-d4">
-        <span class="int-icon">💳</span>
-        <div class="int-name">Stripe</div>
-      </div>
-      <div class="int-card fade-in">
-        <span class="int-icon">📒</span>
-        <div class="int-name">QuickBooks</div>
-      </div>
-      <div class="int-card fade-in fade-in-d1">
-        <span class="int-icon">📝</span>
-        <div class="int-name">Google Docs</div>
-      </div>
-      <div class="int-card fade-in fade-in-d2">
-        <span class="int-icon">🗓️</span>
-        <div class="int-name">Google Calendar</div>
-      </div>
-      <div class="int-card fade-in fade-in-d3">
-        <span class="int-icon">📋</span>
-        <div class="int-name">Google Forms</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="pricing-grid">
 
-<section class="ops-pricing">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-label">Full CRM Pricing</div>
-      <h2>Choose your tier</h2>
-      <p>Tier 2 gives you the complete system. Tier 3 adds QuickBooks sync, a monthly strategy call, and your first custom agent.</p>
-    </div>
-    <div class="ops-pricing-grid">
+      <div class="price-card fade-in">
+        <div class="price-tier-label">Tier 1</div>
+        <h3>AI Automation Layer</h3>
+        <div class="price-amount">$1,500 <span>setup</span></div>
+        <div class="price-monthly">+ $197 / month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>5 core AI agents</li>
+          <li>Lead scoring &amp; response</li>
+          <li>3-touch nurture sequence</li>
+          <li>Calendly booking handler</li>
+          <li>Inbound email replies</li>
+          <li>SMS for hot leads</li>
+          <li>Done-for-you setup</li>
+        </ul>
+        <a href="https://calendly.com/specsystems/discovery" target="_blank" class="price-cta">Get Started &rarr;</a>
+      </div>
 
       <div class="price-card popular fade-in fade-in-d1">
         <div class="popular-badge">Most Popular</div>
-        <div class="price-tier">Tier 2</div>
+        <div class="price-tier-label">Tier 2</div>
         <h3>Full CRM</h3>
         <div class="price-amount">$3,500 <span>setup</span></div>
         <div class="price-monthly">+ $397 / month</div>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li>All 15 AI agents</li>
-          <li>Lead response, scoring &amp; nurture</li>
-          <li>Proposals, contracts &amp; invoicing</li>
-          <li>AI project planning</li>
+          <li>Full Google Sheets CRM</li>
+          <li>Proposals &amp; contracts</li>
+          <li>Job planning &amp; sub alerts</li>
           <li>Client check-ins &amp; updates</li>
-          <li>Marketing campaigns</li>
-          <li>Full dashboard + mobile PWA</li>
-          <li>Gmail, Twilio, Calendly, Stripe</li>
-          <li>Done-for-you setup</li>
+          <li>Invoicing + follow-ups</li>
+          <li>Google reviews + marketing</li>
+          <li>Mobile dashboard (PWA)</li>
         </ul>
         <a href="https://calendly.com/specsystems/discovery" target="_blank" class="price-cta">Book a Discovery Call &rarr;</a>
       </div>
 
       <div class="price-card fade-in fade-in-d2">
-        <div class="price-tier">Tier 3</div>
+        <div class="price-tier-label">Tier 3</div>
         <h3>Growth</h3>
         <div class="price-amount">$5,000 <span>setup</span></div>
         <div class="price-monthly">+ $597 / month</div>
@@ -574,21 +719,89 @@ footer{padding:48px 0 32px;border-top:1px solid rgba(255,255,255,0.05);}
           <li>Monthly strategy call</li>
           <li>Priority support</li>
           <li>First custom agent included</li>
+          <li>Advanced reporting</li>
           <li>Performance benchmarking</li>
-          <li>Advanced reporting dashboard</li>
         </ul>
         <a href="https://calendly.com/specsystems/discovery" target="_blank" class="price-cta">Book a Discovery Call &rarr;</a>
+      </div>
+
+      <div class="price-card fade-in fade-in-d3">
+        <div class="price-tier-label">Tier 4</div>
+        <h3>Custom Agents</h3>
+        <div class="price-amount">$500 <span>/ agent</span></div>
+        <div class="price-monthly">+ $75–100 / agent / month</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Any workflow, built to spec</li>
+          <li>Add-on to any tier</li>
+          <li>Unique to your business</li>
+          <li>Handles edge cases others miss</li>
+          <li>Integrates with existing agents</li>
+          <li>Scoped in a 30-min call</li>
+          <li>Delivered in 5–7 business days</li>
+        </ul>
+        <a href="automation.html" class="price-cta">See Custom Agents &rarr;</a>
       </div>
 
     </div>
   </div>
 </section>
 
+<!-- INTEGRATIONS -->
+<section class="integrations">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Integrations</div>
+      <h2>Built on tools you already know</h2>
+      <p>No proprietary black box. Every integration uses widely-adopted tools — your data stays portable and your team isn't learning something new.</p>
+    </div>
+    <div class="int-grid">
+      <div class="int-card fade-in">
+        <span class="int-icon">📧</span>
+        <div class="int-name">Gmail</div>
+        <div class="int-tier">All tiers</div>
+      </div>
+      <div class="int-card fade-in fade-in-d1">
+        <span class="int-icon">📊</span>
+        <div class="int-name">Google Sheets</div>
+        <div class="int-tier">Tier 2+</div>
+      </div>
+      <div class="int-card fade-in fade-in-d2">
+        <span class="int-icon">📅</span>
+        <div class="int-name">Calendly</div>
+        <div class="int-tier">All tiers</div>
+      </div>
+      <div class="int-card fade-in fade-in-d3">
+        <span class="int-icon">💬</span>
+        <div class="int-name">Twilio</div>
+        <div class="int-tier">All tiers</div>
+      </div>
+      <div class="int-card fade-in fade-in-d4">
+        <span class="int-icon">📝</span>
+        <div class="int-name">Google Docs</div>
+        <div class="int-tier">Tier 2+</div>
+      </div>
+      <div class="int-card fade-in">
+        <span class="int-icon">📋</span>
+        <div class="int-name">Google Forms</div>
+        <div class="int-tier">All tiers</div>
+      </div>
+      <div class="int-card fade-in fade-in-d1">
+        <span class="int-icon">📒</span>
+        <div class="int-name">QuickBooks</div>
+        <div class="int-tier">Tier 3+</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.8rem;color:var(--mist);margin-top:28px;">Powered by <strong style="color:var(--cloud);">Claude AI</strong> — every agent thinks, writes, and decides using Anthropic's Claude model.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
 <section class="cta-section">
   <div class="container" style="position:relative;z-index:2;">
     <div class="section-label fade-in">Ready to see it?</div>
-    <h2 class="fade-in fade-in-d1">Ready to see it in action?</h2>
-    <p class="fade-in fade-in-d2">Book a discovery call and we'll walk you through a live demo — your business type, your pain points, your agents. 30 minutes and you'll know exactly what this looks like for you.</p>
+    <h2 class="fade-in fade-in-d1">See the full system in 30 minutes.</h2>
+    <p class="fade-in fade-in-d2">Book a discovery call and we'll walk you through a live demo — your business type, your specific pain points, your agents. You'll know exactly what this looks like for you before the call is over.</p>
     <a href="https://calendly.com/specsystems/discovery" target="_blank" class="btn-primary fade-in fade-in-d3" style="font-size:1rem;padding:16px 40px;">Book a Discovery Call &rarr;</a>
   </div>
 </section>
@@ -609,10 +822,10 @@ footer{padding:48px 0 32px;border-top:1px solid rgba(255,255,255,0.05);}
           <div class="footer-col-head">Pages</div>
           <a href="index.html">Home</a>
           <a href="how-it-works.html">How It Works</a>
-          <a href="index.html#pricing">Pricing</a>
+          <a href="operations.html">Full System</a>
           <a href="automation.html">Custom Agents</a>
           <a href="about.html">About</a>
-          <a href="operations.html">Full CRM</a>
+          <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
           <div class="footer-col-head">Contact</div>
