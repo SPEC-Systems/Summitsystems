@@ -63,6 +63,66 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   transform:translateX(0);
 }
 
+/* ===== KEYFRAME ANIMATIONS ===== */
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+@keyframes bounceIn {
+  0%   { opacity:0; transform:scale(0.88) translateY(10px); }
+  60%  { opacity:1; transform:scale(1.03) translateY(-3px); }
+  100% { opacity:1; transform:scale(1) translateY(0); }
+}
+@keyframes tickIn {
+  from { opacity:0; transform:translateX(-8px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes flashGreen {
+  0%   { opacity:0; transform:scale(0.7); }
+  40%  { opacity:1; transform:scale(1.15); color:#3DBFA0; }
+  100% { opacity:1; transform:scale(1); }
+}
+@keyframes sparkle {
+  0%   { opacity:0; transform:scale(0.5) rotate(-10deg); }
+  50%  { opacity:1; transform:scale(1.2) rotate(5deg); color:#FFD700; }
+  100% { opacity:1; transform:scale(1) rotate(0); }
+}
+@keyframes composing {
+  0%,100% { opacity:1; }
+  50%      { opacity:0.3; }
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%     { opacity:0.3; transform:scale(0.6); }
+}
+@keyframes countUp {
+  from { opacity:0.3; }
+  to   { opacity:1; }
+}
+@keyframes agentBlink {
+  0%,100% { background:rgba(30,148,118,0.18); }
+  50%     { background:rgba(30,148,118,0.38); }
+}
+@keyframes typingDot {
+  0%,80%,100% { transform:scale(0); }
+  40%         { transform:scale(1); }
+}
+
+.anim-slide-up  { animation: slideUp 0.45s ease both; }
+.anim-fade-in   { animation: fadeIn 0.4s ease both; }
+.anim-bounce-in { animation: bounceIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+.slide.active .anim-d1 { animation-delay:0.05s; }
+.slide.active .anim-d2 { animation-delay:0.18s; }
+.slide.active .anim-d3 { animation-delay:0.30s; }
+.slide.active .anim-d4 { animation-delay:0.42s; }
+.slide.active .anim-d5 { animation-delay:0.54s; }
+.slide.active .anim-d6 { animation-delay:0.66s; }
+
 /* ===== INTRO SLIDE ===== */
 #slide-intro{
   justify-content:center;
@@ -73,24 +133,50 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 }
 .intro-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(175,135,55,0.07) 0%,transparent 70%);pointer-events:none;}
 .intro-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(175,135,55,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(175,135,55,0.04) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black,transparent 80%);pointer-events:none;}
-.intro-content{position:relative;z-index:2;max-width:680px;}
-.intro-label{display:inline-flex;align-items:center;gap:8px;background:var(--gold-glow);border:1px solid rgba(175,135,55,0.28);color:var(--gold-light);font-size:0.68rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:7px 16px;border-radius:30px;margin-bottom:32px;}
+.intro-content{position:relative;z-index:2;max-width:740px;width:100%;}
+.intro-label{display:inline-flex;align-items:center;gap:8px;background:var(--gold-glow);border:1px solid rgba(175,135,55,0.28);color:var(--gold-light);font-size:0.68rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:7px 16px;border-radius:30px;margin-bottom:20px;}
 .intro-label .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.8s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(0.6);}}
-.intro-h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.18;margin-bottom:16px;color:var(--white);}
+.intro-scene{font-size:0.82rem;font-weight:500;color:var(--mist);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;font-style:italic;}
+.intro-h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.18;margin-bottom:8px;color:var(--white);}
 .intro-h1 em{font-style:italic;color:var(--gold-light);}
-.intro-sub{font-size:1rem;color:var(--mist);line-height:1.65;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;}
-.customer-card{display:inline-flex;align-items:center;gap:16px;background:var(--slate);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px 24px;margin-bottom:40px;text-align:left;}
+.intro-tagline-sub{font-family:'Playfair Display',serif;font-size:clamp(0.95rem,2vw,1.15rem);color:var(--mist);font-style:italic;margin-bottom:28px;}
+.intro-sub{font-size:0.95rem;color:var(--mist);line-height:1.65;margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto;}
+
+/* Intro layout — card + activity panel side by side */
+.intro-duo{display:flex;gap:16px;justify-content:center;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;}
+.customer-card{display:inline-flex;align-items:center;gap:16px;background:var(--slate);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px 24px;text-align:left;flex:1;min-width:240px;max-width:300px;}
 .customer-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;color:#fff;flex-shrink:0;}
 .customer-info{flex:1;}
 .customer-name{font-weight:700;font-size:1rem;color:var(--white);margin-bottom:2px;}
 .customer-meta{font-size:0.78rem;color:var(--mist);line-height:1.5;}
 .customer-tag{display:inline-block;background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.25);color:#6B9EFF;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;margin-top:5px;}
+.customer-time{font-size:0.7rem;color:var(--mist);margin-top:6px;font-style:italic;}
+
+/* Activity panel */
+.activity-panel{flex:1;min-width:240px;max-width:320px;background:var(--slate);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:16px 18px;text-align:left;}
+.activity-title{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.activity-title .live-dot{width:6px;height:6px;border-radius:50%;background:#3DBFA0;animation:pulse 1.4s infinite;}
+.activity-agent{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;margin-bottom:6px;transition:background 0.3s;}
+.activity-agent.standby{background:rgba(255,255,255,0.03);}
+.activity-agent.active{background:rgba(30,148,118,0.1);border:1px solid rgba(30,148,118,0.15);animation:agentBlink 2s infinite;}
+.agent-status-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.agent-status-icon.green-bg{background:rgba(30,148,118,0.15);}
+.agent-status-icon.gold-bg{background:rgba(175,135,55,0.12);}
+.agent-status-icon.blue-bg{background:rgba(37,99,235,0.12);}
+.agent-status-icon.purple-bg{background:rgba(124,58,237,0.12);}
+.activity-agent-name{font-size:0.75rem;font-weight:600;color:var(--cloud);}
+.activity-agent-status{font-size:0.65rem;color:var(--mist);}
+.activity-agent.active .activity-agent-status{color:#3DBFA0;}
+.typing-dots{display:inline-flex;gap:3px;align-items:center;margin-left:4px;}
+.typing-dots span{width:4px;height:4px;border-radius:50%;background:#3DBFA0;animation:typingDot 1.2s infinite;}
+.typing-dots span:nth-child(2){animation-delay:0.2s;}
+.typing-dots span:nth-child(3){animation-delay:0.4s;}
+
 .btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);padding:16px 36px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;border:none;transition:all 0.22s;font-family:'DM Sans',sans-serif;}
 .btn-start:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(175,135,55,0.35);}
 .btn-start svg{transition:transform 0.2s;}
 .btn-start:hover svg{transform:translateX(4px);}
-.intro-steps-hint{margin-top:20px;font-size:0.78rem;color:var(--mist);}
+.intro-steps-hint{margin-top:16px;font-size:0.78rem;color:var(--mist);}
 
 /* ===== STEP SLIDES ===== */
 .step-slide{flex-direction:column;background:var(--ink);}
@@ -103,33 +189,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 .visual-label{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);margin-bottom:18px;text-align:center;}
 
 /* Right panel — benefit */
-.step-benefit{width:380px;flex-shrink:0;background:var(--ink);border-left:1px solid rgba(255,255,255,0.04);padding:44px 36px;display:flex;flex-direction:column;justify-content:center;}
-@media(max-width:1024px){.step-benefit{width:320px;padding:36px 28px;}}
-@media(max-width:768px){.step-benefit{width:100%;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:28px 24px;}}
+.step-benefit{width:400px;flex-shrink:0;background:var(--ink);border-left:1px solid rgba(255,255,255,0.04);padding:36px 32px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
+@media(max-width:1024px){.step-benefit{width:340px;padding:32px 24px;}}
+@media(max-width:768px){.step-benefit{width:100%;border-left:none;border-top:1px solid rgba(255,255,255,0.06);padding:24px 20px;}}
 
 /* Step header bar */
-.step-header{padding:14px 36px;background:var(--slate);border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:14px;flex-shrink:0;}
-.step-num{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);}
-.step-name{font-size:0.82rem;font-weight:600;color:var(--white);}
+.step-header{padding:12px 32px;background:var(--slate);border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.step-num{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);white-space:nowrap;}
+.step-name{font-size:0.82rem;font-weight:600;color:var(--white);flex:1;}
+.step-phase{margin-left:auto;white-space:nowrap;font-size:0.62rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:var(--gold-glow);border:1px solid rgba(175,135,55,0.25);color:var(--gold-light);}
 
 /* Agent badge */
-.agent-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;font-size:0.66rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
+.agent-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;font-size:0.66rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;}
 .agent-badge.gold{background:var(--gold-glow);border:1px solid rgba(175,135,55,0.3);color:var(--gold-light);}
 .agent-badge.green{background:var(--green-glow);border:1px solid rgba(30,148,118,0.3);color:#3DBFA0;}
 .agent-badge.blue{background:var(--blue-glow);border:1px solid rgba(37,99,235,0.3);color:#6B9EFF;}
 .agent-badge.purple{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);color:#A78BFA;}
 .agent-badge .agent-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:0.8;}
 
-.benefit-headline{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:700;line-height:1.25;color:var(--white);margin-bottom:14px;}
-.benefit-body{font-size:0.88rem;color:var(--mist);line-height:1.7;margin-bottom:20px;}
-.benefit-punchline{font-size:0.85rem;font-weight:600;color:var(--gold-light);border-left:2px solid var(--gold);padding-left:12px;line-height:1.5;margin-bottom:28px;}
+/* Time saved stat */
+.time-saved{display:inline-flex;align-items:center;gap:6px;background:rgba(30,148,118,0.1);border:1px solid rgba(30,148,118,0.2);color:#3DBFA0;font-size:0.68rem;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:14px;}
+
+.benefit-headline{font-family:'Playfair Display',serif;font-size:clamp(1.15rem,2.2vw,1.55rem);font-weight:700;line-height:1.28;color:var(--white);margin-bottom:12px;}
+.benefit-body{font-size:0.84rem;color:var(--mist);line-height:1.72;margin-bottom:16px;}
+.benefit-punchline{font-size:0.83rem;font-weight:600;color:var(--gold-light);border-left:2px solid var(--gold);padding-left:12px;line-height:1.5;margin-bottom:20px;}
 .benefit-punchline.green{color:#3DBFA0;border-color:var(--green);}
 .benefit-punchline.blue{color:#6B9EFF;border-color:var(--blue);}
 .benefit-punchline.purple{color:#A78BFA;border-color:var(--purple);}
 
+/* Without SPEC box */
+.without-spec{background:#1A1510;border:1px solid rgba(220,60,60,0.22);border-left:3px solid rgba(220,60,60,0.5);border-radius:8px;padding:12px 14px;margin-bottom:20px;}
+.without-spec-label{font-size:0.64rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:rgba(220,100,100,0.8);margin-bottom:5px;}
+.without-spec-text{font-size:0.8rem;color:rgba(200,194,180,0.7);line-height:1.6;}
+
 /* ===== NAVIGATION ===== */
-.step-nav{padding:14px 36px;background:var(--slate);border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px;}
-.nav-btn{display:inline-flex;align-items:center;gap:8px;background:var(--stone);border:1px solid rgba(255,255,255,0.08);color:var(--cloud);padding:10px 22px;border-radius:8px;font-size:0.83rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.step-nav{padding:12px 32px;background:var(--slate);border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px;}
+.nav-btn{display:inline-flex;align-items:center;gap:8px;background:var(--stone);border:1px solid rgba(255,255,255,0.08);color:var(--cloud);padding:9px 20px;border-radius:8px;font-size:0.83rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
 .nav-btn:hover:not(:disabled){background:rgba(255,255,255,0.08);color:var(--white);}
 .nav-btn:disabled{opacity:0.3;cursor:not-allowed;}
 .nav-btn.primary{background:var(--gold);color:var(--ink);border-color:var(--gold);}
@@ -140,7 +235,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 .step-dot.done{background:rgba(175,135,55,0.45);}
 
 /* ===== VISUAL COMPONENTS ===== */
-.email-card{background:var(--stone);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px 24px;width:100%;max-width:480px;text-align:left;}
+.email-card{background:var(--stone);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px 24px;width:100%;max-width:480px;text-align:left;position:relative;}
+.composing-indicator{position:absolute;top:14px;right:16px;font-size:0.65rem;font-weight:700;color:var(--gold-light);letter-spacing:0.05em;animation:composing 1s ease-in-out 3;}
 .email-from{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .email-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;color:#fff;flex-shrink:0;}
 .email-sender{font-size:0.8rem;color:var(--mist);}
@@ -177,7 +273,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 .crm-status.booked{background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.25);color:#6B9EFF;}
 .crm-status.signed{background:rgba(30,148,118,0.15);border:1px solid rgba(30,148,118,0.25);color:#3DBFA0;}
 
-.doc-card{background:var(--stone);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px 24px;width:100%;max-width:480px;text-align:left;}
+.doc-card{background:var(--stone);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px 24px;width:100%;max-width:480px;text-align:left;position:relative;}
+.signed-flash{position:absolute;top:14px;right:16px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:#3DBFA0;padding:3px 9px;border-radius:5px;background:rgba(30,148,118,0.15);border:1px solid rgba(30,148,118,0.3);animation:flashGreen 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;}
 .doc-top{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
 .doc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
 .doc-title{font-size:0.95rem;font-weight:700;color:var(--white);}
@@ -213,6 +310,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 
 .review-card{background:var(--stone);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px 24px;width:100%;max-width:420px;text-align:left;}
 .stars{color:#F5A623;font-size:1.4rem;letter-spacing:2px;margin-bottom:10px;}
+.star-char{display:inline-block;}
 .review-quote{font-size:0.88rem;color:var(--cloud);line-height:1.7;margin-bottom:14px;font-style:italic;}
 .review-author{font-size:0.8rem;color:var(--mist);}
 .review-author strong{color:var(--snow);}
@@ -229,15 +327,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 /* ===== RESULT SLIDE ===== */
 #slide-result{justify-content:center;align-items:center;text-align:center;background:var(--ink);padding:40px 24px;}
 .result-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(30,148,118,0.1) 0%,transparent 70%);pointer-events:none;}
-.result-content{position:relative;z-index:2;max-width:680px;}
-.result-icon{font-size:3rem;margin-bottom:24px;}
-.result-amount{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:700;color:var(--gold-light);line-height:1;margin-bottom:12px;}
-.result-tagline{font-family:'Playfair Display',serif;font-size:clamp(1rem,2.5vw,1.4rem);color:var(--white);margin-bottom:24px;font-style:italic;}
-.result-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+.result-content{position:relative;z-index:2;max-width:700px;width:100%;}
+.result-icon{font-size:3rem;margin-bottom:20px;}
+.result-amount{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:700;color:var(--gold-light);line-height:1;margin-bottom:10px;font-variant-numeric:tabular-nums;}
+.result-tagline{font-family:'Playfair Display',serif;font-size:clamp(1rem,2.5vw,1.35rem);color:var(--white);margin-bottom:12px;font-style:italic;}
+.result-tagline-sub{font-family:'Playfair Display',serif;font-size:clamp(0.82rem,1.6vw,1rem);color:var(--mist);font-style:italic;margin-bottom:28px;line-height:1.65;}
+.result-stats{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
 .result-stat{text-align:center;}
 .result-stat-val{font-size:1.6rem;font-weight:700;color:var(--green);margin-bottom:4px;}
 .result-stat-label{font-size:0.78rem;color:var(--mist);}
-.result-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+.result-mini-stats{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-bottom:14px;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;max-width:580px;margin-left:auto;margin-right:auto;}
+.result-mini-stat{flex:1;min-width:90px;padding:10px 12px;border-right:1px solid rgba(255,255,255,0.07);text-align:center;}
+.result-mini-stat:last-child{border-right:none;}
+.result-mini-val{font-size:0.95rem;font-weight:700;color:var(--white);}
+.result-mini-label{font-size:0.65rem;color:var(--mist);margin-top:2px;}
+.result-mini-stats-row2{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-bottom:28px;border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;max-width:580px;margin-left:auto;margin-right:auto;}
+.result-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
 .btn-cta{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:9px;font-size:0.9rem;font-weight:700;cursor:pointer;border:none;text-decoration:none;transition:all 0.22s;font-family:'DM Sans',sans-serif;}
 .btn-cta.primary{background:var(--gold);color:var(--ink);}
 .btn-cta.primary:hover{background:var(--gold-light);transform:translateY(-2px);}
@@ -287,18 +392,64 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="intro-grid"></div>
   <div class="intro-content">
     <div class="intro-label"><span class="dot"></span> Interactive Demo — All 15 Agents</div>
-    <h1 class="intro-h1">Watch your business run<br><em>while you do the work.</em></h1>
-    <p class="intro-sub">Meet Marcus Webb — a homeowner who just found you online. Click through 14 steps and watch your AI agents handle everything from his first message to his 5-star review.</p>
-    <div class="customer-card">
-      <div class="customer-avatar">M</div>
-      <div class="customer-info">
-        <div class="customer-name">Marcus Webb</div>
-        <div class="customer-meta">Homeowner · Denver, CO<br>Interested in a kitchen remodel</div>
-        <div class="customer-tag">New Lead</div>
+    <p class="intro-scene">11:47 PM. Tuesday. A homeowner just found your website.</p>
+    <h1 class="intro-h1">Your business never sleeps.</h1>
+    <p class="intro-tagline-sub">because your agents don't.</p>
+    <p class="intro-sub">Meet Marcus Webb — a homeowner who just filled out your form. Click through 14 steps and watch your AI agents handle everything from his first message to his 5-star review — while you were asleep.</p>
+
+    <div class="intro-duo">
+      <div class="customer-card">
+        <div class="customer-avatar">M</div>
+        <div class="customer-info">
+          <div class="customer-name">Marcus Webb</div>
+          <div class="customer-meta">Homeowner · Denver, CO<br>Kitchen remodel · ~$35K budget</div>
+          <div class="customer-tag">New Lead</div>
+          <div class="customer-time">Submitted form at 11:47 PM</div>
+        </div>
+      </div>
+
+      <div class="activity-panel">
+        <div class="activity-title"><span class="live-dot"></span> Agent Status — Live</div>
+        <div class="activity-agent active">
+          <div class="agent-status-icon gold-bg">⚡</div>
+          <div>
+            <div class="activity-agent-name">Lead Agent</div>
+            <div class="activity-agent-status">Processing Marcus's form<span class="typing-dots"><span></span><span></span><span></span></span></div>
+          </div>
+        </div>
+        <div class="activity-agent standby">
+          <div class="agent-status-icon gold-bg">📬</div>
+          <div>
+            <div class="activity-agent-name">Nurture Agent</div>
+            <div class="activity-agent-status">Standing by</div>
+          </div>
+        </div>
+        <div class="activity-agent standby">
+          <div class="agent-status-icon blue-bg">💬</div>
+          <div>
+            <div class="activity-agent-name">Email Reply Agent</div>
+            <div class="activity-agent-status">Standing by</div>
+          </div>
+        </div>
+        <div class="activity-agent standby">
+          <div class="agent-status-icon green-bg">📋</div>
+          <div>
+            <div class="activity-agent-name">Estimate Agent</div>
+            <div class="activity-agent-status">Standing by</div>
+          </div>
+        </div>
+        <div class="activity-agent standby">
+          <div class="agent-status-icon purple-bg">📊</div>
+          <div>
+            <div class="activity-agent-name">+ 11 more agents</div>
+            <div class="activity-agent-status">Ready to deploy</div>
+          </div>
+        </div>
       </div>
     </div>
+
     <button class="btn-start" onclick="goToStep(0)">
-      Start the Demo
+      Watch It Happen
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
     <p class="intro-steps-hint">14 steps &middot; ~3 minutes &middot; keyboard friendly</p>
@@ -309,34 +460,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 <div class="slide step-slide" id="step-0">
   <div class="step-header">
     <span class="step-num">Step 1 of 14</span>
-    <span class="step-name">Marcus submits your lead form at 10:47 PM</span>
+    <span class="step-name">Marcus submits your lead form at 11:47 PM</span>
+    <span class="step-phase">Day 0–7 · Lead Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 30% 60%,rgba(175,135,55,0.09),transparent 60%)"></div>
-      <div class="visual-label">Lead Agent fires — 2 minutes 14 seconds later</div>
-      <div class="email-card">
-        <span class="email-tag sent">✓ Sent Automatically</span>
-        <div class="email-from">
+      <div class="visual-label">Lead Agent fires — 2 minutes 14 seconds after form submit</div>
+      <div class="email-card anim-slide-up anim-d1">
+        <span class="composing-indicator">✉ Composing...</span>
+        <span class="email-tag sent anim-fade-in anim-d2">✓ Sent Automatically — 11:49 PM</span>
+        <div class="email-from anim-slide-up anim-d2">
           <div class="email-avatar" style="background:linear-gradient(135deg,#BF9438,#7a5f1f)">S</div>
           <div class="email-sender"><strong>Summit Renovations</strong>summit@summitrenov.com</div>
         </div>
-        <div class="email-subject">Re: Kitchen Remodel Inquiry — Marcus, we got your message!</div>
-        <div class="email-body">
+        <div class="email-subject anim-slide-up anim-d3">Re: Kitchen Remodel Inquiry — Marcus, we got your message!</div>
+        <div class="email-body anim-slide-up anim-d4">
           <p>Hi Marcus,</p>
-          <p>Thanks for reaching out! I personally review every inquiry and I'll be in touch within 24 hours to discuss your project.</p>
-          <p>In the meantime, take a look at some of our recent work: <span style="color:#6B9EFF;text-decoration:underline;">summitrenov.com/portfolio</span></p>
-          <p>Looking forward to talking with you.</p>
+          <p>I saw your inquiry about the kitchen remodel — 180 sq ft, full replacement, quartz counters. Great project. I love working on kitchens that size.</p>
+          <p>I'll personally reach out tomorrow morning to set up a quick walkthrough. In the meantime, here's a look at a similar project we finished last month: <span style="color:#6B9EFF;text-decoration:underline;">summitrenov.com/portfolio</span></p>
           <p style="margin-top:10px;">— Jake Morrison, Summit Renovations</p>
         </div>
-        <div class="email-time">Sent at 10:49 PM · Delivered ✓</div>
+        <div class="email-time anim-fade-in anim-d5">Sent 11:49 PM · 2 min after form submit · Delivered ✓</div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge gold"><span class="agent-dot"></span> Lead Agent</div>
-      <h2 class="benefit-headline">A real response in 2 minutes. At 10 PM.</h2>
-      <p class="benefit-body">Most contractors reply the next morning — or forget entirely. Your Lead Agent fires the moment the form lands, scores the lead, logs everything to your CRM, and sends a personalized reply that sounds like you wrote it.</p>
-      <div class="benefit-punchline">Marcus trusts you before you've even met him.</div>
+      <div class="time-saved">⏱ Saves ~45 min per lead</div>
+      <h2 class="benefit-headline">A real, personalized reply. In 2 minutes. While you were asleep.</h2>
+      <p class="benefit-body">Most contractors reply the next morning — if they remember at all. By then Marcus has already emailed two other companies. Your Lead Agent fires the second his form lands: scores the lead, logs every detail, and sends a reply that sounds like you wrote it personally. Hot leads get a text alert to your phone.</p>
+      <div class="benefit-punchline">Marcus trusts you before you've said a word.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You wake up to a cold lead. He booked someone else at 7 AM.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -351,32 +508,38 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 2 of 14</span>
     <span class="step-name">Marcus hasn't replied — 24 hours later</span>
+    <span class="step-phase">Day 0–7 · Lead Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 70% 30%,rgba(175,135,55,0.08),transparent 55%)"></div>
-      <div class="visual-label">Nurture Agent — timed follow-up sequence begins</div>
-      <div class="email-card">
-        <span class="email-tag ai">AI-Written · Personalized</span>
-        <div class="email-from">
+      <div class="visual-label">Nurture Agent — 3-message follow-up sequence begins</div>
+      <div class="email-card anim-slide-up anim-d1">
+        <span class="email-tag ai anim-fade-in anim-d2">AI-Written · Message 1 of 3 · Day 2</span>
+        <div class="email-from anim-slide-up anim-d2">
           <div class="email-avatar" style="background:linear-gradient(135deg,#BF9438,#7a5f1f)">S</div>
           <div class="email-sender"><strong>Summit Renovations</strong>summit@summitrenov.com</div>
         </div>
-        <div class="email-subject">Quick question about your kitchen, Marcus</div>
-        <div class="email-body">
+        <div class="email-subject anim-slide-up anim-d3">Quick question about your kitchen, Marcus</div>
+        <div class="email-body anim-slide-up anim-d4">
           <p>Hey Marcus,</p>
           <p>I wanted to follow up on your kitchen remodel question. We're currently booking consultations for April and I'd hate for you to miss our next available slot.</p>
           <p>What does your timeline look like? Even a quick 15-minute call would give you a realistic idea of scope and cost — no commitment required.</p>
           <p style="margin-top:10px;">— Jake</p>
         </div>
-        <div class="email-time">Sent Day 2 · 9:00 AM · Opened ✓</div>
+        <div class="email-time anim-fade-in anim-d5">Day 2 · 9:00 AM · Opened ✓ · Sequence continues if no reply</div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge gold"><span class="agent-dot"></span> Nurture Agent</div>
-      <h2 class="benefit-headline">Zero leads slip through the cracks.</h2>
-      <p class="benefit-body">Life gets busy. Marcus meant to reply but forgot. The Nurture Agent sends a perfectly-timed 3-message sequence — each one tailored, each one human. It knows when to push and when to back off.</p>
-      <div class="benefit-punchline">You're following up with every single lead, every time — without lifting a finger.</div>
+      <div class="time-saved">⏱ Saves ~3 hrs/week on follow-ups</div>
+      <h2 class="benefit-headline">He forgot to reply. The agent remembered for you.</h2>
+      <p class="benefit-body">Life got busy and Marcus's inbox filled up. The Nurture Agent sends 3 messages over 8 days — each with a different angle, each perfectly timed. The moment he replies to any of them, the sequence stops permanently. It never chases someone who's already engaged.</p>
+      <div class="benefit-punchline">You're following up with every lead, every time. Without thinking about it once.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You meant to follow up. It's been 2 weeks. He went with the other guy.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -391,33 +554,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 3 of 14</span>
     <span class="step-name">Marcus replies with questions about pricing and timeline</span>
+    <span class="step-phase">Day 0–7 · Lead Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 40% 50%,rgba(37,99,235,0.09),transparent 60%)"></div>
       <div class="visual-label">Email Reply Agent — reads, understands, responds in 4 minutes</div>
-      <div class="email-card">
-        <span class="email-tag automated">Auto-Reply · Intelligent</span>
-        <div class="email-from">
+      <div class="email-card anim-slide-up anim-d1">
+        <span class="email-tag automated anim-fade-in anim-d2">AI Reply · 4 Minutes · You Were on a Job Site</span>
+        <div class="email-from anim-slide-up anim-d2">
           <div class="email-avatar" style="background:linear-gradient(135deg,#2563EB,#1a3c8f)">S</div>
           <div class="email-sender"><strong>Summit Renovations</strong>summit@summitrenov.com</div>
         </div>
-        <div class="email-subject">Re: Quick question about your kitchen, Marcus</div>
-        <div class="email-body">
+        <div class="email-subject anim-slide-up anim-d3">Re: Quick question about your kitchen, Marcus</div>
+        <div class="email-body anim-slide-up anim-d4">
           <p>Hi Marcus,</p>
           <p>Great questions. For a 180 sq ft kitchen, a full remodel typically runs $35,000–$55,000 depending on materials and layout changes — that includes cabinets, counters, lighting, and flooring.</p>
           <p>Permitting is usually 4–6 weeks for approval — we handle all of that for you. Total timeline start to finish is typically 8–12 weeks.</p>
           <p>Happy to walk through the specifics on a quick call. Want me to send some open times?</p>
           <p style="margin-top:10px;">— Jake</p>
         </div>
-        <div class="email-time">Sent · Reply to Marcus's email · 11:32 AM</div>
+        <div class="email-time anim-fade-in anim-d5">Sent 4 min after Marcus's email · 11:32 AM</div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge blue"><span class="agent-dot"></span> Email Reply Agent</div>
-      <h2 class="benefit-headline">Every email answered. Instantly. Intelligently.</h2>
-      <p class="benefit-body">Marcus sent real questions about pricing, permits, and timeline. The Email Reply Agent read his message, understood what he was asking, and sent a detailed, accurate reply — in 4 minutes flat — while you were on a job site.</p>
-      <div class="benefit-punchline blue">That's you being remarkably responsive, 24 hours a day.</div>
+      <div class="time-saved">⏱ Saves ~1 hr/day on email</div>
+      <h2 class="benefit-headline">A detailed, accurate reply in 4 minutes. You were on a job site.</h2>
+      <p class="benefit-body">Marcus had real questions — budget ranges, permit timelines, how long it takes. The Email Reply Agent read his full thread, understood the context, and sent a comprehensive reply. Not a template. A real answer. While you were swinging a hammer 30 miles away.</p>
+      <div class="benefit-punchline blue">You're the most responsive contractor he's ever contacted. He doesn't know why. He just knows it.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">He sends 3 emails. You respond 6 hours later when you get off site. He's already on a competitor's website.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -431,14 +600,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 <div class="slide step-slide" id="step-3">
   <div class="step-header">
     <span class="step-num">Step 4 of 14</span>
-    <span class="step-name">Marcus books a consultation online</span>
+    <span class="step-name">Marcus books a consultation online — no back-and-forth</span>
+    <span class="step-phase">Day 0–7 · Lead Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 60% 40%,rgba(37,99,235,0.09),transparent 55%)"></div>
       <div class="visual-label">Calendly Agent — booking confirmed, CRM updated instantly</div>
       <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:480px;">
-        <div class="cal-card">
+        <div class="cal-card anim-bounce-in anim-d1">
           <div class="cal-header">Consultation Booked</div>
           <div class="cal-event">
             <div class="cal-time-col">
@@ -453,21 +623,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
           </div>
         </div>
         <div class="crm-card">
-          <div class="crm-header">
+          <div class="crm-header anim-slide-up anim-d2">
             <span class="crm-title">Marcus Webb — CRM Update</span>
             <span class="crm-badge updated">Auto-Updated</span>
           </div>
-          <div class="crm-row"><span class="crm-label">Status</span><span class="crm-value"><span class="crm-status booked">Consultation Booked</span></span></div>
-          <div class="crm-row"><span class="crm-label">Appt Date</span><span class="crm-value blue">April 3 · 10:00 AM</span></div>
-          <div class="crm-row"><span class="crm-label">Lead Score</span><span class="crm-value gold">87/100 — Hot Lead</span></div>
+          <div class="crm-row anim-slide-up anim-d3"><span class="crm-label">Status</span><span class="crm-value"><span class="crm-status booked">Consultation Booked</span></span></div>
+          <div class="crm-row anim-slide-up anim-d4"><span class="crm-label">Appt Date</span><span class="crm-value blue">April 3 · 10:00 AM</span></div>
+          <div class="crm-row anim-slide-up anim-d5"><span class="crm-label">Lead Score</span><span class="crm-value gold">87/100 — Hot Lead</span></div>
+          <div class="crm-row anim-slide-up anim-d6"><span class="crm-label">Reminder</span><span class="crm-value green">✓ 24-hr email + 1-hr text queued</span></div>
         </div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge blue"><span class="agent-dot"></span> Calendly Agent</div>
-      <h2 class="benefit-headline">Booked, confirmed, and logged — automatically.</h2>
-      <p class="benefit-body">Marcus picked a slot, confirmed it, and your Calendly Agent caught the booking instantly — sending him a reminder sequence, updating his CRM record, and adding the appointment to your calendar. No back-and-forth emails. No double-bookings.</p>
-      <div class="benefit-punchline blue">You woke up to a booked consultation. You didn't lift a finger to get it.</div>
+      <div class="time-saved">⏱ Saves ~1.5 hrs/week on scheduling</div>
+      <h2 class="benefit-headline">You woke up to a booked consultation. You didn't schedule it.</h2>
+      <p class="benefit-body">Marcus picked a slot, confirmed it, and your Calendly Agent caught the booking instantly — sending him a reminder sequence, updating his CRM record, and adding the appointment to your calendar. No back-and-forth. No "what time works for you?" No double-bookings. Just a confirmed meeting.</p>
+      <div class="benefit-punchline blue">No back-and-forth. No phone tag. Just a confirmed meeting in your calendar.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You play phone tag for 4 days. Marcus loses patience and calls someone easier to reach.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -482,35 +658,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 5 of 14</span>
     <span class="step-name">You walk the job — 1 hour with Marcus at his home</span>
+    <span class="step-phase">Day 3–10 · Estimate &amp; Proposal Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 35% 55%,rgba(175,135,55,0.09),transparent 60%)"></div>
-      <div class="visual-label">Estimate Agent — structured line-item estimate in 8 minutes</div>
-      <div class="doc-card">
-        <div class="doc-top">
+      <div class="visual-label">Estimate Agent — full line-item estimate in 60 seconds</div>
+      <div class="doc-card anim-slide-up anim-d1">
+        <div class="doc-top anim-fade-in anim-d2">
           <div class="doc-icon" style="background:rgba(175,135,55,0.1);border:1px solid rgba(175,135,55,0.2);">📋</div>
           <div>
             <div class="doc-title">Kitchen Remodel Estimate</div>
             <div class="doc-sub">Marcus Webb · 5842 Larimer St, Denver CO</div>
           </div>
         </div>
-        <div class="doc-line"><span class="doc-line-label">Cabinet replacement (42 lin ft)</span><span class="doc-line-val">$14,200</span></div>
-        <div class="doc-line"><span class="doc-line-label">Quartz countertops (62 sq ft)</span><span class="doc-line-val">$6,800</span></div>
-        <div class="doc-line"><span class="doc-line-label">Tile backsplash + labor</span><span class="doc-line-val">$2,400</span></div>
-        <div class="doc-line"><span class="doc-line-label">Electrical / lighting upgrade</span><span class="doc-line-val">$3,200</span></div>
-        <div class="doc-line"><span class="doc-line-label">LVP flooring (180 sq ft)</span><span class="doc-line-val">$4,100</span></div>
-        <div class="doc-line"><span class="doc-line-label">Plumbing rough-in</span><span class="doc-line-val">$2,900</span></div>
-        <div class="doc-line"><span class="doc-line-label">Demo &amp; haul-off</span><span class="doc-line-val">$2,800</span></div>
-        <div class="doc-line"><span class="doc-line-label">Permits &amp; inspections</span><span class="doc-line-val">$1,200</span></div>
-        <div class="doc-total"><span>Project Total</span><span class="doc-total-val">$37,400</span></div>
+        <div class="doc-line anim-slide-up anim-d2"><span class="doc-line-label">Cabinet replacement (42 lin ft)</span><span class="doc-line-val">$14,200</span></div>
+        <div class="doc-line anim-slide-up anim-d3"><span class="doc-line-label">Quartz countertops (62 sq ft)</span><span class="doc-line-val">$6,800</span></div>
+        <div class="doc-line anim-slide-up anim-d3"><span class="doc-line-label">Tile backsplash + labor</span><span class="doc-line-val">$2,400</span></div>
+        <div class="doc-line anim-slide-up anim-d4"><span class="doc-line-label">Electrical / lighting upgrade</span><span class="doc-line-val">$3,200</span></div>
+        <div class="doc-line anim-slide-up anim-d4"><span class="doc-line-label">LVP flooring (180 sq ft)</span><span class="doc-line-val">$4,100</span></div>
+        <div class="doc-line anim-slide-up anim-d5"><span class="doc-line-label">Plumbing rough-in</span><span class="doc-line-val">$2,900</span></div>
+        <div class="doc-line anim-slide-up anim-d5"><span class="doc-line-label">Demo &amp; haul-off + Permits</span><span class="doc-line-val">$4,000</span></div>
+        <div class="doc-total anim-slide-up anim-d6"><span>Project Total</span><span class="doc-total-val">$37,400</span></div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge gold"><span class="agent-dot"></span> Estimate Agent</div>
-      <h2 class="benefit-headline">Professional estimate ready before you leave the driveway.</h2>
-      <p class="benefit-body">You walked the job and logged your notes. The Estimate Agent turned them into a detailed line-item breakdown — materials, labor, permits — formatted and stored in the CRM. No hunting for old spreadsheets at 9 PM.</p>
-      <div class="benefit-punchline">You look more organized than the $2M company they also called.</div>
+      <div class="time-saved">⏱ Saves ~2 hrs per estimate</div>
+      <h2 class="benefit-headline">A complete, professional estimate in 60 seconds. You just walked the job.</h2>
+      <p class="benefit-body">You drove away from Marcus's house, logged your site visit notes, and before you hit the highway — a full itemized estimate was waiting in the CRM. Labor, materials, permits, markup — all calculated from your pricing settings. No spreadsheet. No guesswork. No Saturday night math.</p>
+      <div class="benefit-punchline">You look more organized than the $2M company he also called.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You get home at 8 PM, start the estimate, fall asleep before you finish it. You send it 3 days late.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -524,34 +705,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 <div class="slide step-slide" id="step-5">
   <div class="step-header">
     <span class="step-num">Step 6 of 14</span>
-    <span class="step-name">Proposal delivered the same afternoon</span>
+    <span class="step-name">Branded proposal delivered same afternoon as the walkthrough</span>
+    <span class="step-phase">Day 3–10 · Estimate &amp; Proposal Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 65% 45%,rgba(175,135,55,0.08),transparent 55%)"></div>
-      <div class="visual-label">Proposal Agent — branded PDF proposal, auto-sent</div>
-      <div class="email-card">
-        <span class="email-tag ai">AI-Generated · Branded PDF</span>
-        <div class="email-from">
+      <div class="visual-label">Proposal Agent — branded PDF proposal, auto-sent by 4 PM</div>
+      <div class="email-card anim-slide-up anim-d1">
+        <span class="email-tag ai anim-fade-in anim-d2">AI-Generated · Branded PDF · Same-Day Delivery</span>
+        <div class="email-from anim-slide-up anim-d2">
           <div class="email-avatar" style="background:linear-gradient(135deg,#BF9438,#7a5f1f)">S</div>
           <div class="email-sender"><strong>Summit Renovations</strong>summit@summitrenov.com</div>
         </div>
-        <div class="email-subject">Your Kitchen Renovation Proposal — Summit Renovations</div>
-        <div class="email-body">
+        <div class="email-subject anim-slide-up anim-d3">Your Kitchen Renovation Proposal — Summit Renovations</div>
+        <div class="email-body anim-slide-up anim-d4">
           <p>Hi Marcus,</p>
-          <p>It was great meeting you today. I've put together your full proposal — it covers everything we discussed, including our process, timeline, materials, and what makes our work different.</p>
+          <p>It was great meeting you today. I've put together your full proposal — scope of work, project timeline, itemized pricing, payment schedule, and a section on why our work is different.</p>
           <p>📄 <span style="color:#6B9EFF;text-decoration:underline;">Kitchen_Proposal_MarcusWebb.pdf</span></p>
-          <p>The proposal is valid for 30 days. Happy to walk through it on a quick call if anything's unclear.</p>
+          <p>Valid for 30 days. Happy to walk through anything on a quick call.</p>
           <p style="margin-top:10px;">— Jake</p>
         </div>
-        <div class="email-time">Sent same day as consultation · 4:15 PM</div>
+        <div class="email-time anim-fade-in anim-d5">Sent 4:15 PM — same day as your walkthrough</div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge gold"><span class="agent-dot"></span> Proposal Agent</div>
-      <h2 class="benefit-headline">A polished proposal — same day, every time.</h2>
-      <p class="benefit-body">Your Proposal Agent pulls the estimate, writes the proposal copy, applies your branding, and emails it while you're driving to your next job. Most contractors take 3–5 days. You took 3 hours.</p>
+      <div class="time-saved">⏱ Saves ~3 hrs per proposal</div>
+      <h2 class="benefit-headline">A branded, professional proposal — same afternoon as the walkthrough.</h2>
+      <p class="benefit-body">The Proposal Agent turned your estimate into a complete document: scope of work in plain language, project timeline, itemized pricing, payment schedule, and a section on why you're different. In your branding. In Marcus's inbox by 4 PM — the same day you walked his kitchen. Most contractors take 3–5 days.</p>
       <div class="benefit-punchline">Speed signals professionalism. Marcus is already leaning yes.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You spend your Saturday writing a proposal that might not close. Your competitor sent theirs on Friday.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -566,32 +753,38 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 7 of 14</span>
     <span class="step-name">3 days pass — Marcus is still deciding</span>
+    <span class="step-phase">Day 3–10 · Estimate &amp; Proposal Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 40% 60%,rgba(175,135,55,0.07),transparent 55%)"></div>
-      <div class="visual-label">Proposal Follow-up Agent — gentle, well-timed nudge</div>
-      <div class="email-card">
-        <span class="email-tag ai">Timed Follow-up · Day 3</span>
-        <div class="email-from">
+      <div class="visual-label">Proposal Follow-up Agent — gentle, well-timed nudge on Day 3</div>
+      <div class="email-card anim-slide-up anim-d1">
+        <span class="email-tag ai anim-fade-in anim-d2">Timed Follow-up · Day 3 After Proposal</span>
+        <div class="email-from anim-slide-up anim-d2">
           <div class="email-avatar" style="background:linear-gradient(135deg,#BF9438,#7a5f1f)">S</div>
           <div class="email-sender"><strong>Summit Renovations</strong>summit@summitrenov.com</div>
         </div>
-        <div class="email-subject">Following up — any questions on the proposal?</div>
-        <div class="email-body">
+        <div class="email-subject anim-slide-up anim-d3">Following up — any questions on the proposal?</div>
+        <div class="email-body anim-slide-up anim-d4">
           <p>Hey Marcus,</p>
           <p>Just checking in on the kitchen proposal. These decisions take time, so no rush — I just want to make sure you have everything you need to feel confident.</p>
-          <p>Do you have any questions about the scope, materials, or timeline? Happy to adjust anything before you decide.</p>
+          <p>Any questions about the scope, materials, or timeline? Happy to adjust anything before you decide.</p>
           <p style="margin-top:10px;">— Jake</p>
         </div>
-        <div class="email-time">Day 3 after proposal · Auto-sent · 10:00 AM</div>
+        <div class="email-time anim-fade-in anim-d5">Day 3 after proposal · Auto-sent · 10:00 AM</div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge gold"><span class="agent-dot"></span> Proposal Follow-up Agent</div>
-      <h2 class="benefit-headline">The follow-up that closes jobs while you sleep.</h2>
-      <p class="benefit-body">80% of jobs go to whoever follows up first. Your Proposal Follow-up Agent sends a perfectly-timed sequence — not pushy, just persistent. It knows when Marcus opened the PDF and times each message around that signal.</p>
-      <div class="benefit-punchline">The contractor who follows up wins. You always follow up.</div>
+      <div class="time-saved">⏱ Saves ~2 hrs/week on follow-ups</div>
+      <h2 class="benefit-headline">Day 3. Marcus is still deciding. The agent checked in for you.</h2>
+      <p class="benefit-body">Studies show 80% of closed deals require 5+ touches. Your Proposal Follow-up Agent sends a perfectly-timed sequence — not pushy, just persistent. Each message has a different angle. Each stops the moment Marcus says yes.</p>
+      <div class="benefit-punchline">Studies show 80% of closed deals require 5+ touches. You make every single touch automatically.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You forget to follow up. Marcus assumes you're not that interested. He goes with the contractor who checked in.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -606,25 +799,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 8 of 14</span>
     <span class="step-name">Marcus says yes — "Let's move forward"</span>
+    <span class="step-phase">Day 10–14 · Contract Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 50% 40%,rgba(30,148,118,0.09),transparent 55%)"></div>
       <div class="visual-label">Contract Agent — contract sent, signed via DocuSign in 48 hours</div>
       <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:480px;">
-        <div class="doc-card">
-          <div class="doc-top">
+        <div class="doc-card anim-slide-up anim-d1">
+          <div class="signed-flash">✓ SIGNED</div>
+          <div class="doc-top anim-fade-in anim-d2">
             <div class="doc-icon" style="background:rgba(30,148,118,0.1);border:1px solid rgba(30,148,118,0.2);">📄</div>
             <div>
               <div class="doc-title">Renovation Contract</div>
               <div class="doc-sub">Marcus Webb · Kitchen Remodel · $37,400</div>
             </div>
           </div>
-          <div class="doc-line"><span class="doc-line-label">Status</span><span class="doc-line-val green">✓ Signed — DocuSign</span></div>
-          <div class="doc-line"><span class="doc-line-label">Deposit Due</span><span class="doc-line-val" style="color:var(--gold-light)">$9,350 (25%)</span></div>
-          <div class="doc-line"><span class="doc-line-label">Start Date</span><span class="doc-line-val">April 14</span></div>
+          <div class="doc-line anim-slide-up anim-d3"><span class="doc-line-label">Status</span><span class="doc-line-val green">✓ Signed via DocuSign</span></div>
+          <div class="doc-line anim-slide-up anim-d4"><span class="doc-line-label">Deposit Due</span><span class="doc-line-val" style="color:var(--gold-light)">$9,350 (25%)</span></div>
+          <div class="doc-line anim-slide-up anim-d5"><span class="doc-line-label">Start Date</span><span class="doc-line-val">April 14</span></div>
         </div>
-        <div class="crm-card">
+        <div class="crm-card anim-slide-up anim-d4">
           <div class="crm-header">
             <span class="crm-title">Marcus Webb</span>
             <span class="crm-badge updated">Promoted to Client</span>
@@ -636,9 +831,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
     </div>
     <div class="step-benefit">
       <div class="agent-badge green"><span class="agent-dot"></span> Contract Agent</div>
-      <h2 class="benefit-headline">Contract sent, signed, and filed — zero paperwork.</h2>
-      <p class="benefit-body">The moment Marcus said yes, your Contract Agent drafted the agreement with all the right terms, sent it via DocuSign, followed up once at 48 hours, and filed the signed copy automatically. Marcus moved to "Active Client" in your CRM the instant he signed.</p>
-      <div class="benefit-punchline green">$37,400 locked in. No awkward paperwork conversation.</div>
+      <div class="time-saved">⏱ Saves ~3 hrs per contract</div>
+      <h2 class="benefit-headline">$37,400 locked in. Contract drafted, sent, and signed in 48 hours.</h2>
+      <p class="benefit-body">The second Marcus said yes, your Contract Agent built the full agreement — scope, pricing, payment schedule, legal terms — and sent it via DocuSign. Followed up once when it sat unsigned. When he signed, the system immediately moved him to Active Client and triggered the deposit invoice. You didn't write a single line.</p>
+      <div class="benefit-punchline green">$37,400. Locked in. Before you finished your next job.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You tell him you'll send the contract "this week." It takes 5 days. He gets nervous. The deal cools.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -653,35 +853,41 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 9 of 14</span>
     <span class="step-name">Marcus is now an official client</span>
+    <span class="step-phase">Day 10–14 · Contract Phase</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 45% 55%,rgba(30,148,118,0.08),transparent 55%)"></div>
-      <div class="visual-label">Welcome Agent — full onboarding sequence fires immediately</div>
-      <div class="email-card">
-        <span class="email-tag sent">Welcome Sequence — Auto-Sent on Signing</span>
-        <div class="email-from">
+      <div class="visual-label">Welcome Agent — full onboarding sequence fires on contract sign</div>
+      <div class="email-card anim-slide-up anim-d1">
+        <span class="email-tag sent anim-fade-in anim-d2">Welcome Sequence — Fired Instantly on Signing</span>
+        <div class="email-from anim-slide-up anim-d2">
           <div class="email-avatar" style="background:linear-gradient(135deg,#1E9476,#0f5740)">S</div>
           <div class="email-sender"><strong>Summit Renovations</strong>summit@summitrenov.com</div>
         </div>
-        <div class="email-subject">Welcome to the Summit family, Marcus!</div>
-        <div class="email-body">
+        <div class="email-subject anim-slide-up anim-d3">Welcome to the Summit family, Marcus!</div>
+        <div class="email-body anim-slide-up anim-d4">
           <p>Hi Marcus,</p>
           <p>We're so excited to work on your kitchen. Here's what happens next:</p>
           <p>✅ <strong>Deposit invoice</strong> on its way — $9,350 due before April 14<br>
           📅 <strong>Pre-construction walkthrough</strong> — April 10 at 9 AM (invite sent)<br>
-          📋 <strong>Material selections</strong> — our design coordinator will reach out within 48 hrs<br>
+          📋 <strong>Material selections</strong> — our design coordinator will reach out in 48 hrs<br>
           📱 <strong>Weekly updates</strong> — every Friday with progress photos</p>
           <p style="margin-top:10px;">— Jake</p>
         </div>
-        <div class="email-time">Auto-triggered on contract sign · Immediate</div>
+        <div class="email-time anim-fade-in anim-d5">Auto-triggered on contract sign · Immediate · Deposit invoice in his inbox</div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge green"><span class="agent-dot"></span> Welcome Agent</div>
-      <h2 class="benefit-headline">Marcus feels taken care of before day one.</h2>
-      <p class="benefit-body">The Welcome Agent sends a complete onboarding package the instant the contract is signed — welcome email, deposit invoice, pre-construction calendar invite, and a full timeline of what to expect. Marcus feels like a VIP client from the very first moment.</p>
+      <div class="time-saved">⏱ Saves ~45 min per new client</div>
+      <h2 class="benefit-headline">Marcus feels like a VIP client from the moment he signs.</h2>
+      <p class="benefit-body">Before Marcus even closed his laptop, your Welcome Agent sent him a complete onboarding email — start date, pre-construction walkthrough, materials timeline, weekly update schedule, and who to call if he has questions. His deposit invoice was already in his inbox. He already feels like he made the right choice.</p>
       <div class="benefit-punchline green">A great first impression is the best path to a 5-star review.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">Marcus signs and hears nothing for 4 days. He starts to wonder if he made a mistake.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -695,31 +901,37 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 <div class="slide step-slide" id="step-9">
   <div class="step-header">
     <span class="step-num">Step 10 of 14</span>
-    <span class="step-name">Job start date: April 14 — 3 weeks away</span>
+    <span class="step-name">Job start date: April 14 — crew needs to know where to be</span>
+    <span class="step-phase">Week 3 · Job Kickoff</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 55% 45%,rgba(124,58,237,0.08),transparent 55%)"></div>
-      <div class="visual-label">Job Planning Agent — phase plan, subs notified, materials checklist</div>
-      <div class="crm-card" style="max-width:480px;">
-        <div class="crm-header">
+      <div class="visual-label">Job Planning Agent — phase plan, subs notified, materials ordered</div>
+      <div class="crm-card anim-slide-up anim-d1" style="max-width:480px;">
+        <div class="crm-header anim-fade-in anim-d2">
           <span class="crm-title">Job Plan — Marcus Webb Kitchen</span>
           <span class="crm-badge new">Auto-Generated</span>
         </div>
-        <div class="crm-row"><span class="crm-label">Phase 1</span><span class="crm-value">Demo &amp; Rough-In · Apr 14–18</span></div>
-        <div class="crm-row"><span class="crm-label">Phase 2</span><span class="crm-value">Electrical &amp; Plumbing · Apr 21–25</span></div>
-        <div class="crm-row"><span class="crm-label">Phase 3</span><span class="crm-value">Cabinet Install · Apr 28–May 2</span></div>
-        <div class="crm-row"><span class="crm-label">Phase 4</span><span class="crm-value">Counters &amp; Tile · May 5–9</span></div>
-        <div class="crm-row"><span class="crm-label">Phase 5</span><span class="crm-value">Flooring &amp; Finish · May 12–16</span></div>
-        <div class="crm-row"><span class="crm-label">Subs Notified</span><span class="crm-value green">✓ Electrician, Plumber, Tile</span></div>
-        <div class="crm-row"><span class="crm-label">Materials</span><span class="crm-value green">✓ Order checklist triggered</span></div>
+        <div class="crm-row anim-slide-up anim-d2"><span class="crm-label">Phase 1</span><span class="crm-value">Demo &amp; Rough-In · Apr 14–18</span></div>
+        <div class="crm-row anim-slide-up anim-d3"><span class="crm-label">Phase 2</span><span class="crm-value">Electrical &amp; Plumbing · Apr 21–25</span></div>
+        <div class="crm-row anim-slide-up anim-d3"><span class="crm-label">Phase 3</span><span class="crm-value">Cabinet Install · Apr 28–May 2</span></div>
+        <div class="crm-row anim-slide-up anim-d4"><span class="crm-label">Phase 4</span><span class="crm-value">Counters &amp; Tile · May 5–9</span></div>
+        <div class="crm-row anim-slide-up anim-d4"><span class="crm-label">Phase 5</span><span class="crm-value">Flooring &amp; Finish · May 12–16</span></div>
+        <div class="crm-row anim-slide-up anim-d5"><span class="crm-label">Subs Notified</span><span class="crm-value green">✓ Electrician, Plumber, Tile</span></div>
+        <div class="crm-row anim-slide-up anim-d6"><span class="crm-label">Materials</span><span class="crm-value green">✓ Order checklist triggered</span></div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge purple"><span class="agent-dot"></span> Job Planning Agent</div>
-      <h2 class="benefit-headline">Every job starts organized — every single time.</h2>
-      <p class="benefit-body">Your Job Planning Agent builds the full phase breakdown, notifies your subcontractors with their start dates, and creates your materials checklist automatically when a contract is signed. No more Monday morning scrambles to figure out who's going where.</p>
-      <div class="benefit-punchline purple">You look like the most buttoned-up contractor they've ever hired.</div>
+      <div class="time-saved">⏱ Saves ~3 hrs per job kickoff</div>
+      <h2 class="benefit-headline">The entire job is planned before your crew shows up Monday.</h2>
+      <p class="benefit-body">Your Job Planning Agent builds the full phase breakdown, notifies your subcontractors with their start dates, and creates your materials checklist automatically when a contract is signed. No more Sunday night texts figuring out who's going where.</p>
+      <div class="benefit-punchline purple">You look like the most organized contractor they've ever hired. That reputation pays for itself.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You spend Sunday night texting subs, figuring out who's going where, ordering materials you forgot.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -733,34 +945,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 <div class="slide step-slide" id="step-10">
   <div class="step-header">
     <span class="step-num">Step 11 of 14</span>
-    <span class="step-name">Week 3 — cabinets are going in</span>
+    <span class="step-name">Week 3 — cabinets are going in, Marcus hasn't heard from you</span>
+    <span class="step-phase">Weeks 3–7 · Active Job</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 40% 50%,rgba(30,148,118,0.08),transparent 55%)"></div>
       <div class="visual-label">Client Agent — weekly update + mid-job satisfaction check</div>
-      <div class="email-card">
-        <span class="email-tag automated">Weekly Update · Every Friday</span>
-        <div class="email-from">
+      <div class="email-card anim-slide-up anim-d1">
+        <span class="email-tag automated anim-fade-in anim-d2">Weekly Update · Every Friday · Auto-Sent</span>
+        <div class="email-from anim-slide-up anim-d2">
           <div class="email-avatar" style="background:linear-gradient(135deg,#1E9476,#0f5740)">S</div>
           <div class="email-sender"><strong>Summit Renovations</strong>summit@summitrenov.com</div>
         </div>
-        <div class="email-subject">Week 3 Update — Cabinets are in, Marcus!</div>
-        <div class="email-body">
+        <div class="email-subject anim-slide-up anim-d3">Week 3 Update — Cabinets are in, Marcus!</div>
+        <div class="email-body anim-slide-up anim-d4">
           <p>Hey Marcus,</p>
           <p>Week 3 recap: Your cabinets are installed and looking sharp. Countertop templating is scheduled for Tuesday — we'll need about 30 minutes of access.</p>
           <p>📸 <span style="color:#6B9EFF;text-decoration:underline;">View this week's progress photos →</span></p>
           <p>We're on track for your May 16 completion date. Any questions before we pick up Monday?</p>
           <p style="margin-top:10px;">— Jake &amp; the Summit crew</p>
         </div>
-        <div class="email-time">Friday 3:00 PM · Auto-sent · Week 3 of 5</div>
+        <div class="email-time anim-fade-in anim-d5">Friday 3:00 PM · Auto-sent · Week 3 of 5 · Marcus replied: "Love it!"</div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge green"><span class="agent-dot"></span> Client Agent</div>
-      <h2 class="benefit-headline">Marcus never wonders what's happening to his home.</h2>
-      <p class="benefit-body">The Client Agent sends a personalized progress update every Friday and a mid-job satisfaction check at the halfway point. Marcus stays informed, comfortable, and confident — which means he's already writing the 5-star review in his head before the job is even done.</p>
+      <div class="time-saved">⏱ Saves ~2 hrs/week during active jobs</div>
+      <h2 class="benefit-headline">Every Friday, Marcus gets a progress update before he has to ask for one.</h2>
+      <p class="benefit-body">The Client Agent sends a personalized weekly recap with what was completed, what's next, and a link to this week's progress photos. At the halfway point it runs a satisfaction check to catch any issues before they become complaints. If Marcus's messages show any frustration, the agent routes it directly to you — immediately.</p>
       <div class="benefit-punchline green">Happy clients mid-job become referral clients after it.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">Marcus hasn't heard from you in 10 days. He texts you. You're on a job. He calls your office number. No one picks up. He leaves a 3-star review.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -775,29 +993,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 12 of 14</span>
     <span class="step-name">Job complete — May 16. Marcus loves it.</span>
+    <span class="step-phase">Weeks 3–7 · Active Job</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 55% 40%,rgba(30,148,118,0.1),transparent 55%)"></div>
       <div class="visual-label">Invoice Agent — final invoice generated and sent automatically</div>
-      <div class="invoice-card">
-        <div class="invoice-head">
+      <div class="invoice-card anim-slide-up anim-d1">
+        <div class="invoice-head anim-fade-in anim-d2">
           <div class="invoice-head-title">Final Invoice</div>
-          <div class="invoice-head-amount">$28,050</div>
+          <div class="invoice-head-amount" id="invoice-amount">$28,050</div>
           <div class="invoice-head-sub">Remaining balance · Marcus Webb · Kitchen Remodel</div>
         </div>
-        <div class="invoice-row"><span class="invoice-row-label">Contract Total</span><span class="invoice-row-val">$37,400.00</span></div>
-        <div class="invoice-row"><span class="invoice-row-label">Deposit Paid (Apr 10)</span><span class="invoice-row-val" style="color:#3DBFA0;">– $9,350.00</span></div>
-        <div class="invoice-row"><span class="invoice-row-label">Balance Due</span><span class="invoice-row-val" style="color:var(--gold-light);font-weight:700;">$28,050.00</span></div>
-        <div class="invoice-row"><span class="invoice-row-label">Due Date</span><span class="invoice-row-val">May 23 (Net 7)</span></div>
-        <div class="invoice-row"><span class="invoice-row-label">Pay Online</span><span class="invoice-row-val" style="color:#6B9EFF;">summitrenov.com/pay ↗</span></div>
+        <div class="invoice-row anim-slide-up anim-d3"><span class="invoice-row-label">Contract Total</span><span class="invoice-row-val">$37,400.00</span></div>
+        <div class="invoice-row anim-slide-up anim-d4"><span class="invoice-row-label">Deposit Paid (Apr 10)</span><span class="invoice-row-val" style="color:#3DBFA0;">– $9,350.00</span></div>
+        <div class="invoice-row anim-slide-up anim-d5"><span class="invoice-row-label">Balance Due</span><span class="invoice-row-val" style="color:var(--gold-light);font-weight:700;">$28,050.00</span></div>
+        <div class="invoice-row anim-slide-up anim-d5"><span class="invoice-row-label">Due Date</span><span class="invoice-row-val">May 23 (Net 7)</span></div>
+        <div class="invoice-row anim-slide-up anim-d6"><span class="invoice-row-label">Pay Online</span><span class="invoice-row-val" style="color:#6B9EFF;">summitrenov.com/pay ↗</span></div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge green"><span class="agent-dot"></span> Invoice Agent</div>
-      <h2 class="benefit-headline">$28,050 invoiced the same day the job wraps.</h2>
-      <p class="benefit-body">Your Invoice Agent generated and sent the final invoice the moment you marked the job complete — pulling the contract total, subtracting the deposit, and attaching an online payment link. No invoicing delay means no cash flow delay.</p>
-      <div class="benefit-punchline green">Most contractors wait 2 weeks to invoice. You invoice in 2 minutes.</div>
+      <div class="time-saved">⏱ Saves ~1 hr per invoice + faster payment</div>
+      <h2 class="benefit-headline">The invoice was in Marcus's inbox before you left the job site.</h2>
+      <p class="benefit-body">The moment you marked the job complete, your Invoice Agent generated the final bill, pulled in the deposit credit, calculated the balance, and sent it with an online payment link. Net 7 terms, professional format, your branding. Most contractors take 1–2 weeks to invoice after a job closes. Every day you wait is a day the money sits in someone else's bank account.</p>
+      <div class="benefit-punchline green">Most contractors invoice 2 weeks late. You invoice in 2 minutes.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You forget to invoice for 3 weeks. Marcus mentions it. Cash flow suffers. Your margins look worse than they are.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -812,21 +1036,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="step-header">
     <span class="step-num">Step 13 of 14</span>
     <span class="step-name">Marcus pays — the job is officially closed</span>
+    <span class="step-phase">Day 42+ · Close &amp; Grow</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 45% 55%,rgba(175,135,55,0.09),transparent 55%)"></div>
-      <div class="visual-label">Completion Agent — Google review request + 30-day check-in queued</div>
+      <div class="visual-label">Completion Agent — review request via text + 30-day check-in queued</div>
       <div style="display:flex;flex-direction:column;gap:14px;width:100%;max-width:480px;align-items:center;">
-        <div class="sms-phone" style="max-width:100%;">
+        <div class="sms-phone anim-bounce-in anim-d1" style="max-width:100%;">
           <div class="sms-top">Summit Renovations · Text Message</div>
           <div class="sms-bubble">Hey Marcus! The kitchen looks incredible — we're so proud of how it came out. Would you mind leaving us a quick Google review? It takes 60 seconds and means the world to us 🙏</div>
           <div class="sms-time">May 17 · 5:00 PM</div>
-          <div class="sms-bubble reply">Absolutely! You guys were amazing to work with. Already left one ⭐⭐⭐⭐⭐</div>
+          <div class="sms-bubble reply">Absolutely! You guys were amazing. Already left one ⭐⭐⭐⭐⭐</div>
           <div class="sms-time">May 17 · 6:34 PM</div>
         </div>
-        <div class="review-card">
-          <div class="stars">★★★★★</div>
+        <div class="review-card anim-slide-up anim-d3">
+          <div class="stars">
+            <span class="star-char" style="animation:sparkle 0.4s ease 0.5s both;display:inline-block;">★</span><span class="star-char" style="animation:sparkle 0.4s ease 0.65s both;display:inline-block;">★</span><span class="star-char" style="animation:sparkle 0.4s ease 0.80s both;display:inline-block;">★</span><span class="star-char" style="animation:sparkle 0.4s ease 0.95s both;display:inline-block;">★</span><span class="star-char" style="animation:sparkle 0.4s ease 1.10s both;display:inline-block;">★</span>
+          </div>
           <div class="review-quote">"Summit knocked it out of the park. Jake was professional, on time, and communicated every step of the way. My kitchen looks like a magazine photo. Already referred two neighbors."</div>
           <div class="review-author"><strong>Marcus Webb</strong> · Google Review · 2 days ago</div>
         </div>
@@ -834,9 +1061,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
     </div>
     <div class="step-benefit">
       <div class="agent-badge gold"><span class="agent-dot"></span> Completion Agent</div>
-      <h2 class="benefit-headline">5 stars. Without asking awkwardly.</h2>
-      <p class="benefit-body">The Completion Agent times the review request perfectly — right when Marcus is happiest. It sends a text, not an email, because texts get read. It also queues a 30-day check-in to catch any lingering questions before they become complaints online.</p>
+      <div class="time-saved">⏱ Saves the awkward ask — and your rating</div>
+      <h2 class="benefit-headline">5 stars. Without an awkward ask.</h2>
+      <p class="benefit-body">The Completion Agent sent the review request at exactly the right moment — right after payment, when Marcus was proudest of his kitchen. It sent a text, not an email, because texts get opened. Simple, one-tap link. Within 24 hours, Marcus left the review you just saw. It also scheduled a 30-day check-in to catch any punch-list items before they become public complaints.</p>
       <div class="benefit-punchline">Reviews are what your next lead reads before they call. Now you have another great one.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">You mean to ask for a review but feel awkward. Marcus forgets. Your Google rating stays at 4.1.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -850,14 +1082,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 <div class="slide step-slide" id="step-13">
   <div class="step-header">
     <span class="step-num">Step 14 of 14</span>
-    <span class="step-name">30 days later — the system is already working on the next job</span>
+    <span class="step-name">30 days later — the system is already working on your next job</span>
+    <span class="step-phase">Day 42+ · Close &amp; Grow</span>
   </div>
   <div class="step-body">
     <div class="step-visual">
       <div class="step-visual-bg" style="background:radial-gradient(circle at 50% 45%,rgba(124,58,237,0.08),transparent 55%)"></div>
       <div class="visual-label">Marketing Agent + Learning Agent — growth on autopilot</div>
-      <div class="report-card">
-        <div class="report-stat">
+      <div class="report-card anim-slide-up anim-d1">
+        <div class="report-stat anim-slide-up anim-d2">
           <div class="report-icon" style="background:rgba(175,135,55,0.1);border:1px solid rgba(175,135,55,0.2);">📣</div>
           <div class="report-stat-info">
             <div class="report-stat-label">Referral Campaign — Sent to Marcus</div>
@@ -865,7 +1098,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
             <div class="report-stat-sub">Personalized referral ask, auto-timed at 30 days post-job</div>
           </div>
         </div>
-        <div class="report-stat">
+        <div class="report-stat anim-slide-up anim-d3">
           <div class="report-icon" style="background:rgba(30,148,118,0.1);border:1px solid rgba(30,148,118,0.2);">📊</div>
           <div class="report-stat-info">
             <div class="report-stat-label">Monthly Performance Report</div>
@@ -873,7 +1106,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
             <div class="report-stat-sub">Conversion: 50% · Avg job value: $34,200</div>
           </div>
         </div>
-        <div class="report-stat">
+        <div class="report-stat anim-slide-up anim-d4">
           <div class="report-icon" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);">🧠</div>
           <div class="report-stat-info">
             <div class="report-stat-label">Learning Agent Insight</div>
@@ -881,21 +1114,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
             <div class="report-stat-sub">Recommendation: increase Google Ads budget by 20%</div>
           </div>
         </div>
-        <div class="report-stat">
+        <div class="report-stat anim-slide-up anim-d5">
           <div class="report-icon" style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);">💬</div>
           <div class="report-stat-info">
             <div class="report-stat-label">Re-engagement Campaign Active</div>
-            <div class="report-stat-val">12 old leads being re-nurtured</div>
-            <div class="report-stat-sub">2 replied · 1 re-booked a consultation</div>
+            <div class="report-stat-val">2 cold leads replied · 1 re-booked</div>
+            <div class="report-stat-sub">12 dead leads re-nurtured this month automatically</div>
           </div>
         </div>
       </div>
     </div>
     <div class="step-benefit">
       <div class="agent-badge purple"><span class="agent-dot"></span> Marketing Agent · Learning Agent</div>
-      <h2 class="benefit-headline">Your business gets smarter every single month.</h2>
-      <p class="benefit-body">The Marketing Agent runs referral campaigns, re-engages cold leads, and keeps your pipeline full. The Learning Agent tracks what's actually working and surfaces one data-backed insight per month. Most businesses never know why jobs come and go. You will.</p>
+      <div class="time-saved">⏱ Replaces a part-time marketing role</div>
+      <h2 class="benefit-headline">30 days later, the system is already working on your next job.</h2>
+      <p class="benefit-body">The Marketing Agent sent Marcus a referral ask at exactly the right time — 30 days after completion, when he's showing off his kitchen to everyone. Your Learning Agent analyzed the job data and flagged that Google Ads leads convert at 2x the rate of Facebook. Your monthly performance report is already in your inbox. Two cold leads from 6 months ago replied to a re-engagement campaign. One just booked a consultation.</p>
       <div class="benefit-punchline purple">Marcus just referred his neighbor. That's your next $40K job — from an automated text message.</div>
+      <div class="without-spec">
+        <div class="without-spec-label">Without this</div>
+        <div class="without-spec-text">Marcus told three people about his kitchen. None of them knew to call you. No referral system. No data. No growth.</div>
+      </div>
     </div>
   </div>
   <div class="step-nav">
@@ -910,8 +1148,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
   <div class="result-bg"></div>
   <div class="result-content">
     <div class="result-icon">🏆</div>
-    <div class="result-amount">$37,400</div>
+    <div class="result-amount" id="result-amount">$37,400</div>
     <div class="result-tagline">One job. Fully handled. You were on the tools the whole time.</div>
+    <div class="result-tagline-sub">That's 40+ hours of admin work you didn't do. That's your Friday evening back.<br>That's a business that grows whether you're paying attention or not.</div>
     <div class="result-stats">
       <div class="result-stat">
         <div class="result-stat-val">15</div>
@@ -930,7 +1169,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
         <div class="result-stat-label">Google Review</div>
       </div>
     </div>
-    <p style="font-size:0.95rem;color:var(--mist);margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7;">This isn't a one-time demo. SPEC Systems runs this workflow for every lead, every job, every month — across your whole business. While you're on-site, your agents are closing.</p>
+    <div class="result-mini-stats">
+      <div class="result-mini-stat">
+        <div class="result-mini-val">2 min</div>
+        <div class="result-mini-label">First response</div>
+      </div>
+      <div class="result-mini-stat">
+        <div class="result-mini-val">Same day</div>
+        <div class="result-mini-label">Proposal delivered</div>
+      </div>
+      <div class="result-mini-stat">
+        <div class="result-mini-val">48 hrs</div>
+        <div class="result-mini-label">Contract signed</div>
+      </div>
+    </div>
+    <div class="result-mini-stats result-mini-stats-row2">
+      <div class="result-mini-stat">
+        <div class="result-mini-val" style="color:#3DBFA0;">$0</div>
+        <div class="result-mini-label">Leads lost to slow response</div>
+      </div>
+      <div class="result-mini-stat">
+        <div class="result-mini-val" style="color:#3DBFA0;">100%</div>
+        <div class="result-mini-label">Jobs invoiced on time</div>
+      </div>
+      <div class="result-mini-stat">
+        <div class="result-mini-val" style="color:#F5A623;">5 ★</div>
+        <div class="result-mini-label">Google review earned</div>
+      </div>
+    </div>
     <div class="result-cta-row">
       <a href="contact.html" class="btn-cta primary">Get My System Built →</a>
       <a href="operations.html" class="btn-cta ghost">See All 15 Agents</a>
@@ -945,6 +1211,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rg
 const TOTAL_STEPS = 14;
 let currentStep = -1;
 let isAnimating = false;
+let counterAnimated = false;
 
 function getSlide(step) {
   if (step === -1) return document.getElementById('slide-intro');
@@ -965,6 +1232,24 @@ function buildAllDots() {
       el.appendChild(dot);
     }
   }
+}
+
+function animateCounter(el, target, duration) {
+  const start = performance.now();
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.floor(eased * target);
+    el.textContent = '$' + value.toLocaleString('en-US');
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = '$' + target.toLocaleString('en-US');
+    }
+  }
+  requestAnimationFrame(step);
 }
 
 function transitionTo(nextIdx) {
@@ -1013,6 +1298,21 @@ function transitionTo(nextIdx) {
     nextEl.scrollTop = 0;
     currentStep = nextIdx;
     isAnimating = false;
+
+    // Trigger result counter animation
+    if (nextIdx === TOTAL_STEPS && !counterAnimated) {
+      counterAnimated = true;
+      const amountEl = document.getElementById('result-amount');
+      if (amountEl) {
+        setTimeout(() => animateCounter(amountEl, 37400, 1500), 200);
+      }
+    }
+    // Reset counter if going back from result
+    if (nextIdx !== TOTAL_STEPS) {
+      counterAnimated = false;
+      const amountEl = document.getElementById('result-amount');
+      if (amountEl) amountEl.textContent = '$37,400';
+    }
   }, 420);
 }
 
@@ -1034,7 +1334,7 @@ function prevStep() {
 function goToIntro() { transitionTo(-1); }
 function goToResult() { transitionTo(TOTAL_STEPS); }
 function jumpToStep(step) { transitionTo(step); }
-function restart() { transitionTo(-1); }
+function restart() { counterAnimated = false; transitionTo(-1); }
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
