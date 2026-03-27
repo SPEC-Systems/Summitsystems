@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Agent Demo — SPEC Systems</title>
+<meta name="description" content="Watch 16 AI agents close a $1,745 landscaping job automatically — from first lead to 5-star review. Zero human involvement.">
+<link rel="icon" type="image/svg+xml" href="logo-icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0908;
+  --slate: #161412;
+  --stone: #201E18;
+  --navy: #0C1829;
+  --mist: #918A7A;
+  --cloud: #C8C2B4;
+  --snow: #F2EFE8;
+  --white: #FFFFFF;
+  --gold: #BF9438;
+  --gold-light: #CDA44A;
+  --gold-glow: rgba(175,135,55,0.15);
+  --gold-deep: #D4922A;
+  --green: #1E9476;
+  --green-glow: rgba(30,148,118,0.14);
+  --red: #E05C5C;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--snow);-webkit-font-smoothing:antialiased;overflow:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rgba(10,9,8,0.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(191,148,56,0.12);}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-img{height:32px;width:auto;}
+.logo-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--gold-light);letter-spacing:-0.01em;}
+.nav-links{display:flex;align-items:center;gap:22px;}
+.nav-links a{color:var(--mist);text-decoration:none;font-size:0.8rem;font-weight:500;letter-spacing:0.01em;transition:color 0.18s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--white);}
+.btn-nav{background:var(--gold);color:var(--ink)!important;border:none;padding:9px 20px;border-radius:7px;font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.18s;font-family:inherit;text-decoration:none;white-space:nowrap;}
+.btn-nav:hover{background:var(--gold-light);transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--cloud);border-radius:2px;transition:all 0.25s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-nav{display:none;position:fixed;top:61px;left:0;right:0;background:var(--slate);border-bottom:1px solid rgba(191,148,56,0.12);padding:20px 32px 28px;z-index:199;flex-direction:column;gap:18px;}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{color:var(--cloud);text-decoration:none;font-size:0.92rem;font-weight:500;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.mobile-nav .btn-nav{text-align:center;margin-top:8px;}
+
+/* ── PAGE LAYOUT ── */
+.page-wrap{display:flex;flex-direction:column;height:100vh;padding-top:61px;}
+
+/* ── HERO ── */
+.hero{padding:22px 0 16px;text-align:center;position:relative;flex-shrink:0;}
+.hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:600px;height:1px;background:linear-gradient(90deg,transparent,rgba(191,148,56,0.2),transparent);}
+.hero-eyebrow{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:24px;height:1px;background:var(--gold);opacity:0.45;}
+.hero h1{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--snow);line-height:1.15;margin-bottom:6px;letter-spacing:-0.02em;}
+.hero h1 span{color:var(--gold-light);}
+.hero p{font-size:0.87rem;color:var(--mist);margin-bottom:14px;}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.btn-start{background:var(--gold);color:var(--ink);padding:10px 26px;border-radius:8px;font-weight:700;font-size:0.88rem;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;display:inline-flex;align-items:center;gap:7px;letter-spacing:-0.01em;}
+.btn-start:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(175,135,55,0.35);}
+.btn-start.playing{background:var(--stone);color:var(--cloud);border:1px solid rgba(255,255,255,0.1);}
+.btn-portrait{background:transparent;color:var(--mist);padding:10px 18px;border-radius:8px;font-weight:500;font-size:0.82rem;border:1px solid rgba(255,255,255,0.1);cursor:pointer;transition:all 0.2s;font-family:inherit;display:inline-flex;align-items:center;gap:5px;}
+.btn-portrait:hover{color:var(--cloud);border-color:rgba(255,255,255,0.2);}
+.btn-portrait.active{border-color:rgba(191,148,56,0.4);color:var(--gold-light);}
+.hero-meta{font-size:0.7rem;color:rgba(145,138,122,0.45);margin-top:8px;}
+
+/* ── TIMELINE BAR ── */
+.timeline-bar{flex-shrink:0;background:var(--slate);border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);}
+.timeline-inner{max-width:1400px;margin:0 auto;padding:0 32px;display:flex;align-items:stretch;}
+.timeline-phase{flex:1;padding:8px 10px;font-size:0.63rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--mist);transition:all 0.4s;display:flex;align-items:center;gap:5px;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;position:relative;overflow:hidden;}
+.timeline-phase:last-child{border-right:none;}
+.timeline-phase::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.5s ease;}
+.timeline-phase.active{color:var(--gold-light);}
+.timeline-phase.active::before{transform:scaleX(1);}
+.timeline-phase.done{color:var(--green);}
+.timeline-phase.done::before{transform:scaleX(1);background:var(--green);}
+.phase-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.phase-count{font-size:0.58rem;opacity:0.55;flex-shrink:0;}
+
+/* ── MAIN PANELS ── */
+.panels{display:flex;flex:1;min-height:0;overflow:hidden;}
+
+/* LEFT PANEL */
+.panel-left{width:360px;flex-shrink:0;background:var(--slate);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;overflow:hidden;}
+.panel-left-header{padding:12px 18px 10px;border-bottom:1px solid rgba(255,255,255,0.05);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;}
+.panel-left-title{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);}
+.live-badge{display:flex;align-items:center;gap:5px;font-size:0.62rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;}
+.live-badge.ready{color:var(--mist);}
+.live-badge.live-mode{color:var(--green);}
+.live-badge.paused-mode{color:var(--gold);}
+.live-badge.done-mode{color:var(--green);}
+.live-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.live-dot.pulse{animation:pulse-dot 1.4s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.7);}}
+.agent-list{flex:1;overflow-y:auto;padding:8px 0;scrollbar-width:thin;scrollbar-color:rgba(145,138,122,0.12) transparent;}
+.agent-list::-webkit-scrollbar{width:3px;}
+.agent-list::-webkit-scrollbar-thumb{background:rgba(145,138,122,0.12);border-radius:2px;}
+
+/* AGENT ROWS */
+.agent-row{padding:10px 18px;border-left:3px solid transparent;transition:background 0.25s, border-color 0.25s, opacity 0.35s;cursor:pointer;}
+.agent-row:hover{background:rgba(255,255,255,0.025);}
+.agent-row.pending{opacity:0.3;}
+.agent-row.active{border-left-color:var(--gold);background:rgba(191,148,56,0.05);}
+.agent-row.complete{border-left-color:rgba(30,148,118,0.5);opacity:1;}
+.agent-row-header{display:flex;align-items:center;gap:9px;margin-bottom:3px;}
+.agent-icon{font-size:0.95rem;width:24px;text-align:center;flex-shrink:0;}
+.agent-name{font-size:0.78rem;font-weight:600;color:var(--snow);flex:1;}
+.agent-phase-badge{font-size:0.56rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:2px 6px;border-radius:20px;flex-shrink:0;}
+.badge-new-lead{background:rgba(37,99,235,0.14);color:#7CB9FA;}
+.badge-sales{background:rgba(191,148,56,0.14);color:var(--gold-light);}
+.badge-job-setup{background:rgba(145,138,122,0.14);color:var(--cloud);}
+.badge-active-job{background:rgba(30,148,118,0.14);color:#3DD6A8;}
+.badge-completion{background:rgba(224,92,92,0.14);color:#F8A5A5;}
+.badge-post-job{background:rgba(168,85,247,0.14);color:#C4B5FD;}
+.badge-growth{background:rgba(251,191,36,0.14);color:#FCD34D;}
+.agent-status{font-size:0.82rem;flex-shrink:0;transition:all 0.3s;}
+.agent-status.check{color:var(--green);}
+.agent-status.active-dot{color:var(--gold);animation:statusPulse 1.2s infinite;}
+@keyframes statusPulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.agent-timestamp{font-size:0.62rem;color:var(--mist);margin-bottom:4px;padding-left:33px;opacity:0.75;}
+.agent-action{font-size:0.73rem;color:var(--cloud);line-height:1.55;padding-left:33px;}
+.agent-action.typing-active::after{content:'|';animation:blink 0.65s infinite;color:var(--gold);margin-left:1px;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.time-saved{display:none;align-items:center;gap:4px;font-size:0.62rem;color:var(--green);margin-top:4px;padding-left:33px;font-weight:600;}
+
+/* RIGHT PANEL */
+.panel-right{flex:1;background:var(--ink);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.panel-right-header{position:absolute;top:0;left:0;right:0;padding:12px 24px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;z-index:10;background:rgba(10,9,8,0.85);backdrop-filter:blur(8px);}
+.panel-right-label{font-size:0.67rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);}
+.panel-right-agent{font-size:0.78rem;color:var(--gold-light);font-weight:600;}
+
+.output-wrap{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:56px 28px 20px;}
+
+/* INTRO STATE */
+.intro-state{text-align:center;max-width:400px;animation:fadeUp 0.5s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.intro-state .big-icon{font-size:3rem;margin-bottom:16px;display:block;}
+.intro-state h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--snow);margin-bottom:8px;}
+.intro-state p{font-size:0.85rem;color:var(--mist);line-height:1.6;margin-bottom:20px;}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;text-align:left;}
+.intro-stat{background:var(--slate);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;}
+.intro-stat-val{font-size:1.25rem;font-weight:700;color:var(--gold-light);font-family:'Playfair Display',serif;}
+.intro-stat-label{font-size:0.68rem;color:var(--mist);margin-top:2px;}
+
+/* OUTPUT CARD */
+.output-card{width:100%;max-width:520px;animation:cardIn 0.4s cubic-bezier(0.22,1,0.36,1);}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+/* ── EMAIL CARD ── */
+.email-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.email-toolbar{background:var(--stone);padding:9px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.traffic-light{width:9px;height:9px;border-radius:50%;}
+.tl-red{background:#FF5F56;}
+.tl-yellow{background:#FFBD2E;}
+.tl-green{background:#27C93F;}
+.email-app-label{font-size:0.67rem;color:var(--mist);margin-left:8px;flex:1;text-align:center;}
+.email-header{padding:14px 18px 12px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.email-field{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+.email-field-key{font-size:0.65rem;font-weight:600;color:var(--mist);text-transform:uppercase;letter-spacing:0.07em;width:42px;flex-shrink:0;}
+.email-field-val{font-size:0.78rem;color:var(--cloud);}
+.email-subject-val{font-size:0.8rem;font-weight:600;color:var(--snow);}
+.email-body{padding:16px 18px 14px;}
+.email-preview-text{font-size:0.8rem;color:var(--cloud);line-height:1.65;}
+.email-sig{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);font-size:0.72rem;color:var(--mist);line-height:1.6;}
+.email-footer{padding:10px 18px;background:rgba(10,9,8,0.35);display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.05);}
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:0.68rem;font-weight:600;padding:3px 9px;border-radius:20px;}
+.sb-green{background:var(--green-glow);color:#34D399;border:1px solid rgba(30,148,118,0.25);}
+.sb-gold{background:var(--gold-glow);color:var(--gold-light);border:1px solid rgba(191,148,56,0.25);}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.email-auto-label{font-size:0.64rem;color:rgba(145,138,122,0.5);}
+
+/* ── SMS CARD ── */
+.sms-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.sms-titlebar{background:var(--stone);padding:9px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.sms-contact-name{font-size:0.78rem;font-weight:600;color:var(--snow);flex:1;text-align:center;}
+.sms-auto-note{font-size:0.63rem;color:var(--green);text-align:center;padding:5px 16px;border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(30,148,118,0.05);}
+.sms-messages{padding:12px 14px;display:flex;flex-direction:column;gap:9px;}
+.sms-msg{display:flex;flex-direction:column;max-width:85%;}
+.sms-msg.outbound{align-self:flex-end;align-items:flex-end;}
+.sms-msg.inbound{align-self:flex-start;align-items:flex-start;}
+.sms-bubble{padding:8px 13px;border-radius:16px;font-size:0.76rem;line-height:1.5;}
+.sms-msg.outbound .sms-bubble{background:var(--gold);color:var(--ink);border-radius:16px 16px 4px 16px;font-weight:500;}
+.sms-msg.inbound .sms-bubble{background:var(--stone);color:var(--cloud);border-radius:16px 16px 16px 4px;border:1px solid rgba(255,255,255,0.07);}
+.sms-ts{font-size:0.58rem;color:var(--mist);margin-top:2px;padding:0 2px;}
+.sms-input-row{padding:9px 14px;background:var(--stone);border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:9px;}
+.sms-input-fake{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:6px 12px;font-size:0.72rem;color:rgba(145,138,122,0.5);}
+.sms-send{width:28px;height:28px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;color:var(--ink);font-weight:700;}
+
+/* ── SEQUENCE CARD ── */
+.seq-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.seq-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.seq-header-left{}
+.seq-title{font-size:0.82rem;font-weight:700;color:var(--snow);}
+.seq-subtitle{font-size:0.68rem;color:var(--mist);margin-top:2px;}
+.seq-active{font-size:0.63rem;font-weight:700;color:var(--green);background:var(--green-glow);padding:3px 8px;border-radius:20px;border:1px solid rgba(30,148,118,0.2);flex-shrink:0;margin-top:2px;}
+.seq-steps-list{padding:10px 18px;display:flex;flex-direction:column;}
+.seq-step-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.seq-step-row:last-child{border-bottom:none;}
+.seq-step-day{font-size:0.62rem;font-weight:700;color:var(--gold-light);text-transform:uppercase;letter-spacing:0.08em;width:36px;flex-shrink:0;}
+.seq-step-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.seq-step-dot.sent{background:var(--green);}
+.seq-step-dot.scheduled{background:var(--gold);animation:pulse-dot 2s infinite;}
+.seq-step-text{flex:1;}
+.seq-step-subject{font-size:0.76rem;color:var(--cloud);}
+.seq-step-status{font-size:0.62rem;margin-top:2px;font-weight:600;}
+.seq-step-status.sent{color:var(--green);}
+.seq-step-status.sched{color:var(--gold);}
+.seq-footer{padding:10px 18px;background:rgba(10,9,8,0.3);border-top:1px solid rgba(255,255,255,0.05);font-size:0.67rem;color:var(--mist);}
+
+/* ── CALENDAR CARD ── */
+.cal-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.cal-header{background:linear-gradient(135deg,rgba(191,148,56,0.12),rgba(191,148,56,0.04));padding:18px 20px;border-bottom:1px solid rgba(191,148,56,0.12);}
+.cal-source-label{font-size:0.62rem;font-weight:700;color:var(--gold-light);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;}
+.cal-event-name{font-size:0.95rem;font-weight:700;color:var(--snow);}
+.cal-body{padding:16px 20px;display:flex;flex-direction:column;gap:11px;}
+.cal-row{display:flex;align-items:center;gap:11px;}
+.cal-row-icon{font-size:0.9rem;width:20px;text-align:center;flex-shrink:0;}
+.cal-row-label{font-size:0.67rem;color:var(--mist);margin-bottom:2px;}
+.cal-row-val{font-size:0.8rem;color:var(--snow);font-weight:500;}
+.cal-footer{padding:12px 20px;background:var(--green-glow);border-top:1px solid rgba(30,148,118,0.18);display:flex;align-items:center;gap:8px;font-size:0.76rem;font-weight:700;color:var(--green);}
+
+/* ── ESTIMATE CARD ── */
+.est-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.est-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:flex-start;justify-content:space-between;}
+.est-title{font-size:0.82rem;font-weight:700;color:var(--snow);}
+.est-client{font-size:0.68rem;color:var(--mist);margin-top:2px;}
+.est-live{display:flex;align-items:center;gap:4px;font-size:0.61rem;font-weight:700;color:var(--gold-light);background:var(--gold-glow);padding:3px 8px;border-radius:20px;border:1px solid rgba(191,148,56,0.22);}
+.est-live-dot{width:5px;height:5px;border-radius:50%;background:var(--gold-light);animation:pulse-dot 1.5s infinite;}
+.est-row{display:flex;padding:8px 18px;font-size:0.76rem;border-bottom:1px solid rgba(255,255,255,0.04);}
+.est-row:last-child{border-bottom:none;}
+.est-row:hover{background:rgba(255,255,255,0.015);}
+.est-item-name{flex:1;color:var(--cloud);}
+.est-item-price{color:var(--snow);font-weight:600;font-variant-numeric:tabular-nums;}
+.est-total{display:flex;padding:12px 18px;background:rgba(191,148,56,0.06);border-top:1px solid rgba(191,148,56,0.14);}
+.est-total-label{flex:1;font-size:0.82rem;font-weight:700;color:var(--snow);}
+.est-total-val{font-size:0.98rem;font-weight:700;color:var(--gold-light);}
+.est-footer{padding:9px 18px;background:rgba(10,9,8,0.3);border-top:1px solid rgba(255,255,255,0.05);font-size:0.65rem;color:var(--mist);}
+
+/* ── PROPOSAL CARD ── */
+.prop-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.prop-header{background:linear-gradient(135deg,rgba(30,148,118,0.1),rgba(30,148,118,0.03));padding:16px 20px;border-bottom:1px solid rgba(30,148,118,0.1);}
+.prop-from{font-size:0.62rem;font-weight:700;color:var(--gold-light);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;}
+.prop-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--snow);margin-bottom:3px;}
+.prop-client{font-size:0.72rem;color:var(--mist);}
+.prop-sections{padding:12px 20px;display:flex;flex-direction:column;}
+.prop-sec-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.76rem;}
+.prop-sec-row:last-child{border-bottom:none;}
+.prop-sec-num{font-size:0.62rem;font-weight:700;color:var(--mist);width:14px;flex-shrink:0;}
+.prop-sec-name{flex:1;color:var(--cloud);}
+.prop-sec-check{color:var(--green);font-size:0.72rem;}
+.prop-footer{padding:12px 20px;background:rgba(10,9,8,0.3);border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;}
+.prop-total-val{font-size:0.9rem;font-weight:700;color:var(--gold-light);}
+.prop-sent-label{font-size:0.67rem;color:var(--green);font-weight:600;}
+
+/* ── CONTRACT CARD ── */
+.con-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.con-header{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.con-title{font-size:0.85rem;font-weight:700;color:var(--snow);}
+.con-subtitle{font-size:0.7rem;color:var(--mist);margin-top:3px;}
+.con-body{padding:12px 20px;display:flex;flex-direction:column;gap:8px;}
+.con-sec{background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.05);border-radius:7px;padding:9px 12px;}
+.con-sec-title{font-size:0.63rem;font-weight:700;color:var(--mist);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+.con-sec-lines{display:flex;flex-direction:column;gap:3px;}
+.con-line{height:7px;background:rgba(255,255,255,0.07);border-radius:4px;}
+.con-line.w-full{width:100%;}
+.con-line.w-80{width:80%;}
+.con-line.w-60{width:60%;}
+.con-sig{margin:4px 20px 14px;padding:14px 16px;background:rgba(30,148,118,0.06);border:1px solid rgba(30,148,118,0.2);border-radius:10px;display:flex;align-items:center;justify-content:space-between;}
+.con-sig-block{}
+.con-sig-label{font-size:0.62rem;color:var(--mist);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;}
+.con-sig-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--snow);font-style:italic;}
+.con-sig-date{font-size:0.65rem;color:var(--mist);margin-top:2px;}
+.con-stamp{font-size:0.7rem;font-weight:700;color:var(--green);background:var(--green-glow);padding:7px 14px;border-radius:6px;border:2px solid rgba(30,148,118,0.4);transform:rotate(-3deg);display:inline-block;letter-spacing:0.05em;}
+
+/* ── PORTAL CARD ── */
+.portal-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.portal-header{background:linear-gradient(135deg,rgba(191,148,56,0.1),rgba(191,148,56,0.03));padding:16px 20px;border-bottom:1px solid rgba(191,148,56,0.1);}
+.portal-source{font-size:0.62rem;font-weight:700;color:var(--gold-light);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;}
+.portal-client-name{font-size:0.92rem;font-weight:700;color:var(--snow);margin-bottom:3px;}
+.portal-phase-label{font-size:0.72rem;color:var(--mist);}
+.portal-body{padding:16px 20px;}
+.progress-hd{font-size:0.68rem;color:var(--mist);display:flex;justify-content:space-between;margin-bottom:7px;}
+.progress-track{background:rgba(255,255,255,0.06);border-radius:6px;height:8px;overflow:hidden;margin-bottom:14px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:6px;transition:width 0.9s cubic-bezier(0.22,1,0.36,1);}
+.portal-items{display:flex;flex-direction:column;gap:7px;}
+.portal-item-row{display:flex;align-items:center;gap:9px;font-size:0.76rem;color:var(--cloud);}
+.portal-item-check{color:var(--green);font-size:0.78rem;flex-shrink:0;}
+
+/* ── INVOICE CARD ── */
+.inv-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.inv-header{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:flex-start;justify-content:space-between;}
+.inv-from-label{font-size:0.62rem;font-weight:700;color:var(--gold-light);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;}
+.inv-type-name{font-size:0.9rem;font-weight:700;color:var(--snow);}
+.inv-client-name{font-size:0.7rem;color:var(--mist);margin-top:3px;}
+.inv-num{text-align:right;}
+.inv-num-label{font-size:0.62rem;color:var(--mist);}
+.inv-num-val{font-size:0.76rem;color:var(--cloud);font-weight:600;margin-top:2px;}
+.inv-amount-block{padding:18px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.05);}
+.inv-amount-label{font-size:0.65rem;color:var(--mist);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;}
+.inv-amount-val{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;color:var(--gold-light);}
+.inv-note-text{font-size:0.7rem;color:var(--mist);margin-top:4px;}
+.inv-paid-bar{padding:11px 20px;background:var(--green-glow);border-bottom:1px solid rgba(30,148,118,0.14);display:flex;align-items:center;justify-content:space-between;}
+.inv-paid-label{font-size:0.76rem;font-weight:700;color:var(--green);display:flex;align-items:center;gap:5px;}
+.inv-paid-time{font-size:0.65rem;color:rgba(30,148,118,0.75);}
+.inv-qb-row{padding:9px 20px;background:rgba(10,9,8,0.3);font-size:0.65rem;color:var(--green);display:flex;align-items:center;gap:5px;}
+
+/* ── REVIEW CARD ── */
+.rev-card{background:var(--slate);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+.rev-platform{padding:12px 18px;background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:9px;}
+.rev-g-icon{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#4285F4,#EA4335,#FBBC05,#34A853);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:900;color:#fff;flex-shrink:0;}
+.rev-platform-name{font-size:0.78rem;font-weight:700;color:var(--snow);}
+.rev-platform-rating{font-size:0.68rem;color:var(--gold-light);margin-left:auto;}
+.rev-body{padding:16px 18px;}
+.rev-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.rev-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-deep));display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;color:var(--ink);flex-shrink:0;}
+.rev-name{font-size:0.8rem;font-weight:600;color:var(--snow);}
+.rev-date{font-size:0.65rem;color:var(--mist);margin-top:2px;}
+.rev-stars{font-size:1rem;color:var(--gold-light);letter-spacing:2px;margin-bottom:9px;}
+.rev-text{font-size:0.79rem;color:var(--cloud);line-height:1.65;font-style:italic;}
+.rev-footer{padding:10px 18px;background:rgba(10,9,8,0.3);border-top:1px solid rgba(255,255,255,0.05);font-size:0.65rem;color:var(--mist);}
+
+/* ── RESULTS CARD ── */
+.results-card{text-align:center;animation:cardIn 0.6s cubic-bezier(0.22,1,0.36,1);max-width:560px;}
+.results-emoji{font-size:2.8rem;display:block;margin-bottom:12px;}
+.results-title{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:700;color:var(--snow);margin-bottom:5px;}
+.results-sub{font-size:0.86rem;color:var(--mist);margin-bottom:20px;}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.res-stat{background:var(--slate);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:14px 10px;}
+.res-stat-val{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--gold-light);}
+.res-stat-val.green{color:#34D399;}
+.res-stat-label{font-size:0.65rem;color:var(--mist);margin-top:3px;}
+.results-quote{background:var(--slate);border:1px solid rgba(255,255,255,0.06);border-left:3px solid var(--gold);border-radius:8px;padding:13px 16px;margin-bottom:18px;text-align:left;}
+.results-quote p{font-size:0.79rem;color:var(--cloud);line-height:1.6;font-style:italic;}
+.results-ctas{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+.btn-cta-primary{background:var(--gold);color:var(--ink);padding:11px 24px;border-radius:8px;font-weight:700;font-size:0.85rem;border:none;cursor:pointer;font-family:inherit;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-cta-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-cta-secondary{background:transparent;color:var(--cloud);padding:11px 20px;border-radius:8px;font-weight:500;font-size:0.85rem;border:1px solid rgba(255,255,255,0.12);cursor:pointer;font-family:inherit;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;}
+.btn-cta-secondary:hover{border-color:rgba(191,148,56,0.3);color:var(--snow);}
+.replay-btn{background:none;border:none;color:var(--mist);font-size:0.73rem;cursor:pointer;font-family:inherit;margin-top:10px;text-decoration:underline;text-underline-offset:3px;}
+.replay-btn:hover{color:var(--cloud);}
+
+/* ── STATS ROW ── */
+.stats-row{flex-shrink:0;background:var(--stone);border-top:1px solid rgba(255,255,255,0.05);padding:9px 0;}
+.stats-inner{max-width:1400px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-around;gap:12px;}
+.stat-item{text-align:center;flex:1;}
+.stat-val{font-size:0.9rem;font-weight:700;color:var(--gold-light);font-family:'Playfair Display',serif;line-height:1;}
+.stat-val.dim{color:var(--mist);}
+.stat-label{font-size:0.59rem;color:var(--mist);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;}
+.stat-div{width:1px;height:26px;background:rgba(255,255,255,0.06);}
+
+/* ── PORTRAIT MODE ── */
+body.portrait-mode .page-wrap{display:none;}
+.portrait-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;z-index:300;}
+body.portrait-mode .portrait-wrap{display:flex;}
+.portrait-frame{width:390px;height:844px;background:var(--ink);border-radius:44px;overflow:hidden;position:relative;box-shadow:0 0 0 12px #141414,0 0 0 14px #222,0 32px 80px rgba(0,0,0,0.8);}
+.portrait-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:126px;height:32px;background:#0a0a0a;border-radius:0 0 22px 22px;z-index:20;}
+.portrait-status{padding:42px 28px 0;display:flex;align-items:center;justify-content:space-between;font-size:0.72rem;color:var(--cloud);font-weight:600;flex-shrink:0;}
+.portrait-content{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:10px 0 0;}
+.portrait-agent-card{margin:0 18px 10px;background:var(--slate);border:1px solid rgba(191,148,56,0.18);border-radius:16px;padding:14px 16px;flex-shrink:0;}
+.p-agent-header{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.p-icon{font-size:1.25rem;}
+.p-agent-name{font-size:0.88rem;font-weight:700;color:var(--snow);}
+.p-agent-phase{font-size:0.63rem;font-weight:600;color:var(--gold-light);}
+.p-action{font-size:0.77rem;color:var(--cloud);line-height:1.55;}
+.p-action.typing::after{content:'|';animation:blink 0.65s infinite;color:var(--gold);}
+.p-saved{font-size:0.67rem;color:var(--green);font-weight:600;margin-top:5px;display:flex;align-items:center;gap:4px;}
+.portrait-output-area{flex:1;margin:0 18px;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;}
+.portrait-progress-area{margin:8px 18px 10px;flex-shrink:0;}
+.p-prog-hd{font-size:0.63rem;color:var(--mist);display:flex;justify-content:space-between;margin-bottom:5px;}
+.p-prog-track{background:rgba(255,255,255,0.07);border-radius:3px;height:4px;}
+.p-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width 0.5s ease;}
+.portrait-btns{padding:0 18px 10px;display:flex;gap:10px;flex-shrink:0;}
+.p-btn-start{flex:1;background:var(--gold);color:var(--ink);border:none;padding:12px;border-radius:12px;font-weight:700;font-size:0.86rem;cursor:pointer;font-family:inherit;}
+.p-btn-exit{background:var(--slate);color:var(--mist);border:1px solid rgba(255,255,255,0.1);padding:12px 15px;border-radius:12px;font-size:0.76rem;cursor:pointer;font-family:inherit;}
+.portrait-home{height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.p-home-pill{width:120px;height:5px;background:rgba(255,255,255,0.22);border-radius:3px;}
+.portrait-frame{display:flex;flex-direction:column;}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  body{overflow:auto;}
+  .page-wrap{height:auto;}
+  .panels{flex-direction:column;}
+  .panel-left{width:100%;height:280px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .panel-right{min-height:420px;}
+  .hero h1{font-size:1.45rem;}
+  .stats-inner{gap:6px;}
+  .stat-div{display:none;}
+  .hamburger{display:flex;}
+  .nav-links{display:none;}
+  .timeline-phase{padding:7px 5px;font-size:0.56rem;}
+  .results-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+  .hero h1{font-size:1.2rem;}
+  .results-ctas{flex-direction:column;align-items:stretch;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="logo-icon.svg" class="logo-img" alt="SPEC">
+      <span class="logo-name">SPEC Systems</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="agents.html" class="active">Demo</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="btn-nav">Get Started →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="agents.html">Demo</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" class="btn-nav">Get Started →</a>
+</div>
+
+<!-- PAGE WRAP -->
+<div class="page-wrap" id="pageWrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Live Agent Simulation</div>
+    <h1>Watch 16 AI agents close a <span>$1,745 job.</span></h1>
+    <p>Zero calls. Zero emails written. Zero admin work. Just results.</p>
+    <div class="hero-actions">
+      <button class="btn-start" id="btnStart" onclick="handleStartBtn()">▶ Start Demo</button>
+      <button class="btn-portrait" id="btnPortrait" onclick="togglePortrait()">📱 Portrait Mode</button>
+    </div>
+    <div class="hero-meta" id="heroMeta">← → arrow keys · click any agent to jump</div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline-bar">
+    <div class="timeline-inner">
+      <div class="timeline-phase" id="tp-0"><div class="phase-dot"></div>New Lead<span class="phase-count">1–3</span></div>
+      <div class="timeline-phase" id="tp-1"><div class="phase-dot"></div>Sales<span class="phase-count">4–7</span></div>
+      <div class="timeline-phase" id="tp-2"><div class="phase-dot"></div>Job Setup<span class="phase-count">8–10</span></div>
+      <div class="timeline-phase" id="tp-3"><div class="phase-dot"></div>Active Job<span class="phase-count">11–12</span></div>
+      <div class="timeline-phase" id="tp-4"><div class="phase-dot"></div>Completion<span class="phase-count">13–15</span></div>
+    </div>
+  </div>
+
+  <!-- PANELS -->
+  <div class="panels">
+
+    <!-- LEFT: AGENT FEED -->
+    <div class="panel-left">
+      <div class="panel-left-header">
+        <span class="panel-left-title">Agent Activity</span>
+        <div class="live-badge ready" id="liveBadge">
+          <div class="live-dot" id="liveDot"></div>
+          <span id="liveText">Ready</span>
+        </div>
+      </div>
+      <div class="agent-list" id="agentList"></div>
+    </div>
+
+    <!-- RIGHT: LIVE OUTPUT -->
+    <div class="panel-right">
+      <div class="panel-right-header">
+        <span class="panel-right-label">Live Output</span>
+        <span class="panel-right-agent" id="rightLabel">—</span>
+      </div>
+      <div class="output-wrap" id="outputWrap">
+        <div class="intro-state" id="introState">
+          <span class="big-icon">⚡</span>
+          <h2>See every agent in action</h2>
+          <p>A real $1,745 landscaping job — handled start to finish by AI. Hit Start Demo to watch it unfold.</p>
+          <div class="intro-grid">
+            <div class="intro-stat"><div class="intro-stat-val">15</div><div class="intro-stat-label">AI Agents</div></div>
+            <div class="intro-stat"><div class="intro-stat-val">$1,745</div><div class="intro-stat-label">Closed</div></div>
+            <div class="intro-stat"><div class="intro-stat-val">0 hrs</div><div class="intro-stat-label">Admin Work</div></div>
+            <div class="intro-stat"><div class="intro-stat-val">4 days</div><div class="intro-stat-label">Start to Finish</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-val dim" id="sAgents">0/15</div><div class="stat-label">Agents Fired</div></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><div class="stat-val dim" id="sValue">—</div><div class="stat-label">Job Value</div></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><div class="stat-val" style="color:var(--green)" id="sAdmin">0 hrs</div><div class="stat-label">Admin Time</div></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><div class="stat-val dim" id="sSaved">0 min</div><div class="stat-label">Time Saved</div></div>
+      <div class="stat-div"></div>
+      <div class="stat-item"><div class="stat-val dim" id="sDay">—</div><div class="stat-label">Story Day</div></div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- PORTRAIT OVERLAY -->
+<div class="portrait-wrap" id="portraitWrap">
+  <div class="portrait-frame">
+    <div class="portrait-notch"></div>
+    <div class="portrait-status">
+      <span>9:41</span>
+      <span style="font-family:'Playfair Display',serif;color:var(--gold-light);font-size:0.8rem;">SPEC Systems</span>
+      <span>●●●</span>
+    </div>
+    <div class="portrait-content">
+      <div class="portrait-agent-card" id="pCard">
+        <div class="p-agent-header">
+          <span class="p-icon" id="pIcon">⚡</span>
+          <div>
+            <div class="p-agent-name" id="pName">Ready to Start</div>
+            <div class="p-agent-phase" id="pPhase">Hit Start below</div>
+          </div>
+        </div>
+        <div class="p-action" id="pAction">Watch 16 AI agents close a $1,745 landscaping job automatically — from first lead to 5-star review.</div>
+        <div class="p-saved" id="pSaved" style="display:none">⏱ <span id="pSavedVal"></span> saved</div>
+      </div>
+      <div class="portrait-output-area" id="pOutput"></div>
+      <div class="portrait-progress-area">
+        <div class="p-prog-hd"><span id="pProgLabel">Agent 0 of 15</span><span id="pProgPct">0%</span></div>
+        <div class="p-prog-track"><div class="p-prog-fill" id="pProgFill" style="width:0%"></div></div>
+      </div>
+      <div class="portrait-btns">
+        <button class="p-btn-start" id="pBtnStart" onclick="handleStartBtn()">▶ Start</button>
+        <button class="p-btn-exit" onclick="togglePortrait()">Exit</button>
+      </div>
+      <div class="portrait-home"><div class="p-home-pill"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===========================
+   AGENT DATA
+   =========================== */
+const agents = [
+  {
+    id:1, name:"Lead Agent", icon:"⚡", phase:"New Lead",
+    timestamp:"Mon 11:47 PM",
+    action:"Marcus Webb submitted a lawn care inquiry — scored 91/100. Drafting personalized response...",
+    timeSaved:"45 min", rightPanel:"email",
+    email:{
+      to:"marcus.webb@gmail.com",
+      subject:"Re: Lawn Care & Landscaping Quote — Let's Talk",
+      preview:"Hi Marcus, thanks for reaching out! I'd love to learn more about your property and what you're looking for. Based on what you've shared, it sounds like we'd be a great fit. I'm excited to connect and show you what we can do for your lawn this spring.",
+      badge:"Sent in 2m 43s", badgeColor:"green"
+    }
+  },
+  {
+    id:2, name:"Nurture Agent", icon:"🔄", phase:"New Lead",
+    timestamp:"Tue 9:00 AM",
+    action:"Marcus hasn't replied yet. Launching 3-step nurture sequence — send times optimized for maximum open rates.",
+    timeSaved:"1.5 hrs", rightPanel:"sequence",
+    sequence:{steps:[
+      {day:"Day 1", subject:"Quick question about your lawn, Marcus", status:"Sent"},
+      {day:"Day 3", subject:"Before & after from a job near you 🌿", status:"Scheduled"},
+      {day:"Day 7", subject:"Last chance — spring slots filling up fast", status:"Scheduled"}
+    ]}
+  },
+  {
+    id:3, name:"Booking Agent", icon:"📅", phase:"New Lead",
+    timestamp:"Tue 2:14 PM",
+    action:"Marcus replied — he's interested. Sending Calendly link and tagging as hot lead in CRM.",
+    timeSaved:"20 min", rightPanel:"calendar",
+    calendar:{
+      event:"Site Consultation — Marcus Webb",
+      date:"Wednesday, March 27",
+      time:"10:00 AM",
+      location:"142 Birchwood Dr, Naperville IL",
+      status:"Confirmed ✓"
+    }
+  },
+  {
+    id:4, name:"Estimate Agent", icon:"📐", phase:"Sales",
+    timestamp:"Wed 11:23 AM",
+    action:"Salesman submitted site visit measurements. Pulling live material prices and generating cost estimate...",
+    timeSaved:"2 hrs", rightPanel:"estimate",
+    estimate:{
+      client:"Marcus Webb",
+      items:[
+        {name:"Lawn Mowing (8,400 sq ft)", price:"$180"},
+        {name:"Mulching — 12 yards premium", price:"$840"},
+        {name:"Spring Cleanup & Debris Removal", price:"$320"},
+        {name:"Edging & Trim — full property", price:"$145"},
+        {name:"Fertilization Treatment", price:"$210"}
+      ],
+      total:"$1,695",
+      note:"Prices pulled from live supplier data"
+    }
+  },
+  {
+    id:5, name:"Proposal Agent", icon:"📄", phase:"Sales",
+    timestamp:"Wed 11:41 AM",
+    action:"Generating branded proposal with scope breakdown, material specs, and payment terms. Sending to Marcus.",
+    timeSaved:"3 hrs", rightPanel:"proposal",
+    proposal:{
+      title:"Lawn Care & Spring Cleanup Proposal",
+      client:"Marcus Webb — 142 Birchwood Dr",
+      sections:["Executive Summary","Scope of Work","Material Specifications","Timeline & Schedule","Investment Summary","Terms & Warranty"],
+      total:"$1,695",
+      status:"Sent via email"
+    }
+  },
+  {
+    id:6, name:"Follow-up Agent", icon:"📬", phase:"Sales",
+    timestamp:"Thu 9:00 AM",
+    action:"Proposal opened 3× but not signed. Sending personalized follow-up to address questions and create urgency.",
+    timeSaved:"30 min", rightPanel:"email",
+    email:{
+      to:"marcus.webb@gmail.com",
+      subject:"Checking in on your proposal, Marcus",
+      preview:"Hi Marcus — just wanted to make sure you had a chance to review the proposal I sent over. Happy to answer any questions or adjust the scope if needed. We have an opening next week that would work perfectly for your property — want to lock it in?",
+      badge:"Opened 3×",
+      badgeColor:"gold"
+    }
+  },
+  {
+    id:7, name:"Contract Agent", icon:"✍️", phase:"Sales",
+    timestamp:"Thu 3:22 PM",
+    action:"Marcus approved the proposal. Generating service agreement and sending for electronic signature.",
+    timeSaved:"2 hrs", rightPanel:"contract",
+    contract:{
+      title:"Service Agreement",
+      client:"Marcus Webb",
+      value:"$1,695",
+      sections:["Services & Scope of Work","Payment Terms — 50% Deposit","Cancellation & Rescheduling Policy","Workmanship Warranty"],
+      status:"Signed ✓",
+      signedAt:"Thu 4:47 PM"
+    }
+  },
+  {
+    id:8, name:"Welcome Agent", icon:"🎉", phase:"Job Setup",
+    timestamp:"Thu 4:52 PM",
+    action:"Contract signed. Sending welcome package, client portal link, and job confirmation to Marcus.",
+    timeSaved:"45 min", rightPanel:"portal",
+    portal:{
+      client:"Marcus Webb",
+      progress:15,
+      phase:"Scheduled",
+      items:["Welcome email sent ✓","Portal link activated ✓","Deposit invoice sent ✓","Job scheduled ✓"]
+    }
+  },
+  {
+    id:9, name:"Invoice Agent", icon:"💰", phase:"Job Setup",
+    timestamp:"Thu 4:53 PM",
+    action:"Sending 50% deposit invoice via Stripe. QuickBooks customer record created automatically.",
+    timeSaved:"1 hr", rightPanel:"invoice",
+    invoice:{
+      type:"Deposit Invoice",
+      client:"Marcus Webb",
+      amount:"$848",
+      note:"50% deposit — Spring Cleanup Package",
+      status:"Paid ✓",
+      paidAt:"Thu 6:11 PM",
+      qb:"Synced to QuickBooks ✓"
+    }
+  },
+  {
+    id:10, name:"Sub Agent", icon:"👷", phase:"Job Setup",
+    timestamp:"Thu 5:00 PM",
+    action:"Notifying assigned crew via SMS with job address, full scope, supplier pickup details, and arrival time.",
+    timeSaved:"30 min", rightPanel:"sms",
+    sms:{
+      to:"Mike D. — Lead Crew",
+      messages:[
+        {from:"SPEC", text:"New job assigned: Marcus Webb, 142 Birchwood Dr, Naperville. Friday 8AM. Spring cleanup + mulching. Full details in your app.", time:"5:00 PM"},
+        {from:"Mike", text:"Got it, we'll be there at 8. Need to know — 12 yards mulch, what color?", time:"5:04 PM"},
+        {from:"SPEC", text:"Dark brown per client specs. Supplier pickup confirmed for 7AM Friday.", time:"5:04 PM"}
+      ]
+    }
+  },
+  {
+    id:11, name:"Progress Agent", icon:"📊", phase:"Active Job",
+    timestamp:"Fri 5:00 PM",
+    action:"Job completed Day 1. Sending progress update to Marcus with job photos and what's next.",
+    timeSaved:"45 min", rightPanel:"email",
+    email:{
+      to:"marcus.webb@gmail.com",
+      subject:"Update on your Spring Cleanup — Day 1 Complete ✓",
+      preview:"Hi Marcus! Great progress today — the crew completed the full spring cleanup and debris removal. Mulching begins tomorrow morning. Check your project portal for before/after photos. Looking incredible so far!",
+      badge:"Opened in 4 min",
+      badgeColor:"green"
+    }
+  },
+  {
+    id:12, name:"Satisfaction Agent", icon:"⭐", phase:"Active Job",
+    timestamp:"Sat 12:00 PM",
+    action:"Job 50% complete. Mid-job check-in with Marcus to catch any concerns before they become problems.",
+    timeSaved:"20 min", rightPanel:"sms",
+    sms:{
+      to:"Marcus Webb",
+      messages:[
+        {from:"SPEC", text:"Hi Marcus! The crew is halfway through your project. Everything looking good on your end? Any feedback so far?", time:"12:00 PM"},
+        {from:"Marcus", text:"Looks amazing honestly. One thing — can they do the back corner fence line too?", time:"12:14 PM"},
+        {from:"SPEC", text:"Absolutely — I'll let the crew know and send over a quick change order for the additional work. Give us 30 min!", time:"12:15 PM"}
+      ]
+    }
+  },
+  {
+    id:13, name:"Completion Agent", icon:"🏁", phase:"Completion",
+    timestamp:"Sat 4:30 PM",
+    action:"Job marked complete by crew. Generating final invoice and updating client portal to 100% complete.",
+    timeSaved:"1 hr", rightPanel:"invoice",
+    invoice:{
+      type:"Final Invoice",
+      client:"Marcus Webb",
+      amount:"$897",
+      note:"Final balance — Spring Cleanup + fence line addition",
+      status:"Paid ✓",
+      paidAt:"Sat 5:02 PM",
+      qb:"Synced to QuickBooks ✓"
+    }
+  },
+  {
+    id:14, name:"Review Agent", icon:"🌟", phase:"Post-Job",
+    timestamp:"Mon 9:00 AM",
+    action:"Sending Google review request to Marcus. Timing optimized — 48 hours after job completion for best conversion.",
+    timeSaved:"15 min", rightPanel:"review",
+    review:{
+      platform:"Google",
+      reviewer:"Marcus Webb",
+      rating:5,
+      text:"Absolutely blown away by the crew's work. Property looks incredible. The whole process was seamless — they communicated everything, showed up exactly when they said, and the results speak for themselves. Already booked them for monthly service.",
+      date:"Monday"
+    }
+  },
+  {
+    id:15, name:"Marketing Agent", icon:"📢", phase:"Growth",
+    timestamp:"Mon 9:05 AM",
+    action:"5-star review received! Automatically triggering referral campaign to Marcus's network — new leads incoming.",
+    timeSaved:"2 hrs", rightPanel:"results",
+    results:{
+      jobValue:"$1,745", daysToClose:4, adminHours:0, agentsFired:16,
+      clientRating:"5.0 ⭐", nextAction:"Monthly recurring service scheduled"
+    }
+  },
+  {
+    id:16, name:"Learning Agent", icon:"🧠", phase:"Growth",
+    timestamp:"Mon 9:10 AM",
+    action:"Analyzing completed job. Extracting pricing insights, crew performance data, and client preferences — feeding every future job.",
+    timeSaved:"3 hrs", rightPanel:"learning",
+    learning:{
+      insights:[
+        {icon:"📍", text:"Naperville — highest close rate area (87%)"},
+        {icon:"💰", text:"Mulching upsell accepted by 3 of 4 clients (+$840 avg)"},
+        {icon:"⏱️", text:"Spring cleanups close 2× faster than fall bookings"},
+        {icon:"👷", text:"Mike D. — top crew performer this week (4.9★ avg)"},
+        {icon:"🔁", text:"Marcus Webb converted to monthly recurring service"},
+        {icon:"📈", text:"Proposals with photos close 34% more often — use more"}
+      ],
+      applied:"Pricing model, pitch templates & crew routing updated automatically"
+    }
+  }
+];
+
+/* Phase → timeline index */
+const phaseIdx = {"New Lead":0,"Sales":1,"Job Setup":2,"Active Job":3,"Completion":4,"Post-Job":4,"Growth":4};
+const dayLabel = {"New Lead":"Day 1","Sales":"Day 2–3","Job Setup":"Day 3","Active Job":"Day 4–5","Completion":"Day 5","Post-Job":"Day 7","Growth":"Day 7"};
+
+function tsToMin(str){
+  if(!str)return 0;
+  const m=str.match(/([0-9.]+)\s*(hr|min)/i);
+  if(!m)return 0;
+  return m[2].toLowerCase()[0]==='h'?parseFloat(m[1])*60:parseFloat(m[1]);
+}
+
+/* ===========================
+   STATE
+   =========================== */
+let cur = -1;
+let playing = false;
+let timer = null;
+let typingTimer = null;
+let portraitOpen = false;
+let pTypingTimer = null;
+
+/* ===========================
+   BOOT
+   =========================== */
+function boot(){
+  const list = document.getElementById('agentList');
+  list.innerHTML = agents.map((a,i)=>`
+    <div class="agent-row pending" id="row-${i}" onclick="jumpTo(${i})">
+      <div class="agent-row-header">
+        <span class="agent-icon">${a.icon}</span>
+        <span class="agent-name">${a.name}</span>
+        <span class="agent-phase-badge ${phaseBadge(a.phase)}">${a.phase}</span>
+        <span class="agent-status" id="st-${i}">○</span>
+      </div>
+      <div class="agent-timestamp" id="ts-${i}" style="display:none">${a.timestamp}</div>
+      <div class="agent-action" id="ac-${i}" style="display:none"></div>
+      <div class="time-saved" id="sv-${i}">⏱ ${a.timeSaved} saved</div>
+    </div>`).join('');
+}
+
+function phaseBadge(p){
+  const m={"New Lead":"badge-new-lead","Sales":"badge-sales","Job Setup":"badge-job-setup",
+    "Active Job":"badge-active-job","Completion":"badge-completion","Post-Job":"badge-post-job","Growth":"badge-growth"};
+  return m[p]||"badge-new-lead";
+}
+
+/* ===========================
+   CONTROLS
+   =========================== */
+function handleStartBtn(){
+  if(playing) pause();
+  else if(cur===agents.length-1) restart();
+  else play();
+}
+
+function play(){
+  playing=true;
+  syncStartBtns();
+  const ld=document.getElementById('liveDot');
+  const lb=document.getElementById('liveBadge');
+  const lt=document.getElementById('liveText');
+  ld.classList.add('pulse');
+  lb.className='live-badge live-mode';
+  lt.textContent='Live';
+
+  // If not started yet, clear intro and go to agent 0
+  if(cur<0){
+    document.getElementById('introState')?.remove();
+    advance(0);
+  }
+
+  if(timer)clearInterval(timer);
+  timer=setInterval(()=>{
+    if(cur<agents.length-1){
+      advance(cur+1);
+    } else {
+      clearInterval(timer); timer=null;
+      playing=false;
+      syncStartBtns();
+      document.getElementById('liveDot').classList.remove('pulse');
+      document.getElementById('liveBadge').className='live-badge done-mode';
+      document.getElementById('liveText').textContent='Complete';
+    }
+  },3800);
+}
+
+function pause(){
+  playing=false;
+  if(timer){clearInterval(timer);timer=null;}
+  syncStartBtns();
+  document.getElementById('liveDot').classList.remove('pulse');
+  document.getElementById('liveBadge').className='live-badge paused-mode';
+  document.getElementById('liveText').textContent='Paused';
+}
+
+function restart(){
+  pause();
+  cur=-1;
+  boot();
+  document.getElementById('outputWrap').innerHTML=`
+    <div class="intro-state" id="introState">
+      <span class="big-icon">⚡</span>
+      <h2>See every agent in action</h2>
+      <p>A real $1,745 landscaping job — handled start to finish by AI.</p>
+      <div class="intro-grid">
+        <div class="intro-stat"><div class="intro-stat-val">15</div><div class="intro-stat-label">AI Agents</div></div>
+        <div class="intro-stat"><div class="intro-stat-val">$1,745</div><div class="intro-stat-label">Closed</div></div>
+        <div class="intro-stat"><div class="intro-stat-val">0 hrs</div><div class="intro-stat-label">Admin Work</div></div>
+        <div class="intro-stat"><div class="intro-stat-val">4 days</div><div class="intro-stat-label">Start to Finish</div></div>
+      </div>
+    </div>`;
+  resetTimeline();
+  refreshStats();
+  document.getElementById('rightLabel').textContent='—';
+  document.getElementById('liveBadge').className='live-badge ready';
+  document.getElementById('liveText').textContent='Ready';
+  document.getElementById('liveDot').classList.remove('pulse');
+  play();
+}
+
+function jumpTo(i){
+  if(playing) pause();
+  for(let x=0;x<i;x++) markComplete(x);
+  markActive(i);
+  for(let x=i+1;x<agents.length;x++) markPending(x);
+  cur=i;
+  renderRight(agents[i]);
+  updateTimeline(i);
+  refreshStats();
+  syncStartBtns();
+  document.getElementById('liveBadge').className='live-badge paused-mode';
+  document.getElementById('liveText').textContent='Paused';
+}
+
+function advance(i){
+  if(cur>=0) markComplete(cur);
+  cur=i;
+  markActive(i);
+  renderRight(agents[i]);
+  updateTimeline(i);
+  refreshStats();
+  const row=document.getElementById(`row-${i}`);
+  if(row) row.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ===========================
+   ROW STATES
+   =========================== */
+function markPending(i){
+  const row=document.getElementById(`row-${i}`);
+  if(!row)return;
+  row.className='agent-row pending';
+  const st=document.getElementById(`st-${i}`);
+  st.textContent='○'; st.className='agent-status';
+  document.getElementById(`ts-${i}`).style.display='none';
+  const ac=document.getElementById(`ac-${i}`);
+  ac.style.display='none'; ac.textContent=''; ac.classList.remove('typing-active');
+  document.getElementById(`sv-${i}`).style.display='none';
+}
+
+function markActive(i){
+  if(typingTimer){clearInterval(typingTimer);typingTimer=null;}
+  const row=document.getElementById(`row-${i}`);
+  if(!row)return;
+  row.className='agent-row active';
+  const st=document.getElementById(`st-${i}`);
+  st.textContent='●'; st.className='agent-status active-dot';
+  document.getElementById(`ts-${i}`).style.display='block';
+  const ac=document.getElementById(`ac-${i}`);
+  ac.style.display='block'; ac.textContent=''; ac.classList.add('typing-active');
+  document.getElementById(`sv-${i}`).style.display='none';
+
+  const full=agents[i].action;
+  let idx=0;
+  const speed=full.length>80?18:24;
+  typingTimer=setInterval(()=>{
+    if(idx<full.length){ ac.textContent+=full[idx++]; }
+    else{
+      clearInterval(typingTimer); typingTimer=null;
+      ac.classList.remove('typing-active');
+      document.getElementById(`sv-${i}`).style.display='flex';
+    }
+  },speed);
+
+  updatePortraitCard(i);
+}
+
+function markComplete(i){
+  if(typingTimer&&cur===i){clearInterval(typingTimer);typingTimer=null;}
+  const row=document.getElementById(`row-${i}`);
+  if(!row)return;
+  row.className='agent-row complete';
+  const st=document.getElementById(`st-${i}`);
+  st.textContent='✓'; st.className='agent-status check';
+  document.getElementById(`ts-${i}`).style.display='block';
+  const ac=document.getElementById(`ac-${i}`);
+  ac.classList.remove('typing-active'); ac.textContent=agents[i].action; ac.style.display='block';
+  document.getElementById(`sv-${i}`).style.display='flex';
+}
+
+/* ===========================
+   TIMELINE
+   =========================== */
+function resetTimeline(){
+  for(let i=0;i<5;i++){
+    const t=document.getElementById(`tp-${i}`);
+    if(t) t.className='timeline-phase';
+  }
+}
+
+function updateTimeline(ai){
+  const pi=phaseIdx[agents[ai].phase]??0;
+  for(let i=0;i<5;i++){
+    const t=document.getElementById(`tp-${i}`);
+    if(!t)continue;
+    if(i<pi) t.className='timeline-phase done';
+    else if(i===pi) t.className='timeline-phase active';
+    else t.className='timeline-phase';
+  }
+}
+
+/* ===========================
+   STATS
+   =========================== */
+function refreshStats(){
+  const done=Math.max(0,cur+1);
+  let mins=0;
+  for(let i=0;i<=cur;i++) mins+=tsToMin(agents[i]?.timeSaved||'0');
+
+  document.getElementById('sAgents').textContent=`${done}/15`;
+  document.getElementById('sAgents').className='stat-val'+(done>0?'':' dim');
+
+  const val=cur>=12?'$1,745':cur>=8?'$848':cur>=4?'Pending':'—';
+  document.getElementById('sValue').textContent=val;
+  document.getElementById('sValue').className='stat-val'+(cur>=4?'':' dim');
+
+  document.getElementById('sAdmin').textContent='0 hrs';
+
+  let savedStr=mins>0?(mins>=60?`${Math.round(mins/6)/10} hrs`:`${mins} min`):'0 min';
+  document.getElementById('sSaved').textContent=savedStr;
+  document.getElementById('sSaved').className='stat-val'+(mins>0?'':' dim');
+
+  document.getElementById('sDay').textContent=cur>=0?(dayLabel[agents[cur].phase]||'Day 1'):'—';
+  document.getElementById('sDay').className='stat-val'+(cur>=0?'':' dim');
+}
+
+/* ===========================
+   SYNC BUTTONS
+   =========================== */
+function syncStartBtns(){
+  const main=document.getElementById('btnStart');
+  const port=document.getElementById('pBtnStart');
+  if(playing){
+    main.textContent='⏸ Pause'; main.classList.add('playing');
+    if(port) port.textContent='⏸ Pause';
+  } else if(cur===agents.length-1){
+    main.textContent='↺ Replay'; main.classList.remove('playing');
+    if(port) port.textContent='↺ Replay';
+  } else {
+    main.textContent='▶ Start Demo'; main.classList.remove('playing');
+    if(port) port.textContent=(cur>=0?'▶ Resume':'▶ Start');
+  }
+}
+
+/* ===========================
+   RIGHT PANEL
+   =========================== */
+function renderRight(agent){
+  document.getElementById('rightLabel').textContent=`${agent.icon} ${agent.name}`;
+  const wrap=document.getElementById('outputWrap');
+  let html='';
+  switch(agent.rightPanel){
+    case'email': html=buildEmail(agent.email); break;
+    case'sms': html=buildSMS(agent.sms); break;
+    case'sequence': html=buildSequence(agent.sequence); break;
+    case'calendar': html=buildCalendar(agent.calendar); break;
+    case'estimate': html=buildEstimate(agent.estimate); break;
+    case'proposal': html=buildProposal(agent.proposal); break;
+    case'contract': html=buildContract(agent.contract); break;
+    case'portal': html=buildPortal(agent.portal); break;
+    case'invoice': html=buildInvoice(agent.invoice); break;
+    case'review': html=buildReview(agent.review); break;
+    case'results': html=buildResults(agent.results); break;
+    case'learning': html=buildLearning(agent.learning); break;
+    default: html='<div style="color:var(--mist)">—</div>';
+  }
+  wrap.innerHTML=`<div class="output-card">${html}</div>`;
+  // portal bar animation
+  if(agent.rightPanel==='portal'){
+    setTimeout(()=>{
+      const b=document.getElementById('pbar');
+      if(b) b.style.width=agent.portal.progress+'%';
+    },80);
+  }
+  // mirror to portrait
+  if(portraitOpen) syncPortraitOutput(agent);
+}
+
+/* ===========================
+   PANEL BUILDERS
+   =========================== */
+function buildEmail(e){
+  const bc=e.badgeColor==='green'?'sb-green':'sb-gold';
+  return `<div class="email-card">
+  <div class="email-toolbar">
+    <div class="traffic-light tl-red"></div>
+    <div class="traffic-light tl-yellow"></div>
+    <div class="traffic-light tl-green"></div>
+    <span class="email-app-label">Mail — SPEC Systems</span>
+  </div>
+  <div class="email-header">
+    <div class="email-field"><span class="email-field-key">To</span><span class="email-field-val">${e.to}</span></div>
+    <div class="email-field"><span class="email-field-key">From</span><span class="email-field-val">hello@specsystemshq.com</span></div>
+    <div class="email-field" style="margin-top:7px;"><span class="email-field-key">Re</span><span class="email-subject-val">${e.subject}</span></div>
+  </div>
+  <div class="email-body">
+    <div class="email-preview-text">${e.preview}</div>
+    <div class="email-sig">Best,<br><strong style="color:var(--cloud)">The SPEC Systems Team</strong><br><span style="color:var(--gold-light);font-size:0.68rem;">specsystemshq.com</span></div>
+  </div>
+  <div class="email-footer">
+    <div class="status-badge ${bc}"><div class="sb-dot"></div>${e.badge}</div>
+    <span class="email-auto-label">AI-generated &amp; sent automatically</span>
+  </div>
+</div>`;
+}
+
+function buildSMS(s){
+  const msgs=s.messages.map(m=>{
+    const out=m.from==='SPEC';
+    return `<div class="sms-msg ${out?'outbound':'inbound'}">
+      <div class="sms-bubble">${m.text}</div>
+      <div class="sms-ts">${out?'SPEC':m.from} · ${m.time}</div>
+    </div>`;
+  }).join('');
+  return `<div class="sms-card">
+  <div class="sms-titlebar">
+    <div class="traffic-light tl-red"></div>
+    <div class="traffic-light tl-yellow"></div>
+    <div class="traffic-light tl-green"></div>
+    <span class="sms-contact-name">${s.to}</span>
+  </div>
+  <div class="sms-auto-note">Automated SMS via SPEC Systems</div>
+  <div class="sms-messages">${msgs}</div>
+  <div class="sms-input-row">
+    <div class="sms-input-fake">AI handles all replies automatically...</div>
+    <div class="sms-send">↑</div>
+  </div>
+</div>`;
+}
+
+function buildSequence(s){
+  const steps=s.steps.map(st=>{
+    const sent=st.status==='Sent';
+    return `<div class="seq-step-row">
+      <span class="seq-step-day">${st.day}</span>
+      <div class="seq-step-dot ${sent?'sent':'scheduled'}"></div>
+      <div class="seq-step-text">
+        <div class="seq-step-subject">${st.subject}</div>
+        <div class="seq-step-status ${sent?'sent':'sched'}">${st.status}</div>
+      </div>
+    </div>`;
+  }).join('');
+  return `<div class="seq-card">
+  <div class="seq-header">
+    <div class="seq-header-left">
+      <div class="seq-title">Nurture Sequence — Marcus Webb</div>
+      <div class="seq-subtitle">3-email drip · send times AI-optimized</div>
+    </div>
+    <div class="seq-active">Active</div>
+  </div>
+  <div class="seq-steps-list">${steps}</div>
+  <div class="seq-footer">⚡ Timing selected based on open-rate data for landscaping leads</div>
+</div>`;
+}
+
+function buildCalendar(c){
+  return `<div class="cal-card">
+  <div class="cal-header">
+    <div class="cal-source-label">Calendly · Auto-booked</div>
+    <div class="cal-event-name">${c.event}</div>
+  </div>
+  <div class="cal-body">
+    <div class="cal-row"><span class="cal-row-icon">📅</span><div><div class="cal-row-label">Date</div><div class="cal-row-val">${c.date}</div></div></div>
+    <div class="cal-row"><span class="cal-row-icon">🕙</span><div><div class="cal-row-label">Time</div><div class="cal-row-val">${c.time}</div></div></div>
+    <div class="cal-row"><span class="cal-row-icon">📍</span><div><div class="cal-row-label">Location</div><div class="cal-row-val">${c.location}</div></div></div>
+    <div class="cal-row"><span class="cal-row-icon">🔔</span><div><div class="cal-row-label">Reminders</div><div class="cal-row-val">24hr + 2hr automated SMS sent</div></div></div>
+  </div>
+  <div class="cal-footer">✅ ${c.status} — Added to CRM &amp; calendar automatically</div>
+</div>`;
+}
+
+function buildEstimate(e){
+  const rows=e.items.map(it=>`<div class="est-row"><span class="est-item-name">${it.name}</span><span class="est-item-price">${it.price}</span></div>`).join('');
+  return `<div class="est-card">
+  <div class="est-header">
+    <div><div class="est-title">Cost Estimate</div><div class="est-client">${e.client}</div></div>
+    <div class="est-live"><div class="est-live-dot"></div>Live Pricing</div>
+  </div>
+  ${rows}
+  <div class="est-total"><span class="est-total-label">Total Estimate</span><span class="est-total-val">${e.total}</span></div>
+  <div class="est-footer">⚡ ${e.note}</div>
+</div>`;
+}
+
+function buildProposal(p){
+  const secs=p.sections.map((s,i)=>`<div class="prop-sec-row"><span class="prop-sec-num">${i+1}</span><span class="prop-sec-name">${s}</span><span class="prop-sec-check">✓</span></div>`).join('');
+  return `<div class="prop-card">
+  <div class="prop-header">
+    <div class="prop-from">SPEC Systems · Proposal</div>
+    <div class="prop-title">${p.title}</div>
+    <div class="prop-client">${p.client}</div>
+  </div>
+  <div class="prop-sections">${secs}</div>
+  <div class="prop-footer"><span class="prop-total-val">${p.total}</span><span class="prop-sent-label">✓ ${p.status}</span></div>
+</div>`;
+}
+
+function buildContract(c){
+  const secs=c.sections.map(s=>`<div class="con-sec">
+    <div class="con-sec-title">${s}</div>
+    <div class="con-sec-lines">
+      <div class="con-line w-full"></div>
+      <div class="con-line w-80"></div>
+      <div class="con-line w-60"></div>
+    </div>
+  </div>`).join('');
+  return `<div class="con-card">
+  <div class="con-header"><div class="con-title">${c.title}</div><div class="con-subtitle">${c.client} · ${c.value}</div></div>
+  <div class="con-body">${secs}</div>
+  <div class="con-sig">
+    <div class="con-sig-block">
+      <div class="con-sig-label">Client Signature</div>
+      <div class="con-sig-name">Marcus Webb</div>
+      <div class="con-sig-date">${c.signedAt}</div>
+    </div>
+    <div class="con-stamp">SIGNED</div>
+  </div>
+</div>`;
+}
+
+function buildPortal(p){
+  const items=p.items.map(it=>`<div class="portal-item-row"><span class="portal-item-check">✓</span><span>${it.replace(' ✓','')}</span></div>`).join('');
+  return `<div class="portal-card">
+  <div class="portal-header">
+    <div class="portal-source">SPEC Systems · Client Portal</div>
+    <div class="portal-client-name">${p.client}</div>
+    <div class="portal-phase-label">Status: ${p.phase}</div>
+  </div>
+  <div class="portal-body">
+    <div class="progress-hd"><span>Job Progress</span><span style="color:var(--gold-light);font-weight:700;">${p.progress}%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="pbar" style="width:0%"></div></div>
+    <div class="portal-items">${items}</div>
+  </div>
+</div>`;
+}
+
+function buildInvoice(inv){
+  const num=Math.floor(Math.random()*9000)+1000;
+  return `<div class="inv-card">
+  <div class="inv-header">
+    <div>
+      <div class="inv-from-label">SPEC Systems</div>
+      <div class="inv-type-name">${inv.type}</div>
+      <div class="inv-client-name">${inv.client}</div>
+    </div>
+    <div class="inv-num"><div class="inv-num-label">Invoice #</div><div class="inv-num-val">${num}</div></div>
+  </div>
+  <div class="inv-amount-block">
+    <div class="inv-amount-label">Amount Due</div>
+    <div class="inv-amount-val">${inv.amount}</div>
+    <div class="inv-note-text">${inv.note}</div>
+  </div>
+  <div class="inv-paid-bar">
+    <div class="inv-paid-label">✓ ${inv.status}</div>
+    <div class="inv-paid-time">Paid ${inv.paidAt}</div>
+  </div>
+  <div class="inv-qb-row">⚡ ${inv.qb}</div>
+</div>`;
+}
+
+function buildReview(r){
+  const stars='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
+  return `<div class="rev-card">
+  <div class="rev-platform">
+    <div class="rev-g-icon">G</div>
+    <span class="rev-platform-name">${r.platform} Reviews</span>
+    <span class="rev-platform-rating">5.0 ★★★★★</span>
+  </div>
+  <div class="rev-body">
+    <div class="rev-meta">
+      <div class="rev-avatar">${r.reviewer.split(' ').map(n=>n[0]).join('')}</div>
+      <div><div class="rev-name">${r.reviewer}</div><div class="rev-date">${r.date}</div></div>
+    </div>
+    <div class="rev-stars">${stars}</div>
+    <div class="rev-text">"${r.text}"</div>
+  </div>
+  <div class="rev-footer">Review request sent automatically 48hrs post-job · Client converted to monthly recurring</div>
+</div>`;
+}
+
+function buildResults(r){
+  return `<div class="results-card">
+  <span class="results-emoji">🎉</span>
+  <div class="results-title">Job Closed</div>
+  <div class="results-sub">From first inquiry to 5-star review — zero human involvement.</div>
+  <div class="results-grid">
+    <div class="res-stat"><div class="res-stat-val">${r.jobValue}</div><div class="res-stat-label">Revenue Closed</div></div>
+    <div class="res-stat"><div class="res-stat-val">${r.daysToClose}</div><div class="res-stat-label">Days to Close</div></div>
+    <div class="res-stat"><div class="res-stat-val green">0</div><div class="res-stat-label">Admin Hours</div></div>
+    <div class="res-stat"><div class="res-stat-val">${r.agentsFired}</div><div class="res-stat-label">Agents Fired</div></div>
+    <div class="res-stat"><div class="res-stat-val">${r.clientRating}</div><div class="res-stat-label">Client Rating</div></div>
+    <div class="res-stat"><div class="res-stat-val green">∞</div><div class="res-stat-label">Jobs Running</div></div>
+  </div>
+  <div class="results-quote">
+    <p>"Meanwhile, your competitor spent 6 hours doing this manually — and lost 2 leads while they were at it."</p>
+  </div>
+  <div class="results-ctas">
+    <a href="contact.html" class="btn-cta-primary">Book a Demo →</a>
+    <a href="how-it-works.html" class="btn-cta-secondary">See How It Works</a>
+  </div>
+  <div style="text-align:center;margin-top:10px;">
+    <button class="replay-btn" onclick="restart()">↺ Watch Again</button>
+  </div>
+</div>`;
+}
+
+function buildLearning(l){
+  const rows = l.insights.map(ins=>
+    `<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:1.1rem;line-height:1.4;">${ins.icon}</span>
+      <span style="color:var(--text);font-size:0.82rem;line-height:1.5;">${ins.text}</span>
+    </div>`
+  ).join('');
+  return `<div style="padding:4px 0;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <span style="font-size:2rem;">🧠</span>
+    <div>
+      <div style="font-weight:700;font-size:1rem;color:var(--text);">Learning Agent</div>
+      <div style="font-size:0.75rem;color:var(--mist);">System intelligence updated after every job</div>
+    </div>
+  </div>
+  <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.25);border-radius:10px;padding:14px 16px;margin-bottom:12px;">
+    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;color:#a5b4fc;margin-bottom:10px;">INSIGHTS EXTRACTED</div>
+    ${rows}
+  </div>
+  <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:8px;">
+    <span style="font-size:1rem;">✅</span>
+    <span style="font-size:0.78rem;color:#6ee7b7;">${l.applied}</span>
+  </div>
+</div>`;
+}
+
+/* ===========================
+   PORTRAIT MODE
+   =========================== */
+function togglePortrait(){
+  portraitOpen=!portraitOpen;
+  document.body.classList.toggle('portrait-mode',portraitOpen);
+  document.getElementById('btnPortrait').classList.toggle('active',portraitOpen);
+  if(portraitOpen&&cur>=0){
+    updatePortraitCard(cur);
+    syncPortraitOutput(agents[cur]);
+  }
+}
+
+function updatePortraitCard(i){
+  const a=agents[i];
+  document.getElementById('pIcon').textContent=a.icon;
+  document.getElementById('pName').textContent=a.name;
+  document.getElementById('pPhase').textContent=a.phase;
+
+  const pa=document.getElementById('pAction');
+  pa.textContent=''; pa.classList.add('typing');
+  if(pTypingTimer){clearInterval(pTypingTimer);pTypingTimer=null;}
+  const full=a.action; let pi2=0;
+  pTypingTimer=setInterval(()=>{
+    if(pi2<full.length){ pa.textContent+=full[pi2++]; }
+    else{
+      clearInterval(pTypingTimer); pTypingTimer=null;
+      pa.classList.remove('typing');
+      document.getElementById('pSavedVal').textContent=a.timeSaved;
+      document.getElementById('pSaved').style.display='flex';
+    }
+  },22);
+
+  const pct=Math.round((i+1)/agents.length*100);
+  document.getElementById('pProgLabel').textContent=`Agent ${i+1} of ${agents.length}`;
+  document.getElementById('pProgPct').textContent=pct+'%';
+  document.getElementById('pProgFill').style.width=pct+'%';
+  syncStartBtns();
+}
+
+function syncPortraitOutput(agent){
+  let html='';
+  switch(agent.rightPanel){
+    case'email': html=buildEmail(agent.email); break;
+    case'sms': html=buildSMS(agent.sms); break;
+    case'sequence': html=buildSequence(agent.sequence); break;
+    case'calendar': html=buildCalendar(agent.calendar); break;
+    case'estimate': html=buildEstimate(agent.estimate); break;
+    case'proposal': html=buildProposal(agent.proposal); break;
+    case'contract': html=buildContract(agent.contract); break;
+    case'portal': html=buildPortal(agent.portal); break;
+    case'invoice': html=buildInvoice(agent.invoice); break;
+    case'review': html=buildReview(agent.review); break;
+    case'results': html=buildResults(agent.results); break;
+    case'learning': html=buildLearning(agent.learning); break;
+  }
+  document.getElementById('pOutput').innerHTML=
+    `<div style="transform:scale(0.62);transform-origin:top center;width:162%;margin-left:-31%;pointer-events:none;">${html}</div>`;
+  if(agent.rightPanel==='portal'){
+    setTimeout(()=>{
+      const b=document.getElementById('pbar');
+      if(b) b.style.width=agent.portal.progress+'%';
+    },100);
+  }
+}
+
+/* ===========================
+   KEYBOARD
+   =========================== */
+document.addEventListener('keydown',e=>{
+  const tag=e.target.tagName;
+  if(tag==='INPUT'||tag==='TEXTAREA')return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){
+    e.preventDefault();
+    if(cur<agents.length-1) jumpTo(Math.max(0,cur+1));
+    else if(cur<0) jumpTo(0);
+  } else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){
+    e.preventDefault();
+    if(cur>0) jumpTo(cur-1);
+  } else if(e.key===' '){
+    e.preventDefault();
+    handleStartBtn();
+  }
+});
+
+/* ===========================
+   HAMBURGER
+   =========================== */
+document.getElementById('hamburger').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+/* ===========================
+   BOOT
+   =========================== */
+boot();
+refreshStats();
+</script>
+</body>
+</html>
