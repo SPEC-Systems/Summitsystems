@@ -3,265 +3,410 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPEC Systems — 15 AI Agents That Run Your Service Business</title>
-<meta name="description" content="SPEC Systems deploys 15 AI agents that respond to leads in 3 minutes, write proposals, plan jobs, and chase invoices — done-for-you setup, live in under a week.">
-<meta property="og:title" content="SPEC Systems — 15 AI Agents That Run Your Service Business">
+<title>SPEC Systems — 16 AI Agents That Run Your Service Business</title>
+<meta name="description" content="SPEC Systems deploys 16 AI agents that respond to leads in 3 minutes, write proposals, plan jobs, and chase invoices — done-for-you setup, live in under a week.">
+<meta property="og:title" content="SPEC Systems — 16 AI Agents That Run Your Service Business">
 <meta property="og:description" content="Not automations. AI agents that think, decide, and act. Built for home service businesses doing $500K–$3M/year.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="logo-icon.svg">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink: #0A0908;
-  --slate: #161412;
-  --stone: #201E18;
-  --navy: #0C1829;
-  --mist: #918A7A;
-  --cloud: #C8C2B4;
-  --snow: #F2EFE8;
-  --white: #FFFFFF;
-  --gold: #BF9438;
-  --gold-light: #CDA44A;
-  --gold-glow: rgba(175,135,55,0.15);
-  --gold-deep: #D4922A;
-  --green: #1E9476;
-  --green-glow: rgba(30,148,118,0.14);
-  --blue: #2563EB;
-  --blue-glow: rgba(37,99,235,0.10);
-  --red: #E05C5C;
+  --cream:      #F7F4EF;
+  --cream-alt:  #EDE9E0;
+  --white:      #FFFFFF;
+  --navy:       #0E1C2F;
+  --navy-mid:   #1B3455;
+  --navy-light: #2D4A6E;
+  --gold:       #A8800E;
+  --gold-light: #C9A227;
+  --gold-bg:    rgba(168,128,14,0.08);
+  --green:      #1A7A5E;
+  --green-bg:   rgba(26,122,94,0.08);
+  --green-text: #16654E;
+  --muted:      #6B6B6B;
+  --muted-light:#9A9A9A;
+  --text:       #111111;
+  --border:     #DDD9D0;
+  --border-light:#EAE6DE;
+  --shadow:     0 2px 16px rgba(14,28,47,0.07);
+  --shadow-md:  0 6px 32px rgba(14,28,47,0.10);
+  --shadow-lg:  0 16px 56px rgba(14,28,47,0.13);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--snow);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 .container{max-width:1140px;margin:0 auto;padding:0 32px;}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 0;background:rgba(10,9,8,0.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(191,148,56,0.12);}
-nav .container{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0;
+  background:rgba(247,244,239,0.96);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-light);
+}
+nav .container{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
-.logo-img{height:32px;width:auto;}
-.logo-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--gold-light);letter-spacing:-0.01em;}
-.nav-links{display:flex;align-items:center;gap:22px;}
-.nav-links a{color:var(--mist);text-decoration:none;font-size:0.8rem;font-weight:500;letter-spacing:0.01em;transition:color 0.18s;white-space:nowrap;}
-.nav-links a:hover,.nav-links a.active{color:var(--white);}
-.btn-nav{background:var(--gold);color:var(--ink)!important;border:none;padding:9px 20px;border-radius:7px;font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.18s;font-family:inherit;text-decoration:none;white-space:nowrap;}
-.btn-nav:hover{background:var(--gold-light);transform:translateY(-1px);}
+.logo-img{height:30px;width:auto;}
+.logo-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--navy);letter-spacing:-0.01em;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.83rem;font-weight:500;letter-spacing:0.01em;transition:color 0.18s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--navy);}
+.btn-nav{
+  background:var(--navy);color:#fff!important;border:none;
+  padding:9px 22px;border-radius:7px;font-weight:600;font-size:0.82rem;
+  cursor:pointer;transition:all 0.18s;font-family:inherit;text-decoration:none;white-space:nowrap;
+  letter-spacing:0.01em;
+}
+.btn-nav:hover{background:var(--navy-mid);transform:translateY(-1px);box-shadow:var(--shadow-md);}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
-.hamburger span{display:block;width:22px;height:2px;background:var(--cloud);border-radius:2px;transition:all 0.25s;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all 0.25s;}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .hamburger.open span:nth-child(2){opacity:0;}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-.mobile-nav{display:none;position:fixed;top:61px;left:0;right:0;background:var(--slate);border-bottom:1px solid rgba(191,148,56,0.12);padding:20px 32px 28px;z-index:199;flex-direction:column;gap:18px;}
+.mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);padding:20px 32px 28px;z-index:199;flex-direction:column;gap:18px;box-shadow:var(--shadow-md);}
 .mobile-nav.open{display:flex;}
-.mobile-nav a{color:var(--cloud);text-decoration:none;font-size:0.92rem;font-weight:500;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.mobile-nav a{color:var(--navy);text-decoration:none;font-size:0.95rem;font-weight:500;padding:8px 0;border-bottom:1px solid var(--border-light);}
 .mobile-nav .btn-nav{text-align:center;margin-top:8px;}
 
 /* ── BUTTONS ── */
-.btn-primary{background:var(--gold);color:var(--ink);padding:14px 32px;border-radius:8px;font-weight:700;font-size:0.93rem;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;letter-spacing:-0.01em;}
-.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(175,135,55,0.3);}
-.btn-secondary{background:transparent;color:var(--cloud);padding:14px 30px;border-radius:8px;font-weight:500;font-size:0.93rem;border:1px solid rgba(255,255,255,0.12);cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-secondary:hover{border-color:rgba(191,148,56,0.4);color:var(--white);background:rgba(191,148,56,0.06);}
-.btn-ghost{background:transparent;color:var(--mist);padding:12px 24px;border-radius:7px;font-weight:500;font-size:0.85rem;border:1px solid rgba(255,255,255,0.08);cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
-.btn-ghost:hover{color:var(--white);border-color:rgba(255,255,255,0.2);}
+.btn-primary{background:var(--navy);color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:0.93rem;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;letter-spacing:-0.01em;}
+.btn-primary:hover{background:var(--navy-mid);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.btn-secondary{background:transparent;color:var(--navy);padding:14px 30px;border-radius:8px;font-weight:600;font-size:0.93rem;border:1.5px solid var(--border);cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-secondary:hover{border-color:var(--navy);background:rgba(14,28,47,0.04);}
+.btn-ghost{background:transparent;color:var(--muted);padding:12px 0;font-weight:500;font-size:0.88rem;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);}
+.btn-ghost:hover{color:var(--navy);border-bottom-color:var(--navy);}
 
-/* ── ANIMATIONS ── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease;}
+/* ── SCROLL REVEALS ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-d1{transition-delay:0.08s;}
-.reveal-d2{transition-delay:0.16s;}
-.reveal-d3{transition-delay:0.24s;}
-.reveal-d4{transition-delay:0.32s;}
-.reveal-d5{transition-delay:0.40s;}
-.reveal-d6{transition-delay:0.48s;}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.35);}}
-@keyframes slide-ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.reveal-d1{transition-delay:0.07s;}
+.reveal-d2{transition-delay:0.14s;}
+.reveal-d3{transition-delay:0.21s;}
+.reveal-d4{transition-delay:0.28s;}
+.reveal-d5{transition-delay:0.35s;}
+.reveal-d6{transition-delay:0.42s;}
 
 /* ── SHARED ── */
-.section-label{font-size:0.67rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:700;margin-bottom:12px;}
-.section-label.green{color:var(--green);}
-.section-label.blue{color:#5B8BF5;}
-.section-header{text-align:center;margin-bottom:60px;}
-.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.65rem,3.2vw,2.45rem);color:var(--white);font-weight:600;letter-spacing:-0.025em;margin-bottom:14px;line-height:1.22;}
-.section-header p{font-size:1rem;color:var(--mist);max-width:520px;margin:0 auto;line-height:1.68;}
-section{border-top:1px solid rgba(255,255,255,0.04);}
-.tag{display:inline-flex;align-items:center;gap:5px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:3px 9px;border-radius:4px;}
-.tag-gold{background:rgba(191,148,56,0.14);color:var(--gold-light);}
-.tag-blue{background:rgba(37,99,235,0.14);color:#7AABFF;}
-.tag-green{background:var(--green-glow);color:#4ECCA8;}
-.tag-orange{background:rgba(212,146,42,0.14);color:#F0A844;}
-.tag-purple{background:rgba(139,92,246,0.14);color:#C4AAFF;}
+.section-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--gold);font-weight:700;margin-bottom:12px;display:block;}
+.section-header{text-align:center;margin-bottom:64px;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.7rem);color:var(--navy);font-weight:600;letter-spacing:-0.03em;margin-bottom:14px;line-height:1.18;}
+.section-header p{font-size:1.02rem;color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7;}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:0.67rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:3px 9px;border-radius:4px;}
+.tag-gold{background:var(--gold-bg);color:var(--gold);}
+.tag-blue{background:rgba(45,74,110,0.1);color:var(--navy-light);}
+.tag-green{background:var(--green-bg);color:var(--green-text);}
+.tag-orange{background:rgba(212,146,42,0.1);color:#8B5E04;}
+.tag-purple{background:rgba(107,63,160,0.1);color:#6B3FA0;}
+
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.4);}}
+@keyframes slide-ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
 /* ── HERO ── */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 0 80px;position:relative;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(12,24,41,0.8) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(191,148,56,0.06) 0%,transparent 60%);pointer-events:none;}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.hero-left{}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(30,148,118,0.1);border:1px solid rgba(30,148,118,0.25);border-radius:20px;padding:6px 14px;margin-bottom:28px;}
-.hero-eyebrow .live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse-dot 2s infinite;}
-.hero-eyebrow span{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#4ECCA8;}
-.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:600;line-height:1.1;letter-spacing:-0.03em;color:var(--white);margin-bottom:22px;}
-.hero-h1 em{font-style:normal;color:var(--gold-light);}
-.hero-sub{font-size:1.08rem;color:var(--mist);line-height:1.7;max-width:460px;margin-bottom:38px;}
-.hero-sub strong{color:var(--cloud);font-weight:600;}
-.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
-.trust-bar{display:flex;flex-direction:column;gap:9px;}
-.trust-item{display:flex;align-items:center;gap:9px;font-size:0.82rem;color:var(--mist);}
-.trust-item .check{width:16px;height:16px;background:var(--green-glow);border:1px solid rgba(30,148,118,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.trust-item .check svg{width:9px;height:9px;stroke:var(--green);}
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:120px 0 80px;
+  background:var(--cream);
+  position:relative;
+  overflow:hidden;
+}
+#hero::before{
+  content:'';
+  position:absolute;
+  top:-20%;right:-10%;
+  width:600px;height:600px;
+  background:radial-gradient(ellipse,rgba(168,128,14,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--green-bg);border:1px solid rgba(26,122,94,0.2);
+  border-radius:20px;padding:6px 14px;margin-bottom:24px;
+}
+.live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse-dot 2s infinite;flex-shrink:0;}
+.hero-eyebrow span{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--green-text);}
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,5vw,4rem);
+  font-weight:600;line-height:1.08;letter-spacing:-0.035em;
+  color:var(--navy);margin-bottom:22px;
+}
+.hero-h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:1.06rem;color:var(--muted);line-height:1.72;max-width:460px;margin-bottom:36px;}
+.hero-sub strong{color:var(--text);font-weight:600;}
+.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+.trust-bar{display:flex;flex-direction:column;gap:8px;}
+.trust-item{display:flex;align-items:center;gap:9px;font-size:0.83rem;color:var(--muted);}
+.trust-check{
+  width:17px;height:17px;background:var(--green-bg);border:1px solid rgba(26,122,94,0.25);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.trust-check svg{width:9px;height:9px;stroke:var(--green);}
 
-/* Hero right — agent activity panel */
-.hero-right{position:relative;}
-.agent-panel{background:var(--slate);border:1px solid rgba(255,255,255,0.07);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.5);}
-.panel-header{padding:14px 18px;background:var(--stone);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
-.panel-title{font-size:0.75rem;font-weight:700;color:var(--cloud);letter-spacing:0.04em;text-transform:uppercase;}
-.panel-status{display:flex;align-items:center;gap:6px;font-size:0.72rem;color:#4ECCA8;font-weight:600;}
-.panel-status .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse-dot 2s infinite;}
+/* ── HERO PANEL ── */
+.agent-panel{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.panel-header{
+  padding:14px 18px;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.panel-title{font-size:0.73rem;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.06em;text-transform:uppercase;}
+.panel-status{display:flex;align-items:center;gap:6px;font-size:0.72rem;color:#6EE7B7;font-weight:600;}
+.panel-status .dot{width:6px;height:6px;background:#4ADE80;border-radius:50%;animation:pulse-dot 2s infinite;}
 .activity-feed{padding:4px 0;}
-.activity-item{display:flex;align-items:flex-start;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.2s;}
+.activity-item{
+  display:flex;align-items:flex-start;gap:12px;padding:11px 16px;
+  border-bottom:1px solid var(--border-light);transition:background 0.15s;
+}
 .activity-item:last-child{border-bottom:none;}
-.activity-item:hover{background:rgba(255,255,255,0.02);}
-.activity-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.85rem;}
-.activity-icon.gold{background:var(--gold-glow);}
-.activity-icon.green{background:var(--green-glow);}
-.activity-icon.blue{background:var(--blue-glow);}
-.activity-icon.purple{background:rgba(139,92,246,0.12);}
-.activity-icon.orange{background:rgba(212,146,42,0.12);}
+.activity-item:hover{background:var(--cream);}
+.activity-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;}
+.activity-icon.gold{background:var(--gold-bg);}
+.activity-icon.green{background:var(--green-bg);}
+.activity-icon.blue{background:rgba(45,74,110,0.1);}
+.activity-icon.purple{background:rgba(107,63,160,0.1);}
+.activity-icon.orange{background:rgba(212,146,42,0.1);}
 .activity-body{flex:1;min-width:0;}
-.activity-agent{font-size:0.7rem;font-weight:700;color:var(--gold-light);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
-.activity-agent.green{color:#4ECCA8;}
-.activity-agent.blue{color:#7AABFF;}
-.activity-agent.purple{color:#C4AAFF;}
-.activity-agent.orange{color:#F0A844;}
-.activity-text{font-size:0.82rem;color:var(--cloud);line-height:1.45;}
-.activity-meta{font-size:0.7rem;color:var(--mist);margin-top:2px;}
-.panel-footer{padding:12px 18px;background:rgba(30,148,118,0.05);border-top:1px solid rgba(30,148,118,0.12);display:flex;align-items:center;justify-content:space-between;}
-.panel-footer span{font-size:0.75rem;color:#4ECCA8;font-weight:600;}
-.panel-footer .count{font-size:0.75rem;color:var(--mist);}
+.activity-agent{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:2px;}
+.activity-agent.gold{color:var(--gold);}
+.activity-agent.green{color:var(--green-text);}
+.activity-agent.blue{color:var(--navy-light);}
+.activity-agent.purple{color:#6B3FA0;}
+.activity-agent.orange{color:#8B5E04;}
+.activity-text{font-size:0.81rem;color:var(--text);line-height:1.45;}
+.activity-meta{font-size:0.68rem;color:var(--muted-light);margin-top:2px;}
+.panel-footer{
+  padding:11px 16px;
+  background:var(--green-bg);border-top:1px solid rgba(26,122,94,0.15);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.panel-footer span{font-size:0.74rem;color:var(--green-text);font-weight:600;}
+.panel-footer .count{font-size:0.74rem;color:var(--muted);}
 
 /* ── STATS BAR ── */
-#stats{padding:0;background:var(--navy);border-top:1px solid rgba(191,148,56,0.1);border-bottom:1px solid rgba(191,148,56,0.1);}
+#stats{background:var(--white);border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);}
-.stat-item{padding:36px 28px;text-align:center;border-right:1px solid rgba(255,255,255,0.06);position:relative;}
+.stat-item{padding:40px 28px;text-align:center;border-right:1px solid var(--border-light);}
 .stat-item:last-child{border-right:none;}
-.stat-number{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--gold-light);line-height:1;margin-bottom:6px;letter-spacing:-0.03em;}
-.stat-label{font-size:0.78rem;color:var(--mist);font-weight:500;line-height:1.4;}
+.stat-number{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--navy);line-height:1;margin-bottom:6px;letter-spacing:-0.04em;}
+.stat-label{font-size:0.78rem;color:var(--muted);font-weight:500;line-height:1.45;}
 
 /* ── PAIN POINTS ── */
-#pain{padding:96px 0;background:var(--ink);}
-.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.pain-card{background:var(--slate);padding:32px 28px;position:relative;transition:background 0.2s;}
-.pain-card:hover{background:var(--stone);}
-.pain-icon{font-size:1.5rem;margin-bottom:16px;}
-.pain-problem{font-size:0.85rem;color:var(--mist);margin-bottom:12px;font-weight:400;line-height:1.55;}
-.pain-problem strong{color:var(--cloud);font-weight:600;}
-.pain-fix{display:flex;align-items:flex-start;gap:8px;padding:12px;background:var(--green-glow);border:1px solid rgba(30,148,118,0.2);border-radius:8px;}
-.pain-fix .fix-dot{width:5px;height:5px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:5px;}
-.pain-fix p{font-size:0.8rem;color:#4ECCA8;line-height:1.5;font-weight:500;}
+#pain{padding:100px 0;background:var(--cream);}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.pain-card{
+  background:var(--white);border:1px solid var(--border-light);
+  border-radius:12px;padding:28px 26px;
+  transition:box-shadow 0.2s,transform 0.2s;
+}
+.pain-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.pain-icon{font-size:1.4rem;margin-bottom:14px;}
+.pain-problem{font-size:0.87rem;color:var(--muted);margin-bottom:14px;font-weight:400;line-height:1.6;}
+.pain-problem strong{color:var(--text);font-weight:600;}
+.pain-fix{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:11px 12px;
+  background:var(--green-bg);border:1px solid rgba(26,122,94,0.15);
+  border-radius:8px;
+}
+.fix-dot{width:5px;height:5px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:5px;}
+.pain-fix p{font-size:0.79rem;color:var(--green-text);line-height:1.5;font-weight:500;}
 
 /* ── AGENT SHOWCASE ── */
-#agents{padding:96px 0;background:var(--navy);}
-.agents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);}
-.agent-card{background:var(--navy);padding:26px 24px;transition:background 0.2s;position:relative;overflow:hidden;}
-.agent-card::before{content:'';position:absolute;inset:0;background:var(--blue-glow);opacity:0;transition:opacity 0.2s;}
-.agent-card:hover{background:#0f1e31;}
-.agent-card:hover::before{opacity:1;}
-.agent-num{font-size:0.65rem;font-weight:700;color:var(--mist);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
-.agent-name{font-size:0.97rem;font-weight:700;color:var(--white);margin-bottom:6px;letter-spacing:-0.01em;}
-.agent-desc{font-size:0.8rem;color:var(--mist);line-height:1.55;margin-bottom:14px;}
+#agents{padding:100px 0;background:var(--white);}
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.agent-card{
+  background:var(--cream);border:1px solid var(--border-light);
+  border-radius:10px;padding:22px 20px;
+  transition:all 0.2s;position:relative;
+}
+.agent-card:hover{background:var(--white);border-color:var(--border);box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.agent-num{font-size:0.62rem;font-weight:700;color:var(--muted-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.agent-name{font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:-0.01em;}
+.agent-desc{font-size:0.78rem;color:var(--muted);line-height:1.55;margin-bottom:12px;}
 .agent-tag{margin-top:auto;}
 
 /* ── HOW IT WORKS ── */
-#how{padding:96px 0;background:var(--ink);}
-.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:0;}
-.step-card{background:var(--slate);padding:44px 36px;position:relative;}
-.step-number{font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;color:rgba(191,148,56,0.12);line-height:1;margin-bottom:20px;letter-spacing:-0.04em;}
-.step-title{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:10px;letter-spacing:-0.01em;}
-.step-body{font-size:0.9rem;color:var(--mist);line-height:1.65;}
-.step-connector{display:none;}
+#how{padding:100px 0;background:var(--cream-alt);}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.step-card{background:var(--white);padding:48px 40px;position:relative;}
+.step-card:first-child{border-radius:12px 0 0 12px;}
+.step-card:last-child{border-radius:0 12px 12px 0;}
+.step-number{
+  font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;
+  color:rgba(14,28,47,0.06);line-height:1;margin-bottom:20px;letter-spacing:-0.05em;
+}
+.step-title{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:-0.01em;}
+.step-body{font-size:0.88rem;color:var(--muted);line-height:1.7;}
+
+/* ── COMPARISON ── */
+#comparison{padding:100px 0;background:var(--white);}
+.comparison-table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);}
+.comparison-table thead tr{background:var(--navy);}
+.comparison-table th{padding:18px 24px;text-align:left;font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.06em;text-transform:uppercase;}
+.comparison-table th:first-child{color:#fff;font-size:0.84rem;}
+.comparison-table th.highlight{color:#FFD97A;}
+.comparison-table tbody tr{border-bottom:1px solid var(--border-light);transition:background 0.15s;}
+.comparison-table tbody tr:last-child{border-bottom:none;}
+.comparison-table tbody tr:hover{background:var(--cream);}
+.comparison-table td{padding:16px 24px;font-size:0.86rem;color:var(--muted);}
+.comparison-table td:first-child{font-weight:600;color:var(--text);}
+.comparison-table td.check-yes{color:var(--green-text);font-weight:700;font-size:0.85rem;}
+.comparison-table td.check-no{color:var(--muted-light);}
+.comparison-table td.spec-col{color:var(--navy);font-weight:700;}
+.comparison-table .spec-col-header{background:rgba(168,128,14,0.06);}
 
 /* ── INDUSTRIES ── */
-#industries{padding:72px 0;background:var(--navy);border-top:1px solid rgba(255,255,255,0.04);}
+#industries{padding:72px 0;background:var(--cream);}
 .industries-inner{text-align:center;}
-.industries-inner .section-label{margin-bottom:32px;}
-.industry-tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;}
-.industry-tile{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 22px;font-size:0.85rem;font-weight:600;color:var(--cloud);letter-spacing:0.01em;transition:all 0.2s;cursor:default;}
-.industry-tile:hover{background:rgba(191,148,56,0.08);border-color:rgba(191,148,56,0.25);color:var(--gold-light);}
+.industry-tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px;}
+.industry-tile{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:8px;padding:10px 20px;
+  font-size:0.85rem;font-weight:600;color:var(--navy);
+  letter-spacing:0.01em;transition:all 0.2s;cursor:default;
+}
+.industry-tile:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-bg);}
+.industries-note{font-size:0.84rem;color:var(--muted);margin-top:20px;}
 
 /* ── PRICING ── */
-#pricing{padding:96px 0;background:var(--ink);}
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.04);}
-.pricing-card{background:var(--slate);padding:36px 28px;display:flex;flex-direction:column;position:relative;}
-.pricing-card.featured{background:var(--stone);}
-.pricing-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;padding:4px 14px;border-radius:0 0 8px 8px;}
-.pricing-tier{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--mist);margin-bottom:12px;}
-.pricing-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:20px;letter-spacing:-0.01em;line-height:1.2;}
-.pricing-setup{font-size:0.8rem;color:var(--mist);margin-bottom:4px;}
-.pricing-setup strong{color:var(--cloud);}
+#pricing{padding:100px 0;background:var(--white);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto;}
+.pricing-card{
+  background:var(--cream);border:1px solid var(--border-light);
+  border-radius:14px;padding:36px 30px;display:flex;flex-direction:column;position:relative;
+  transition:box-shadow 0.2s;
+}
+.pricing-card:hover{box-shadow:var(--shadow-md);}
+.pricing-card.featured{
+  background:var(--navy);border-color:var(--navy);
+  box-shadow:var(--shadow-lg);transform:scale(1.03);
+}
+.pricing-badge{
+  position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:var(--white);
+  font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;
+  padding:4px 14px;border-radius:0 0 8px 8px;
+}
+.pricing-tier{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);margin-bottom:10px;}
+.pricing-card.featured .pricing-tier{color:rgba(255,255,255,0.5);}
+.pricing-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:18px;letter-spacing:-0.01em;}
+.pricing-card.featured .pricing-name{color:#fff;}
+.pricing-setup{font-size:0.8rem;color:var(--muted);margin-bottom:4px;}
+.pricing-setup strong{color:var(--text);}
+.pricing-card.featured .pricing-setup{color:rgba(255,255,255,0.6);}
+.pricing-card.featured .pricing-setup strong{color:#fff;}
 .pricing-monthly{margin-bottom:24px;}
-.pricing-monthly .price{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold-light);letter-spacing:-0.03em;}
-.pricing-monthly .per{font-size:0.8rem;color:var(--mist);margin-left:4px;}
-.pricing-divider{height:1px;background:rgba(255,255,255,0.06);margin-bottom:20px;}
+.pricing-monthly .price{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--navy);letter-spacing:-0.04em;}
+.pricing-card.featured .pricing-monthly .price{color:var(--gold-light);}
+.pricing-monthly .per{font-size:0.8rem;color:var(--muted);margin-left:4px;}
+.pricing-card.featured .pricing-monthly .per{color:rgba(255,255,255,0.5);}
+.pricing-divider{height:1px;background:var(--border-light);margin-bottom:20px;}
+.pricing-card.featured .pricing-divider{background:rgba(255,255,255,0.12);}
 .pricing-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px;flex:1;}
-.pricing-features li{display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:var(--mist);line-height:1.5;}
-.pricing-features li .check{color:var(--green);flex-shrink:0;margin-top:1px;font-size:0.75rem;}
-.pricing-cta{display:block;text-align:center;padding:11px;border-radius:7px;font-size:0.83rem;font-weight:700;text-decoration:none;transition:all 0.2s;letter-spacing:-0.01em;}
-.pricing-cta.primary{background:var(--gold);color:var(--ink);}
-.pricing-cta.primary:hover{background:var(--gold-light);}
-.pricing-cta.secondary{background:transparent;color:var(--cloud);border:1px solid rgba(255,255,255,0.12);}
-.pricing-cta.secondary:hover{border-color:rgba(191,148,56,0.35);color:var(--white);}
-.pricing-note{text-align:center;margin-top:28px;font-size:0.83rem;color:var(--mist);}
-.pricing-note a{color:var(--gold-light);text-decoration:none;}
-.pricing-note a:hover{text-decoration:underline;}
+.pricing-features li{display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:var(--muted);line-height:1.5;}
+.pricing-card.featured .pricing-features li{color:rgba(255,255,255,0.75);}
+.pricing-features li .check{color:var(--green);flex-shrink:0;margin-top:1px;font-weight:700;}
+.pricing-card.featured .pricing-features li .check{color:#6EE7B7;}
+.pricing-cta{
+  display:block;text-align:center;padding:12px;border-radius:8px;
+  font-size:0.85rem;font-weight:700;text-decoration:none;transition:all 0.2s;letter-spacing:-0.01em;
+}
+.pricing-cta.primary{background:var(--gold);color:#fff;}
+.pricing-cta.primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+.pricing-cta.dark{background:var(--navy);color:#fff;}
+.pricing-cta.dark:hover{background:var(--navy-mid);}
+.pricing-cta.outline{background:transparent;color:var(--navy);border:1.5px solid var(--border);}
+.pricing-cta.outline:hover{border-color:var(--navy);}
+.pricing-note{text-align:center;margin-top:32px;font-size:0.84rem;color:var(--muted);}
+.pricing-note a{color:var(--gold);text-decoration:none;font-weight:600;}
 
 /* ── FINAL CTA ── */
-#cta-final{padding:100px 0;background:var(--navy);position:relative;overflow:hidden;text-align:center;}
-#cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(191,148,56,0.07) 0%,transparent 70%);pointer-events:none;}
+#cta-final{
+  padding:112px 0;background:var(--navy);position:relative;overflow:hidden;text-align:center;
+}
+#cta-final::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(168,128,14,0.1) 0%,transparent 70%);
+  pointer-events:none;
+}
 .cta-final-inner{position:relative;z-index:1;}
-.cta-final-inner h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:600;color:var(--white);letter-spacing:-0.03em;margin-bottom:16px;line-height:1.15;}
-.cta-final-inner h2 em{font-style:normal;color:var(--gold-light);}
-.cta-final-inner p{font-size:1rem;color:var(--mist);max-width:480px;margin:0 auto 36px;line-height:1.68;}
+.cta-final-inner h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4.5vw,3.4rem);font-weight:600;color:#fff;
+  letter-spacing:-0.035em;margin-bottom:16px;line-height:1.12;
+}
+.cta-final-inner h2 em{font-style:italic;color:var(--gold-light);}
+.cta-final-inner p{font-size:1.02rem;color:rgba(255,255,255,0.6);max-width:460px;margin:0 auto 36px;line-height:1.7;}
 .cta-buttons{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+.btn-light{
+  background:#fff;color:var(--navy);padding:14px 32px;border-radius:8px;
+  font-weight:700;font-size:0.93rem;border:none;cursor:pointer;transition:all 0.2s;
+  font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-light:hover{background:var(--cream);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.2);}
+.btn-outline-light{
+  background:transparent;color:rgba(255,255,255,0.8);padding:14px 30px;border-radius:8px;
+  font-weight:600;font-size:0.93rem;border:1.5px solid rgba(255,255,255,0.25);cursor:pointer;
+  transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-outline-light:hover{border-color:rgba(255,255,255,0.6);color:#fff;}
 
 /* ── FOOTER ── */
-footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);padding:48px 0 32px;}
-.footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
-.footer-brand .logo-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--gold-light);}
-.footer-brand p{font-size:0.83rem;color:var(--mist);margin-top:10px;line-height:1.65;max-width:240px;}
-.footer-col h4{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--mist);font-weight:700;margin-bottom:14px;}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.footer-col ul li a{color:var(--cloud);text-decoration:none;font-size:0.85rem;transition:color 0.18s;}
-.footer-col ul li a:hover{color:var(--white);}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;align-items:center;justify-content:space-between;}
-.footer-bottom p{font-size:0.78rem;color:var(--mist);}
-.footer-bottom a{color:var(--mist);text-decoration:none;}
-.footer-bottom a:hover{color:var(--cloud);}
+footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,0.06);padding:52px 0 32px;}
+.footer-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;margin-bottom:44px;}
+.footer-logo-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:#fff;}
+.footer-brand p{font-size:0.83rem;color:rgba(255,255,255,0.45);margin-top:10px;line-height:1.7;max-width:230px;}
+.footer-col h4{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.35);font-weight:700;margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col ul li a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.85rem;transition:color 0.18s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;align-items:center;justify-content:space-between;}
+.footer-bottom p{font-size:0.78rem;color:rgba(255,255,255,0.3);}
+.footer-bottom a{color:rgba(255,255,255,0.3);text-decoration:none;}
+.footer-bottom a:hover{color:rgba(255,255,255,0.6);}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
   .hero-grid{grid-template-columns:1fr;gap:48px;}
   .hero-right{display:none;}
-  .pricing-grid{grid-template-columns:repeat(2,1fr);}
+  .pricing-grid{grid-template-columns:1fr;max-width:420px;}
+  .pricing-card.featured{transform:scale(1);}
   .agents-grid{grid-template-columns:repeat(2,1fr);}
   .footer-inner{grid-template-columns:1fr 1fr;}
+  .comparison-table{font-size:0.82rem;}
 }
 @media(max-width:768px){
   .nav-links{display:none;}
   .hamburger{display:flex;}
   .pain-grid{grid-template-columns:1fr;}
-  .steps-grid{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr;gap:0;}
+  .step-card{border-radius:0;}
+  .step-card:first-child{border-radius:12px 12px 0 0;}
+  .step-card:last-child{border-radius:0 0 12px 12px;}
   .stats-grid{grid-template-columns:repeat(2,1fr);}
   .stat-item:nth-child(2){border-right:none;}
-  .stat-item:nth-child(3){border-top:1px solid rgba(255,255,255,0.06);}
-  .stat-item:nth-child(4){border-top:1px solid rgba(255,255,255,0.06);}
-  .pricing-grid{grid-template-columns:1fr;}
+  .stat-item:nth-child(3){border-top:1px solid var(--border-light);}
+  .stat-item:nth-child(4){border-top:1px solid var(--border-light);}
   .agents-grid{grid-template-columns:1fr;}
-  .hero-h1{font-size:2.1rem;}
-  #hero{padding:110px 0 64px;}
+  .hero-h1{font-size:2.4rem;}
+  #hero{padding:100px 0 60px;}
   .footer-inner{grid-template-columns:1fr;}
   .footer-bottom{flex-direction:column;gap:10px;text-align:center;}
   .cta-buttons{flex-direction:column;align-items:stretch;max-width:320px;margin:0 auto;}
+  #comparison{overflow-x:auto;}
+  .comparison-table{min-width:560px;}
 }
 </style>
 </head>
@@ -277,8 +422,6 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
     <div class="nav-links">
       <a href="index.html" class="active">Home</a>
       <a href="how-it-works.html">How It Works</a>
-      <a href="full-system.html">Full System</a>
-      <a href="custom-agents.html">Custom Agents</a>
       <a href="agents.html">Live Demo</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -293,8 +436,6 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
 <div class="mobile-nav" id="mobileNav">
   <a href="index.html">Home</a>
   <a href="how-it-works.html">How It Works</a>
-  <a href="full-system.html">Full System</a>
-  <a href="custom-agents.html">Custom Agents</a>
   <a href="agents.html">Live Demo</a>
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
@@ -303,93 +444,92 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
 
 <!-- ── HERO ── -->
 <section id="hero">
-  <div class="hero-bg"></div>
   <div class="container">
     <div class="hero-grid">
       <div class="hero-left">
-        <div class="hero-eyebrow reveal">
+        <div class="hero-eyebrow">
           <span class="live-dot"></span>
-          <span>15 AI Agents &nbsp;·&nbsp; Always On &nbsp;·&nbsp; Always Working</span>
+          <span>16 AI Agents &nbsp;·&nbsp; Always On</span>
         </div>
-        <h1 class="hero-h1 reveal reveal-d1">
+        <h1 class="hero-h1">
           Your business runs<br>while <em>you</em> do the work.
         </h1>
-        <p class="hero-sub reveal reveal-d2">
-          These aren't automations. They're <strong>AI agents that think, decide, and act</strong> — scoring leads, writing proposals, planning jobs, and chasing invoices so you don't have to.
+        <p class="hero-sub">
+          Not automations. <strong>AI agents that think, decide, and act</strong> — scoring leads, writing proposals, planning jobs, and chasing invoices. Done for you in under a week.
         </p>
-        <div class="hero-ctas reveal reveal-d3">
-          <a href="full-system.html" class="btn-primary">See All 15 Agents &rarr;</a>
+        <div class="hero-ctas">
+          <a href="agents.html" class="btn-primary">See Agents in Action &rarr;</a>
           <a href="how-it-works.html" class="btn-secondary">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            Watch the Demo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            How It Works
           </a>
         </div>
-        <div class="trust-bar reveal reveal-d4">
+        <div class="trust-bar">
           <div class="trust-item">
-            <span class="check">
-              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="trust-check">
+              <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            First response in under 3 minutes
+            First response in under 3 minutes — any time of day
           </div>
           <div class="trust-item">
-            <span class="check">
-              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="trust-check">
+              <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            Live in under a week
+            Fully live in under a week — we handle the setup
           </div>
           <div class="trust-item">
-            <span class="check">
-              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="2,6 5,9 10,3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="trust-check">
+              <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
-            Done-for-you setup — we handle everything
+            Built for $500K–$3M service businesses
           </div>
         </div>
       </div>
 
-      <div class="hero-right reveal reveal-d2">
+      <div class="hero-right">
         <div class="agent-panel">
           <div class="panel-header">
             <span class="panel-title">Agent Activity</span>
-            <span class="panel-status"><span class="dot"></span>15 agents active</span>
+            <span class="panel-status"><span class="dot"></span>16 agents active</span>
           </div>
           <div class="activity-feed">
             <div class="activity-item">
               <div class="activity-icon gold">📋</div>
               <div class="activity-body">
-                <div class="activity-agent">Lead Agent</div>
-                <div class="activity-text">Scored new lead from website form — hot (87/100). Sent personalized outreach email.</div>
-                <div class="activity-meta">2 minutes ago</div>
+                <div class="activity-agent gold">Lead Agent</div>
+                <div class="activity-text">Scored new lead — 87/100. Personalized outreach sent in 2 min 14 sec.</div>
+                <div class="activity-meta">Just now</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-icon blue">📅</div>
               <div class="activity-body">
                 <div class="activity-agent blue">Calendly Agent</div>
-                <div class="activity-text">Mike Johnson booked a site visit for Thursday. Confirmation sent. Owner notified.</div>
-                <div class="activity-meta">14 minutes ago</div>
+                <div class="activity-text">Mike Johnson booked Thursday site visit. Confirmation + owner alert sent.</div>
+                <div class="activity-meta">14 min ago</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-icon green">📄</div>
               <div class="activity-body">
                 <div class="activity-agent green">Proposal Agent</div>
-                <div class="activity-text">Generated full proposal for kitchen remodel — $28,400. Sent to client for review.</div>
-                <div class="activity-meta">1 hour ago</div>
+                <div class="activity-text">Proposal generated for kitchen remodel — $28,400. Sent to client.</div>
+                <div class="activity-meta">1 hr ago</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-icon orange">💰</div>
               <div class="activity-body">
                 <div class="activity-agent orange">Invoice Agent</div>
-                <div class="activity-text">Final invoice sent for Hartley project — $14,200. Payment link included.</div>
-                <div class="activity-meta">3 hours ago</div>
+                <div class="activity-text">Final invoice sent — Hartley project, $14,200. Payment link included.</div>
+                <div class="activity-meta">3 hrs ago</div>
               </div>
             </div>
             <div class="activity-item">
               <div class="activity-icon purple">⭐</div>
               <div class="activity-body">
                 <div class="activity-agent purple">Completion Agent</div>
-                <div class="activity-text">Job closed. Google review request sent. 30-day check-in scheduled.</div>
+                <div class="activity-text">Job closed. Review request sent. 30-day follow-up scheduled.</div>
                 <div class="activity-meta">Yesterday</div>
               </div>
             </div>
@@ -409,16 +549,16 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item reveal">
-        <div class="stat-number" data-count="15" data-suffix="">15</div>
+        <div class="stat-number">16</div>
         <div class="stat-label">AI Agents Working For You</div>
       </div>
       <div class="stat-item reveal reveal-d1">
         <div class="stat-number">&lt;&nbsp;3 Min</div>
-        <div class="stat-label">First Lead Response</div>
+        <div class="stat-label">First Lead Response Time</div>
       </div>
       <div class="stat-item reveal reveal-d2">
-        <div class="stat-number" data-count="40" data-suffix="+ Hrs">40+ Hrs</div>
-        <div class="stat-label">Saved Every Week</div>
+        <div class="stat-number">40+ Hrs</div>
+        <div class="stat-label">Saved Per Week</div>
       </div>
       <div class="stat-item reveal reveal-d3">
         <div class="stat-number">$0</div>
@@ -431,23 +571,23 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
 <!-- ── PAIN POINTS ── -->
 <section id="pain">
   <div class="container">
-    <div class="section-header">
-      <p class="section-label">Sound familiar?</p>
-      <h2>The problems killing your business<br>after hours</h2>
+    <div class="section-header reveal">
+      <span class="section-label">Sound familiar?</span>
+      <h2>The problems quietly killing your growth</h2>
       <p>Every one of these has an agent that fixes it — automatically, without you lifting a finger.</p>
     </div>
     <div class="pain-grid">
       <div class="pain-card reveal">
         <div class="pain-icon">🌙</div>
-        <p class="pain-problem"><strong>Leads go cold overnight.</strong> A contractor requests a quote at 9pm, you don't see it until 8am — and they've already booked someone else.</p>
+        <p class="pain-problem"><strong>Leads go cold overnight.</strong> A homeowner requests a quote at 9 PM, you don't see it until 8 AM — and they've already booked someone else.</p>
         <div class="pain-fix">
           <span class="fix-dot"></span>
-          <p>Lead Agent responds in under 3 minutes, 24 hours a day, 7 days a week.</p>
+          <p>Lead Agent responds in under 3 minutes, 24 / 7.</p>
         </div>
       </div>
       <div class="pain-card reveal reveal-d1">
         <div class="pain-icon">⏱️</div>
-        <p class="pain-problem"><strong>Proposals take hours.</strong> You spend a Saturday afternoon writing something a client might ghost you on anyway.</p>
+        <p class="pain-problem"><strong>Proposals eat your weekends.</strong> You spend Saturday writing something a client might ghost you on anyway.</p>
         <div class="pain-fix">
           <span class="fix-dot"></span>
           <p>Proposal Agent generates a polished, itemized proposal in seconds after your site visit.</p>
@@ -455,10 +595,10 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
       </div>
       <div class="pain-card reveal reveal-d2">
         <div class="pain-icon">📵</div>
-        <p class="pain-problem"><strong>Clients go quiet mid-job.</strong> No updates means anxious clients, bad reviews, and disputes at closeout.</p>
+        <p class="pain-problem"><strong>Clients go quiet mid-job.</strong> No updates means anxious homeowners, bad reviews, and payment disputes.</p>
         <div class="pain-fix">
           <span class="fix-dot"></span>
-          <p>Client Agent sends weekly progress updates and handles client messages automatically.</p>
+          <p>Client Agent sends weekly progress updates and handles messages automatically.</p>
         </div>
       </div>
       <div class="pain-card reveal">
@@ -466,12 +606,12 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
         <p class="pain-problem"><strong>Invoices go out late.</strong> You finish a job, then forget to bill for a week because you're already on the next one.</p>
         <div class="pain-fix">
           <span class="fix-dot"></span>
-          <p>Invoice Agent sends the invoice the moment the job closes — and follows up if it goes unpaid.</p>
+          <p>Invoice Agent sends the invoice the moment the job closes — and follows up if unpaid.</p>
         </div>
       </div>
       <div class="pain-card reveal reveal-d1">
         <div class="pain-icon">🔁</div>
-        <p class="pain-problem"><strong>Follow-ups fall through.</strong> You mean to check back in with that lead, but it slips through the cracks for two weeks.</p>
+        <p class="pain-problem"><strong>Follow-ups slip through the cracks.</strong> You mean to check back in with a warm lead, but two weeks pass with nothing.</p>
         <div class="pain-fix">
           <span class="fix-dot"></span>
           <p>Nurture Agent follows up three times automatically. Stops the moment they reply.</p>
@@ -479,10 +619,10 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
       </div>
       <div class="pain-card reveal reveal-d2">
         <div class="pain-icon">🌆</div>
-        <p class="pain-problem"><strong>Admin kills your evenings.</strong> By the time the crew is gone you've got emails, estimates, and paperwork still waiting.</p>
+        <p class="pain-problem"><strong>Admin kills your evenings.</strong> By the time the crew is home, you've got emails, estimates, and contracts still waiting.</p>
         <div class="pain-fix">
           <span class="fix-dot"></span>
-          <p>Every agent works nights and weekends so your evenings belong to you.</p>
+          <p>Every agent works nights and weekends so your time belongs to you.</p>
         </div>
       </div>
     </div>
@@ -492,118 +632,114 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
 <!-- ── AGENT SHOWCASE ── -->
 <section id="agents">
   <div class="container">
-    <div class="section-header">
-      <p class="section-label">The full team</p>
-      <h2>Meet your 15 AI agents</h2>
+    <div class="section-header reveal">
+      <span class="section-label">The full team</span>
+      <h2>Meet your 16 AI agents</h2>
       <p>Each one owns a specific part of your business and runs it without being told. Together, they cover everything from first contact to final review.</p>
     </div>
     <div class="agents-grid">
-
-      <!-- Lead & Sales -->
       <div class="agent-card reveal">
         <div class="agent-num">Agent 01</div>
         <div class="agent-name">Lead Agent</div>
-        <div class="agent-desc">Scores incoming leads, sends a personalized outreach email within 3 minutes, and triggers SMS follow-up for hot leads.</div>
+        <div class="agent-desc">Scores incoming leads, sends personalized outreach in under 3 minutes, and triggers SMS for hot leads.</div>
         <div class="agent-tag"><span class="tag tag-gold">Lead &amp; Sales</span></div>
       </div>
       <div class="agent-card reveal reveal-d1">
         <div class="agent-num">Agent 02</div>
         <div class="agent-name">Nurture Agent</div>
-        <div class="agent-desc">Sends a 3-step follow-up sequence for leads who don't respond. Stops automatically the moment they reply.</div>
+        <div class="agent-desc">Sends a 3-step follow-up sequence automatically. Stops the moment the lead replies.</div>
         <div class="agent-tag"><span class="tag tag-gold">Lead &amp; Sales</span></div>
       </div>
       <div class="agent-card reveal reveal-d2">
         <div class="agent-num">Agent 03</div>
         <div class="agent-name">Calendly Agent</div>
-        <div class="agent-desc">Detects new bookings, sends confirmation emails, texts the lead, and notifies the owner — all in under a minute.</div>
+        <div class="agent-desc">Detects new bookings, sends confirmations, texts the lead, and notifies the owner instantly.</div>
         <div class="agent-tag"><span class="tag tag-gold">Lead &amp; Sales</span></div>
       </div>
-      <div class="agent-card reveal">
+      <div class="agent-card reveal reveal-d3">
         <div class="agent-num">Agent 04</div>
         <div class="agent-name">Email Reply Agent</div>
-        <div class="agent-desc">Reads every inbound email, understands the context, and crafts a natural, human-sounding reply on your behalf.</div>
+        <div class="agent-desc">Reads every inbound email, understands context, and replies naturally on your behalf.</div>
         <div class="agent-tag"><span class="tag tag-gold">Lead &amp; Sales</span></div>
       </div>
 
-      <!-- Estimates & Proposals -->
-      <div class="agent-card reveal reveal-d1">
+      <div class="agent-card reveal">
         <div class="agent-num">Agent 05</div>
         <div class="agent-name">Estimate Agent</div>
-        <div class="agent-desc">After a site visit, generates a full itemized estimate based on job details — materials, labor, and timeline.</div>
-        <div class="agent-tag"><span class="tag tag-blue">Estimates &amp; Proposals</span></div>
+        <div class="agent-desc">After a site visit, generates a full itemized estimate — materials, labor, and timeline included.</div>
+        <div class="agent-tag"><span class="tag tag-blue">Estimates</span></div>
       </div>
-      <div class="agent-card reveal reveal-d2">
+      <div class="agent-card reveal reveal-d1">
         <div class="agent-num">Agent 06</div>
         <div class="agent-name">Proposal Agent</div>
-        <div class="agent-desc">Turns estimates into polished, branded proposals complete with scope of work, timeline, and investment summary.</div>
-        <div class="agent-tag"><span class="tag tag-blue">Estimates &amp; Proposals</span></div>
+        <div class="agent-desc">Turns estimates into polished, branded proposals with scope, timeline, and investment summary.</div>
+        <div class="agent-tag"><span class="tag tag-blue">Estimates</span></div>
       </div>
-      <div class="agent-card reveal">
+      <div class="agent-card reveal reveal-d2">
         <div class="agent-num">Agent 07</div>
-        <div class="agent-name">Proposal Follow-up Agent</div>
-        <div class="agent-desc">Follows up if a proposal goes unanswered. Three-step sequence, stops automatically when the client responds.</div>
-        <div class="agent-tag"><span class="tag tag-blue">Estimates &amp; Proposals</span></div>
+        <div class="agent-name">Proposal Follow-up</div>
+        <div class="agent-desc">If a proposal goes unanswered, sends a 3-step sequence — stops the moment the client responds.</div>
+        <div class="agent-tag"><span class="tag tag-blue">Estimates</span></div>
       </div>
-
-      <!-- Contracts & Onboarding -->
-      <div class="agent-card reveal reveal-d1">
+      <div class="agent-card reveal reveal-d3">
         <div class="agent-num">Agent 08</div>
         <div class="agent-name">Contract Agent</div>
-        <div class="agent-desc">Generates a contract directly from the accepted proposal and sends it for digital signature — no manual steps.</div>
-        <div class="agent-tag"><span class="tag tag-green">Contracts &amp; Onboarding</span></div>
+        <div class="agent-desc">Generates a contract from the accepted proposal and sends it for digital signature automatically.</div>
+        <div class="agent-tag"><span class="tag tag-green">Contracts</span></div>
       </div>
-      <div class="agent-card reveal reveal-d2">
+
+      <div class="agent-card reveal">
         <div class="agent-num">Agent 09</div>
         <div class="agent-name">Welcome Agent</div>
-        <div class="agent-desc">When the contract is signed, sends the onboarding email and triggers the deposit invoice automatically.</div>
-        <div class="agent-tag"><span class="tag tag-green">Contracts &amp; Onboarding</span></div>
-      </div>
-
-      <!-- Job Management -->
-      <div class="agent-card reveal">
-        <div class="agent-num">Agent 10</div>
-        <div class="agent-name">Job Planning Agent</div>
-        <div class="agent-desc">Breaks every new job into phases, assigns tasks, and notifies subcontractors before the job even starts.</div>
-        <div class="agent-tag"><span class="tag tag-blue">Job Management</span></div>
+        <div class="agent-desc">When the contract is signed, sends onboarding info and triggers the deposit invoice automatically.</div>
+        <div class="agent-tag"><span class="tag tag-green">Contracts</span></div>
       </div>
       <div class="agent-card reveal reveal-d1">
-        <div class="agent-num">Agent 11</div>
-        <div class="agent-name">Client Agent</div>
-        <div class="agent-desc">Sends weekly progress updates, handles inbound client messages, and runs mid-job satisfaction checks.</div>
+        <div class="agent-num">Agent 10</div>
+        <div class="agent-name">Job Planning Agent</div>
+        <div class="agent-desc">Breaks every new job into phases, assigns tasks, and notifies subcontractors before day one.</div>
         <div class="agent-tag"><span class="tag tag-blue">Job Management</span></div>
       </div>
-
-      <!-- Finance -->
       <div class="agent-card reveal reveal-d2">
+        <div class="agent-num">Agent 11</div>
+        <div class="agent-name">Client Agent</div>
+        <div class="agent-desc">Sends weekly progress updates, handles inbound messages, and runs mid-job satisfaction checks.</div>
+        <div class="agent-tag"><span class="tag tag-blue">Job Management</span></div>
+      </div>
+      <div class="agent-card reveal reveal-d3">
         <div class="agent-num">Agent 12</div>
         <div class="agent-name">Invoice Agent</div>
-        <div class="agent-desc">Generates deposit and final invoices, sends them at the right moment, and follows up automatically if they go unpaid.</div>
+        <div class="agent-desc">Sends deposit and final invoices at the right moment, follows up automatically if unpaid.</div>
         <div class="agent-tag"><span class="tag tag-orange">Finance</span></div>
       </div>
 
-      <!-- Completion & Growth -->
       <div class="agent-card reveal">
         <div class="agent-num">Agent 13</div>
         <div class="agent-name">Completion Agent</div>
-        <div class="agent-desc">Handles job closeout, requests Google reviews while the job is still fresh, and sends a 30-day check-in.</div>
-        <div class="agent-tag"><span class="tag tag-purple">Completion &amp; Growth</span></div>
+        <div class="agent-desc">Handles job closeout, requests Google reviews while the job is fresh, schedules a 30-day check-in.</div>
+        <div class="agent-tag"><span class="tag tag-purple">Growth</span></div>
       </div>
       <div class="agent-card reveal reveal-d1">
         <div class="agent-num">Agent 14</div>
         <div class="agent-name">Marketing Agent</div>
-        <div class="agent-desc">Runs monthly performance reports, re-engagement campaigns for cold leads, and referral outreach to past clients.</div>
-        <div class="agent-tag"><span class="tag tag-purple">Completion &amp; Growth</span></div>
+        <div class="agent-desc">Runs monthly performance reports, re-engagement campaigns, and referral outreach to past clients.</div>
+        <div class="agent-tag"><span class="tag tag-purple">Growth</span></div>
       </div>
       <div class="agent-card reveal reveal-d2">
         <div class="agent-num">Agent 15</div>
         <div class="agent-name">Learning Agent</div>
-        <div class="agent-desc">Analyzes completed jobs, identifies patterns, and synthesizes insights that make every future estimate more accurate.</div>
-        <div class="agent-tag"><span class="tag tag-purple">Completion &amp; Growth</span></div>
+        <div class="agent-desc">Analyzes completed jobs, identifies pricing patterns, and makes every future estimate more accurate.</div>
+        <div class="agent-tag"><span class="tag tag-purple">Growth</span></div>
       </div>
-
+      <div class="agent-card reveal reveal-d3">
+        <div class="agent-num">Agent 16</div>
+        <div class="agent-name">Performance Agent</div>
+        <div class="agent-desc">Tracks team performance, crew scores, and job phase completion — visible in your live dashboard.</div>
+        <div class="agent-tag"><span class="tag tag-purple">Growth</span></div>
+      </div>
     </div>
-    <div style="text-align:center;margin-top:36px;">
-      <a href="full-system.html" class="btn-ghost">View full agent documentation &rarr;</a>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="agents.html" class="btn-ghost">Watch all 16 agents in action &rarr;</a>
     </div>
   </div>
 </section>
@@ -611,26 +747,26 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
 <!-- ── HOW IT WORKS ── -->
 <section id="how">
   <div class="container">
-    <div class="section-header">
-      <p class="section-label">Getting started</p>
+    <div class="section-header reveal">
+      <span class="section-label">Getting started</span>
       <h2>Live in under a week.</h2>
-      <p>No long onboarding. No technical knowledge required. We do all of it.</p>
+      <p>No long onboarding. No technical knowledge required. We handle everything.</p>
     </div>
     <div class="steps-grid">
       <div class="step-card reveal">
         <div class="step-number">01</div>
         <div class="step-title">We configure your agents around your business</div>
-        <p class="step-body">We spend one call learning your services, pricing, and tone. Then we configure all 15 agents to sound like you, price like you, and handle things the way you would.</p>
+        <p class="step-body">One call to learn your services, pricing, and voice. We configure all 16 agents to sound like you, price like you, and handle things the way you would.</p>
       </div>
       <div class="step-card reveal reveal-d2">
         <div class="step-number">02</div>
-        <div class="step-title">Everything goes live — connected to your tools</div>
-        <p class="step-body">Your agents connect to Gmail, your booking calendar, and your phone number. We test every workflow before handing it over. You don't touch a line of code.</p>
+        <div class="step-title">Everything goes live, connected to your tools</div>
+        <p class="step-body">Agents connect to Gmail, your booking calendar, and your phone number. We test every workflow before handoff. You never touch a line of code.</p>
       </div>
       <div class="step-card reveal reveal-d4">
         <div class="step-number">03</div>
         <div class="step-title">Your agents handle the rest</div>
-        <p class="step-body">From that point on, every lead gets responded to, every proposal goes out on time, every invoice gets sent. You just do the work and cash the checks.</p>
+        <p class="step-body">From that point on — every lead gets responded to, every proposal goes out on time, every invoice gets sent. You do the work. The agents handle the business.</p>
       </div>
     </div>
     <div style="text-align:center;margin-top:40px;">
@@ -639,12 +775,79 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
   </div>
 </section>
 
+<!-- ── COMPARISON ── -->
+<section id="comparison">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">How we compare</span>
+      <h2>Not just software. A full system.</h2>
+      <p>Jobber and BuilderTrend are great tools. But they don't do the work — they just organize it.</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="comparison-table reveal">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="highlight">SPEC Systems</th>
+            <th>Jobber</th>
+            <th>BuilderTrend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Responds to leads automatically</td>
+            <td class="check-yes spec-col">✓ Yes — in &lt;3 min</td>
+            <td class="check-no">✗ No</td>
+            <td class="check-no">✗ No</td>
+          </tr>
+          <tr>
+            <td>Writes proposals from job notes</td>
+            <td class="check-yes spec-col">✓ AI-generated</td>
+            <td class="check-no">✗ Manual</td>
+            <td class="check-no">✗ Manual</td>
+          </tr>
+          <tr>
+            <td>Sends contracts automatically</td>
+            <td class="check-yes spec-col">✓ After proposal is signed</td>
+            <td class="check-no">✗ Manual</td>
+            <td class="check-yes">✓ Templates only</td>
+          </tr>
+          <tr>
+            <td>Client update emails during job</td>
+            <td class="check-yes spec-col">✓ Weekly, automatic</td>
+            <td class="check-no">✗ Manual</td>
+            <td class="check-no">✗ Manual</td>
+          </tr>
+          <tr>
+            <td>Invoice follow-up if unpaid</td>
+            <td class="check-yes spec-col">✓ Automatic sequence</td>
+            <td class="check-yes">✓ Reminders only</td>
+            <td class="check-no">✗ No</td>
+          </tr>
+          <tr>
+            <td>Google review requests after job</td>
+            <td class="check-yes spec-col">✓ Automated + follow-up</td>
+            <td class="check-no">✗ No</td>
+            <td class="check-no">✗ No</td>
+          </tr>
+          <tr>
+            <td>Done-for-you setup</td>
+            <td class="check-yes spec-col">✓ We handle everything</td>
+            <td class="check-no">✗ DIY</td>
+            <td class="check-no">✗ DIY</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- ── INDUSTRIES ── -->
 <section id="industries">
   <div class="container">
-    <div class="industries-inner">
-      <p class="section-label">Who it's built for</p>
-      <div class="industry-tiles reveal">
+    <div class="industries-inner reveal">
+      <span class="section-label">Who it's built for</span>
+      <div class="industry-tiles">
         <div class="industry-tile">Home Remodeling</div>
         <div class="industry-tile">Roofing</div>
         <div class="industry-tile">HVAC</div>
@@ -654,7 +857,7 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
         <div class="industry-tile">Electrical</div>
         <div class="industry-tile">General Contracting</div>
       </div>
-      <p style="font-size:0.85rem;color:var(--mist);margin-top:20px;">If your business runs on leads, estimates, and job management — your agents are ready.</p>
+      <p class="industries-note">If your business runs on leads, estimates, and job management — your agents are ready.</p>
     </div>
   </div>
 </section>
@@ -662,80 +865,58 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
 <!-- ── PRICING ── -->
 <section id="pricing">
   <div class="container">
-    <div class="section-header">
-      <p class="section-label">Pricing</p>
-      <h2>One platform, four ways in</h2>
-      <p>Start with the essentials or go all-in. Every tier includes done-for-you setup.</p>
+    <div class="section-header reveal">
+      <span class="section-label">Pricing</span>
+      <h2>Simple, transparent pricing</h2>
+      <p>Every plan includes done-for-you setup and a dedicated configuration call.</p>
     </div>
     <div class="pricing-grid">
 
-      <!-- Tier 1 -->
+      <!-- Starter -->
       <div class="pricing-card reveal">
-        <div class="pricing-tier">Tier 1</div>
-        <div class="pricing-name">AI Automation Layer</div>
-        <div class="pricing-setup">Setup fee: <strong>$1,500</strong></div>
+        <div class="pricing-tier">Automation Layer</div>
+        <div class="pricing-name">Lead &amp; Sales Agents</div>
+        <div class="pricing-setup">Setup: <strong>$1,500</strong></div>
         <div class="pricing-monthly">
           <span class="price">$197</span><span class="per">/month</span>
         </div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
-          <li><span class="check">✓</span>5 core agents included</li>
-          <li><span class="check">✓</span>Lead response agent</li>
+          <li><span class="check">✓</span>5 core agents</li>
+          <li><span class="check">✓</span>Lead scoring &amp; response</li>
           <li><span class="check">✓</span>Email reply handler</li>
-          <li><span class="check">✓</span>Nurture sequence agent</li>
+          <li><span class="check">✓</span>Nurture sequences</li>
           <li><span class="check">✓</span>Calendly booking agent</li>
-          <li><span class="check">✓</span>SMS follow-up</li>
           <li><span class="check">✓</span>Plugs into your existing CRM</li>
         </ul>
-        <a href="https://calendly.com/spencerwalraven5" class="pricing-cta secondary" target="_blank">Get Started</a>
+        <a href="https://calendly.com/spencerwalraven5" class="pricing-cta outline" target="_blank">Get Started</a>
       </div>
 
-      <!-- Tier 2 — Featured -->
+      <!-- Full CRM — Featured -->
       <div class="pricing-card featured reveal reveal-d1">
         <div class="pricing-badge">Most Popular</div>
-        <div class="pricing-tier">Tier 2</div>
-        <div class="pricing-name">Full CRM</div>
-        <div class="pricing-setup">Setup fee: <strong>$3,500</strong></div>
+        <div class="pricing-tier">Full CRM</div>
+        <div class="pricing-name">All 16 Agents</div>
+        <div class="pricing-setup">Setup: <strong>$3,000</strong></div>
         <div class="pricing-monthly">
-          <span class="price">$397</span><span class="per">/month</span>
+          <span class="price">$300</span><span class="per">/month</span>
         </div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
-          <li><span class="check">✓</span>All 15 agents included</li>
-          <li><span class="check">✓</span>Full Google Sheets CRM dashboard</li>
-          <li><span class="check">✓</span>Mobile app access</li>
-          <li><span class="check">✓</span>Lead through review coverage</li>
-          <li><span class="check">✓</span>Everything in Tier 1</li>
+          <li><span class="check">✓</span>All 16 agents included</li>
+          <li><span class="check">✓</span>Live CRM dashboard</li>
+          <li><span class="check">✓</span>Lead → review coverage</li>
           <li><span class="check">✓</span>Done-for-you configuration</li>
           <li><span class="check">✓</span>Live in under a week</li>
+          <li><span class="check">✓</span>Ongoing support included</li>
         </ul>
         <a href="https://calendly.com/spencerwalraven5" class="pricing-cta primary" target="_blank">Book a Demo</a>
       </div>
 
-      <!-- Tier 3 -->
+      <!-- Custom -->
       <div class="pricing-card reveal reveal-d2">
-        <div class="pricing-tier">Tier 3</div>
-        <div class="pricing-name">Growth</div>
-        <div class="pricing-setup">Setup fee: <strong>$5,000</strong></div>
-        <div class="pricing-monthly">
-          <span class="price">$597</span><span class="per">/month</span>
-        </div>
-        <div class="pricing-divider"></div>
-        <ul class="pricing-features">
-          <li><span class="check">✓</span>Everything in Tier 2</li>
-          <li><span class="check">✓</span>QuickBooks sync</li>
-          <li><span class="check">✓</span>Monthly strategy call</li>
-          <li><span class="check">✓</span>Priority support</li>
-          <li><span class="check">✓</span>First custom agent included</li>
-          <li><span class="check">✓</span>Dedicated account setup</li>
-        </ul>
-        <a href="https://calendly.com/spencerwalraven5" class="pricing-cta secondary" target="_blank">Get Started</a>
-      </div>
-
-      <!-- Tier 4 -->
-      <div class="pricing-card reveal reveal-d3">
-        <div class="pricing-tier">Tier 4</div>
-        <div class="pricing-name">Custom Agents</div>
+        <div class="pricing-tier">Custom Agents</div>
+        <div class="pricing-name">Built for Your Business</div>
         <div class="pricing-setup">Build fee: <strong>$500/agent</strong></div>
         <div class="pricing-monthly">
           <span class="price">$75–100</span><span class="per">/agent/mo</span>
@@ -744,16 +925,14 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
         <ul class="pricing-features">
           <li><span class="check">✓</span>Any repeatable task in your business</li>
           <li><span class="check">✓</span>Scoped, built, and tested for you</li>
-          <li><span class="check">✓</span>Add on to any tier</li>
-          <li><span class="check">✓</span>Runs alongside your existing agents</li>
+          <li><span class="check">✓</span>Adds on to any plan</li>
+          <li><span class="check">✓</span>Runs alongside existing agents</li>
         </ul>
-        <a href="custom-agents.html" class="pricing-cta secondary">Learn More</a>
+        <a href="https://calendly.com/spencerwalraven5" class="pricing-cta outline" target="_blank">Talk to Us</a>
       </div>
 
     </div>
-    <p class="pricing-note reveal">
-      Not sure which tier fits? <a href="https://calendly.com/spencerwalraven5" target="_blank">Book a 20-minute discovery call</a> — we'll tell you exactly what you need. &nbsp;<a href="full-system.html">See full system details &rarr;</a>
-    </p>
+    <p class="pricing-note">Questions about which plan fits you? <a href="https://calendly.com/spencerwalraven5" target="_blank">Book a free 20-minute call</a> — no pressure, no pitch.</p>
   </div>
 </section>
 
@@ -761,11 +940,11 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
 <section id="cta-final">
   <div class="container">
     <div class="cta-final-inner">
-      <h2>Ready to stop running your<br>business <em>manually?</em></h2>
-      <p>Book a 20-minute call. We'll show you exactly how your agents would work, what they'd handle, and what your setup looks like.</p>
+      <h2>Ready to stop running your business<br>and let it <em>run itself</em>?</h2>
+      <p>Book a free demo call. We'll show you exactly how the agents work and what it looks like for your business.</p>
       <div class="cta-buttons">
-        <a href="https://calendly.com/spencerwalraven5" class="btn-primary" target="_blank">Book a Discovery Call &rarr;</a>
-        <a href="full-system.html" class="btn-secondary">See the Full System</a>
+        <a href="https://calendly.com/spencerwalraven5" class="btn-light" target="_blank">Book a Free Demo &rarr;</a>
+        <a href="agents.html" class="btn-outline-light">Watch the Live Demo</a>
       </div>
     </div>
   </div>
@@ -776,16 +955,16 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="logo-name">SPEC Systems</div>
-        <p>15 AI agents, done-for-you setup, live in under a week. Built for home service businesses that are ready to stop doing everything manually.</p>
+        <div class="footer-logo-name">SPEC Systems</div>
+        <p>16 AI agents that handle your leads, proposals, jobs, and invoices — so you can focus on doing the work.</p>
       </div>
       <div class="footer-col">
-        <h4>Platform</h4>
+        <h4>Product</h4>
         <ul>
           <li><a href="how-it-works.html">How It Works</a></li>
-          <li><a href="full-system.html">Full System</a></li>
-          <li><a href="custom-agents.html">Custom Agents</a></li>
+          <li><a href="agents.html">Live Demo</a></li>
           <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#agents">All 16 Agents</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -798,68 +977,32 @@ footer{background:var(--slate);border-top:1px solid rgba(255,255,255,0.06);paddi
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 SPEC Systems. All rights reserved.</p>
-      <p>Built for contractors who are done doing it all themselves.</p>
+      <p>&copy; 2025 SPEC Systems. All rights reserved.</p>
+      <p><a href="contact.html">Contact</a></p>
     </div>
   </div>
 </footer>
 
 <script>
-// Intersection Observer — reveal on scroll
-const revealEls = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => revealObserver.observe(el));
-
-// Animated counters
-const counters = document.querySelectorAll('.stat-number[data-count]');
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !entry.target.dataset.done) {
-      entry.target.dataset.done = true;
-      const target = parseInt(entry.target.dataset.count);
-      const suffix = entry.target.dataset.suffix || '';
-      let current = 0;
-      const duration = 1400;
-      const step = target / (duration / 16);
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        entry.target.textContent = Math.floor(current) + suffix;
-        if (current >= target) clearInterval(timer);
-      }, 16);
-    }
-  });
-}, { threshold: 0.5 });
-counters.forEach(el => counterObserver.observe(el));
-
-// Mobile hamburger
+// Nav hamburger
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobileNav');
 hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('open');
   mobileNav.classList.toggle('open');
 });
-// Close mobile nav on link click
-mobileNav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
+document.querySelectorAll('.mobile-nav a').forEach(a => {
+  a.addEventListener('click', () => {
     hamburger.classList.remove('open');
     mobileNav.classList.remove('open');
   });
 });
-// Nav scroll effect
-const navEl = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    navEl.style.background = 'rgba(10,9,8,0.98)';
-  } else {
-    navEl.style.background = 'rgba(10,9,8,0.94)';
-  }
-}, { passive: true });
+
+// Scroll reveals
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
