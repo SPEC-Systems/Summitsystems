@@ -860,6 +860,27 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 </section>
 
 <!-- ── PREMIUM ADD-ONS ── -->
+<style>
+.addon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1000px;margin:0 auto;}
+.addon-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 20px;cursor:pointer;transition:all 0.2s;}
+.addon-card:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(168,128,14,0.08);transform:translateY(-2px);}
+.addon-card.open{border-color:var(--gold);background:var(--cream-alt,#EDE9E0);}
+.addon-top{display:flex;align-items:center;gap:12px;}
+.addon-icon{font-size:1.6rem;flex-shrink:0;}
+.addon-info{flex:1;min-width:0;}
+.addon-name{font-weight:700;color:var(--navy);font-size:0.88rem;}
+.addon-count{font-size:0.68rem;color:var(--muted);margin-top:2px;}
+.addon-arrow{font-size:0.7rem;color:var(--muted);transition:transform 0.2s;flex-shrink:0;}
+.addon-card.open .addon-arrow{transform:rotate(180deg);}
+.addon-list{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
+.addon-card.open .addon-list{max-height:600px;}
+.addon-list ul{list-style:none;padding:14px 0 0;margin:0;}
+.addon-list li{font-size:0.78rem;color:var(--muted);padding:6px 0;border-top:1px solid var(--border-light,#EAE6DE);line-height:1.5;}
+.addon-list li:first-child{border-top:none;}
+.addon-list li span{margin-right:6px;}
+@media(max-width:768px){.addon-grid{grid-template-columns:1fr;}}
+@media(max-width:1024px){.addon-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
 <section id="addons" style="padding:100px 0;">
   <div class="container">
     <div class="section-header reveal">
@@ -867,58 +888,184 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
       <h2>Premium add-ons</h2>
       <p>Every business is different. These are available for any client who wants them.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1000px;margin:0 auto;" class="reveal">
+    <div class="addon-grid reveal">
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">📸</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">AI Photo Analysis</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">AI examines site photos to identify conditions, materials, and dimensions for better estimates.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">📸</div>
+          <div class="addon-info"><div class="addon-name">AI Vision</div><div class="addon-count">3 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>🔍</span>Photo analysis for estimates — AI identifies conditions, materials, and dimensions from site photos</li>
+          <li><span>📊</span>Progress photo comparison — before/after AI analysis tracks job completion</li>
+          <li><span>🏗️</span>Damage assessment from photos for insurance claims and documentation</li>
+        </ul></div>
       </div>
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">🛒</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">Supplier Price Comparison</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Compare real-time prices across suppliers. Find the best deal on every material, every job.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">🛒</div>
+          <div class="addon-info"><div class="addon-name">Supplier Intelligence</div><div class="addon-count">4 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>💲</span>Real-time price comparison across Home Depot, Lowe's, ABC Supply, and local suppliers</li>
+          <li><span>📦</span>Stock availability checking before ordering — no more wasted trips</li>
+          <li><span>📋</span>Automatic purchase order generation per job</li>
+          <li><span>🔄</span>Bulk order optimization across multiple jobs — save on volume</li>
+        </ul></div>
       </div>
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">🌐</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">Client Portal</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Clients log in to see project status, photos, documents, and pay invoices online.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">🌐</div>
+          <div class="addon-info"><div class="addon-name">Client Portal</div><div class="addon-count">5 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>👤</span>Clients log in to see project status, photos, and documents in real-time</li>
+          <li><span>✅</span>Clients pick their proposal tier directly on the portal</li>
+          <li><span>✍️</span>Digital contract signing — no DocuSign needed</li>
+          <li><span>💳</span>Payment portal — clients pay invoices online with one click</li>
+          <li><span>💬</span>Client messaging — chat directly with the company from their portal</li>
+        </ul></div>
       </div>
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">🌧️</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">Weather-Aware Scheduling</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Automatically reschedule outdoor phases when rain is forecast. Crew gets notified instantly.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">📊</div>
+          <div class="addon-info"><div class="addon-name">Advanced Analytics</div><div class="addon-count">5 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>💰</span>Profitability per service type — know which jobs make the most money</li>
+          <li><span>📈</span>Seasonal demand forecasting — predict your busy months</li>
+          <li><span>⚡</span>Crew efficiency scoring — who completes phases fastest and most reliably</li>
+          <li><span>🗑️</span>Material waste tracking — estimated vs actual usage per job</li>
+          <li><span>🔮</span>Revenue forecasting based on your current pipeline</li>
+        </ul></div>
       </div>
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">📞</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">AI Phone Agent</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">AI answers calls when you're busy. Takes messages, qualifies leads, and books appointments by voice.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">📢</div>
+          <div class="addon-info"><div class="addon-name">Marketing Automation</div><div class="addon-count">5 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>⭐</span>Automated Google and Facebook review campaigns</li>
+          <li><span>🍂</span>Seasonal email blasts to past clients — spring cleanup, fall prep, holiday lighting</li>
+          <li><span>🤝</span>Referral tracking with reward codes and automated payouts</li>
+          <li><span>🖼️</span>Before/after portfolio auto-generated from completed job photos</li>
+          <li><span>📱</span>Social media post generation from job photos with captions and hashtags</li>
+        </ul></div>
       </div>
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">📊</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">Profitability Analytics</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">See margin per service type, crew efficiency, material waste, and revenue forecasting.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">🌧️</div>
+          <div class="addon-info"><div class="addon-name">Scheduling Intelligence</div><div class="addon-count">4 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>☁️</span>Weather-aware scheduling — rain tomorrow? Outdoor phases auto-reschedule and crew gets notified</li>
+          <li><span>👷</span>Crew optimization — assign based on skills, location, and availability</li>
+          <li><span>🗺️</span>Route planning for multiple job sites in one day — save fuel and windshield time</li>
+          <li><span>🚚</span>Material delivery coordination timed with phase start dates</li>
+        </ul></div>
       </div>
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">🗺️</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">Route Planning</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Optimize crew routes across multiple job sites. Save fuel and windshield time every day.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">💰</div>
+          <div class="addon-info"><div class="addon-name">Financial Tools</div><div class="addon-count">5 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>💵</span>Automated payroll export to QuickBooks, Gusto, or ADP</li>
+          <li><span>📉</span>Job costing — real-time actual vs estimated costs as the job progresses</li>
+          <li><span>📄</span>Tax document preparation and year-end reporting</li>
+          <li><span>📝</span>Lien waiver generation — auto-created at each payment milestone</li>
+          <li><span>🔄</span>Change order financial impact analysis — see how changes affect the bottom line</li>
+        </ul></div>
       </div>
 
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;">
-        <div style="font-size:1.8rem;margin-bottom:8px;">🔗</div>
-        <div style="font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:6px;">Lead Source Import</div>
-        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Auto-import leads from Angi, HomeAdvisor, Thumbtack, and your website — all in one pipeline.</div>
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">📞</div>
+          <div class="addon-info"><div class="addon-name">Communication</div><div class="addon-count">5 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>🤖</span>AI phone agent — answers calls when you're busy, qualifies leads, books appointments by voice</li>
+          <li><span>🌍</span>Multi-language support — Spanish SMS and email for bilingual crews</li>
+          <li><span>📋</span>Client satisfaction surveys with NPS scoring and trend tracking</li>
+          <li><span>🔧</span>Automated warranty tracking and expiration reminders</li>
+          <li><span>📧</span>Smart email digest — daily summary of all AI-handled communication</li>
+        </ul></div>
+      </div>
+
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">🔗</div>
+          <div class="addon-info"><div class="addon-name">Integrations</div><div class="addon-count">6 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>🏠</span>Angi, HomeAdvisor, and Thumbtack lead import — all sources in one pipeline</li>
+          <li><span>🏡</span>Zillow/property data enrichment — auto-pull lot size, home value, and owner info</li>
+          <li><span>🏪</span>Supplier API connections for live, real-time material pricing</li>
+          <li><span>🛰️</span>Fleet GPS tracking — see where every truck is in real-time</li>
+          <li><span>🚁</span>Drone mapping integration for large property surveys and measurements</li>
+          <li><span>📐</span>CAD/design tool integration — import landscape designs directly into job plans</li>
+        </ul></div>
+      </div>
+
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">🛡️</div>
+          <div class="addon-info"><div class="addon-name">Safety & Compliance</div><div class="addon-count">4 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>📋</span>Digital safety checklists — crew signs off before starting each phase</li>
+          <li><span>📸</span>Incident documentation with photo evidence and auto-generated reports</li>
+          <li><span>🪪</span>License and certification tracking — alerts when renewals are due</li>
+          <li><span>📑</span>OSHA compliance documentation and audit trail</li>
+        </ul></div>
+      </div>
+
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">🧠</div>
+          <div class="addon-info"><div class="addon-name">AI Training & Learning</div><div class="addon-count">4 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>📚</span>Upload past invoices — AI learns your pricing patterns and typical margins</li>
+          <li><span>📝</span>Custom proposal and contract templates with your branding and terms</li>
+          <li><span>🎯</span>Industry-specific training — AI learns landscaping, roofing, HVAC, or your specific trade</li>
+          <li><span>📊</span>Continuous improvement — AI gets smarter with every completed job</li>
+        </ul></div>
+      </div>
+
+      <div class="addon-card" onclick="this.classList.toggle('open')">
+        <div class="addon-top">
+          <div class="addon-icon">🏢</div>
+          <div class="addon-info"><div class="addon-name">Multi-Location & Growth</div><div class="addon-count">4 features</div></div>
+          <div class="addon-arrow">▼</div>
+        </div>
+        <div class="addon-list"><ul>
+          <li><span>📍</span>Multi-location management — one dashboard for all your branches</li>
+          <li><span>👥</span>Franchise support — replicate your setup for new locations instantly</li>
+          <li><span>📊</span>Cross-location analytics — compare performance across branches</li>
+          <li><span>🔐</span>Role-based access per location — managers only see their branch</li>
+        </ul></div>
       </div>
 
     </div>
-    <p style="text-align:center;color:var(--muted);font-size:0.85rem;margin-top:28px;">Want something custom? <a href="https://calendly.com/spencerwalraven5" target="_blank" style="color:var(--gold);font-weight:600;text-decoration:none;">Let's talk about what you need.</a></p>
+    <p style="text-align:center;color:var(--muted);font-size:0.85rem;margin-top:28px;">Want something not on this list? <a href="https://calendly.com/spencerwalraven5" target="_blank" style="color:var(--gold);font-weight:600;text-decoration:none;">We build custom solutions for any workflow.</a></p>
   </div>
 </section>
 
