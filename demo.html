@@ -27,9 +27,14 @@
   --shadow:     0 2px 16px rgba(14,28,47,0.07);
   --shadow-md:  0 6px 32px rgba(14,28,47,0.10);
   --shadow-lg:  0 16px 56px rgba(14,28,47,0.13);
+  --glass-bg:   rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.12);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
+  background-image:radial-gradient(circle,rgba(14,28,47,0.04) 1px,transparent 1px);
+  background-size:24px 24px;
+}
 
 /* ── NAV ── */
 nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);position:fixed;top:0;left:0;right:0;z-index:100;}
@@ -45,65 +50,111 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 .btn-nav:hover{filter:brightness(1.1);transform:translateY(-1px);}
 
 /* ── PROGRESS BAR ── */
-.progress-wrap{position:fixed;top:79px;left:0;right:0;z-index:99;background:var(--cream-alt);height:4px;}
-.progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width 0.5s cubic-bezier(0.22,1,0.36,1);width:6.25%;border-radius:0 2px 2px 0;}
+.progress-wrap{position:fixed;top:79px;left:0;right:0;z-index:99;background:var(--cream-alt);height:5px;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light),#E8D48B,var(--gold-light),var(--gold));background-size:200% 100%;transition:width 0.6s cubic-bezier(0.22,1,0.36,1);width:6.25%;border-radius:0 3px 3px 0;position:relative;box-shadow:0 0 12px rgba(168,128,14,0.4),0 0 4px rgba(168,128,14,0.6);animation:shimmer 2s linear infinite;}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
 /* ── SCENE CONTROLS ── */
-.scene-header{position:fixed;top:83px;left:0;right:0;z-index:98;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
+.scene-header{position:fixed;top:84px;left:0;right:0;z-index:98;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
 .scene-label{font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
 .scene-title-text{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);font-weight:600;}
 .scene-nav{display:flex;gap:12px;align-items:center;}
-.scene-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;padding:10px 22px;border-radius:8px;cursor:pointer;transition:all 0.2s;border:none;}
+.scene-btn{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;padding:10px 22px;border-radius:8px;cursor:pointer;transition:all 0.2s;border:none;position:relative;overflow:hidden;}
 .scene-btn.back{background:var(--white);color:var(--navy);border:2px solid var(--border);}
 .scene-btn.back:hover:not(:disabled){border-color:var(--navy);}
 .scene-btn.back:disabled{opacity:0.3;cursor:default;border-color:var(--border);}
 .scene-btn.next{background:var(--gold);color:#fff;}
 .scene-btn.next:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.scene-btn .countdown-ring{position:absolute;top:3px;right:3px;width:16px;height:16px;}
+.scene-btn .countdown-ring circle{fill:none;stroke:rgba(255,255,255,0.5);stroke-width:2;stroke-dasharray:44;stroke-dashoffset:0;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 0.1s linear;}
+.play-btn{background:var(--navy);color:#fff;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.78rem;transition:all 0.2s;}
+.play-btn:hover{background:var(--navy-mid);}
+.play-btn.playing{background:var(--red);}
+
+/* ── SCENE DOTS ── */
+.scene-dots{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;display:flex;gap:8px;background:rgba(14,28,47,0.85);backdrop-filter:blur(12px);padding:10px 18px;border-radius:30px;box-shadow:var(--shadow-lg);}
+.scene-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.3s;border:none;}
+.scene-dot.active{background:var(--gold-light);transform:scale(1.3);box-shadow:0 0 8px rgba(201,162,39,0.5);}
+.scene-dot:hover:not(.active){background:rgba(255,255,255,0.4);}
 
 /* ── SCENE CONTAINER ── */
-.scene-container{flex:1;padding:170px 32px 60px;max-width:1100px;margin:0 auto;width:100%;}
-.scene{display:none;opacity:0;transform:translateY(20px);transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1),transform 0.5s cubic-bezier(0.22,1,0.36,1);}
+.scene-container{flex:1;padding:175px 32px 80px;max-width:1100px;margin:0 auto;width:100%;position:relative;}
+.scene{display:none;position:relative;}
 .scene.active{display:block;}
-.scene.visible{opacity:1;transform:translateY(0);}
+.scene.slide-in-right{animation:slideInRight 0.4s cubic-bezier(0.22,1,0.36,1) forwards;}
+.scene.slide-out-left{animation:slideOutLeft 0.3s cubic-bezier(0.22,1,0.36,1) forwards;}
+.scene.slide-in-left{animation:slideInLeft 0.4s cubic-bezier(0.22,1,0.36,1) forwards;}
+.scene.slide-out-right{animation:slideOutRight 0.3s cubic-bezier(0.22,1,0.36,1) forwards;}
+@keyframes slideInRight{from{opacity:0;transform:translateX(60px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideOutLeft{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-60px);}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-60px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideOutRight{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(60px);}}
+
+/* ── CHAPTER TITLE ── */
+.chapter-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--navy);text-align:center;margin-bottom:28px;opacity:0;transform:translateY(20px);transition:all 0.5s cubic-bezier(0.22,1,0.36,1);}
+.chapter-title.visible{opacity:1;transform:translateY(0);}
+.chapter-title .chapter-num{display:block;font-size:0.72rem;font-family:'DM Sans',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:6px;}
+
 .scene-caption{text-align:center;margin-top:32px;padding:20px 24px;background:var(--white);border:1px solid var(--border);border-radius:12px;font-size:0.95rem;color:var(--navy);line-height:1.7;font-weight:500;max-width:700px;margin-left:auto;margin-right:auto;}
 .scene-caption::before{content:'\201C';font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-right:4px;}
 .scene-caption::after{content:'\201D';font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-left:4px;}
 
-/* ── BROWSER MOCKUP ── */
-.browser-frame{background:var(--navy);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);max-width:900px;margin:0 auto;}
-.browser-chrome{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);}
-.browser-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15);}
-.browser-dot.r{background:#E74C3C80;}
-.browser-dot.y{background:#F39C1280;}
-.browser-dot.g{background:#2ECC7180;}
-.browser-url{flex:1;margin-left:12px;background:rgba(255,255,255,0.08);border-radius:6px;padding:6px 14px;font-size:0.72rem;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif;}
+/* ── STAGGER ANIMATIONS ── */
+.stagger{opacity:0;transform:translateY(16px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1);}
+.stagger.visible{opacity:1;transform:translateY(0);}
+.stagger-1{transition-delay:0.15s;}
+.stagger-2{transition-delay:0.30s;}
+.stagger-3{transition-delay:0.45s;}
+.stagger-4{transition-delay:0.60s;}
+.stagger-5{transition-delay:0.75s;}
+.stagger-6{transition-delay:0.90s;}
+.stagger-7{transition-delay:1.05s;}
+
+/* ── BROWSER MOCKUP (macOS style) ── */
+.browser-frame{background:var(--navy);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lg),0 0 0 1px rgba(255,255,255,0.06);max-width:900px;margin:0 auto;border:1px solid rgba(255,255,255,0.08);}
+.browser-chrome{display:flex;align-items:center;gap:8px;padding:11px 16px;background:linear-gradient(180deg,#3a3a3c,#2c2c2e);border-bottom:1px solid rgba(0,0,0,0.3);position:relative;}
+.browser-dot{width:12px;height:12px;border-radius:50%;transition:all 0.2s;}
+.browser-dot.r{background:#FF5F57;box-shadow:inset 0 -1px 2px rgba(0,0,0,0.2);}
+.browser-dot.y{background:#FEBC2E;box-shadow:inset 0 -1px 2px rgba(0,0,0,0.2);}
+.browser-dot.g{background:#28C840;box-shadow:inset 0 -1px 2px rgba(0,0,0,0.2);}
+.browser-url-bar{flex:1;margin-left:16px;margin-right:16px;background:rgba(255,255,255,0.1);border-radius:6px;padding:5px 14px;font-size:0.72rem;color:rgba(255,255,255,0.55);font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;}
+.browser-url-bar .lock{color:rgba(255,255,255,0.3);font-size:0.65rem;}
 .browser-body{padding:28px;color:#fff;min-height:300px;}
 
-/* ── PHONE MOCKUP ── */
-.phone-frame{background:#1a1a1a;border-radius:36px;max-width:360px;margin:0 auto;box-shadow:var(--shadow-lg);padding:12px;border:3px solid #333;}
-.phone-notch{width:120px;height:24px;background:#000;border-radius:0 0 16px 16px;margin:0 auto 12px;}
-.phone-body{background:var(--navy);border-radius:24px;padding:20px;color:#fff;min-height:400px;}
+/* ── PHONE MOCKUP (iPhone style) ── */
+.phone-frame{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);border-radius:44px;max-width:360px;margin:0 auto;box-shadow:var(--shadow-lg),inset 0 0 0 2px rgba(255,255,255,0.08),0 0 0 3px rgba(0,0,0,0.3);padding:14px;position:relative;}
+.phone-frame::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:130px;height:28px;background:#000;border-radius:0 0 18px 18px;z-index:2;}
+.phone-frame::after{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:80px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;z-index:3;}
+.phone-body{background:var(--navy);border-radius:32px;padding:40px 20px 20px;color:#fff;min-height:420px;position:relative;overflow:hidden;}
 
 /* ── KPI CARDS ── */
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-.kpi-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;text-align:center;}
+.kpi-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:10px;padding:16px;text-align:center;backdrop-filter:blur(8px);transition:transform 0.3s,box-shadow 0.3s;}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
 .kpi-value{font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:4px;}
 .kpi-label{font-size:0.7rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.05em;}
 .kpi-card.gold .kpi-value{color:var(--gold-light);}
 .kpi-card.green .kpi-value{color:var(--green-light);}
+@keyframes kpiPulse{0%{box-shadow:0 0 0 0 rgba(168,128,14,0.3);}70%{box-shadow:0 0 0 8px rgba(168,128,14,0);}100%{box-shadow:0 0 0 0 rgba(168,128,14,0);}}
+.kpi-card.pulse{animation:kpiPulse 0.8s ease-out;}
+
+/* ── GLASSMORPHISM CARDS ── */
+.glass{background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);border-radius:12px;}
 
 /* ── ALERT & AI REC ── */
-.alert-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);border-radius:8px;padding:10px 16px;font-size:0.82rem;color:#E74C3C;font-weight:600;margin-bottom:16px;}
-.ai-rec{background:rgba(168,128,14,0.1);border:1px solid rgba(168,128,14,0.2);border-radius:10px;padding:16px;font-size:0.85rem;color:var(--gold-light);display:flex;align-items:center;gap:10px;}
+.alert-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);border-radius:8px;padding:10px 16px;font-size:0.82rem;color:#E74C3C;font-weight:600;margin-bottom:16px;backdrop-filter:blur(8px);}
+.ai-rec{background:rgba(168,128,14,0.1);border:1px solid rgba(168,128,14,0.2);border-radius:10px;padding:16px;font-size:0.85rem;color:var(--gold-light);display:flex;align-items:center;gap:10px;backdrop-filter:blur(8px);}
 .ai-rec .ai-icon{font-size:1.2rem;}
 
 /* ── NOTIFICATION ── */
-.notif-slide{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:16px;animation:slideInRight 0.6s ease-out;}
-@keyframes slideInRight{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
-.notif-dot{width:10px;height:10px;border-radius:50%;background:#E74C3C;flex-shrink:0;}
+.notif-slide{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;margin-bottom:16px;opacity:0;transform:translateX(80px);backdrop-filter:blur(8px);}
+.notif-slide.animate-in{animation:notifSlideIn 0.6s cubic-bezier(0.22,1,0.36,1) forwards;}
+@keyframes notifSlideIn{from{opacity:0;transform:translateX(80px);}to{opacity:1;transform:translateX(0);}}
+.notif-dot{width:10px;height:10px;border-radius:50%;background:#E74C3C;flex-shrink:0;animation:notifPulse 1.5s infinite;}
+@keyframes notifPulse{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,0.5);}50%{box-shadow:0 0 0 6px rgba(231,76,60,0);}}
 
 /* ── LEAD CARD ── */
-.lead-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;margin-bottom:16px;}
+.lead-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:20px;margin-bottom:16px;backdrop-filter:blur(8px);}
 .lead-card h4{font-size:1rem;color:#fff;margin-bottom:10px;}
 .lead-row{display:flex;gap:20px;flex-wrap:wrap;font-size:0.82rem;color:rgba(255,255,255,0.6);}
 .lead-row span{display:flex;align-items:center;gap:6px;}
@@ -118,33 +169,46 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 
 /* ── PIPELINE MINI ── */
 .pipeline-mini{display:flex;gap:2px;margin-top:16px;align-items:center;}
-.pipeline-stage{flex:1;text-align:center;padding:8px 4px;font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.3);border-radius:6px;background:rgba(255,255,255,0.04);text-transform:uppercase;letter-spacing:0.04em;}
+.pipeline-stage{flex:1;text-align:center;padding:8px 4px;font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.3);border-radius:6px;background:rgba(255,255,255,0.04);text-transform:uppercase;letter-spacing:0.04em;transition:all 0.5s;}
 .pipeline-stage.active{background:rgba(46,204,113,0.2);color:var(--green-light);}
 .pipeline-stage.passed{background:rgba(168,128,14,0.15);color:var(--gold-light);}
 
 /* ── TIER CARDS ── */
 .tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0;}
-.tier-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;text-align:center;transition:all 0.3s;}
-.tier-card.selected{border-color:var(--gold-light);background:rgba(168,128,14,0.1);box-shadow:0 0 20px rgba(168,128,14,0.15);}
+.tier-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:16px;text-align:center;transition:all 0.3s cubic-bezier(0.22,1,0.36,1);cursor:pointer;backdrop-filter:blur(8px);position:relative;}
+.tier-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,0.3);border-color:rgba(255,255,255,0.2);}
+.tier-card.selected{border-color:var(--gold-light);background:rgba(168,128,14,0.12);box-shadow:0 0 30px rgba(168,128,14,0.2),0 12px 32px rgba(0,0,0,0.2);}
+.tier-card.dimmed{opacity:0.45;transform:scale(0.97);}
+.tier-selected-badge{position:absolute;top:-8px;right:-8px;background:var(--gold-light);color:#fff;font-size:0.65rem;font-weight:700;padding:3px 8px;border-radius:6px;opacity:0;transform:scale(0);transition:all 0.3s;}
+.tier-card.selected .tier-selected-badge{opacity:1;transform:scale(1);}
 .tier-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:#fff;font-weight:600;margin-bottom:4px;}
 .tier-price{font-size:1.3rem;font-weight:700;color:var(--gold-light);margin-bottom:10px;}
 .tier-list{list-style:none;font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.9;text-align:left;padding:0 4px;}
 .tier-list li::before{content:"+ ";color:rgba(255,255,255,0.3);}
 
 /* ── STATUS BADGE ── */
-.status-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:0.78rem;font-weight:600;}
+.status-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:0.78rem;font-weight:600;transition:all 0.4s;}
 .status-badge.pending{background:rgba(243,156,18,0.15);color:#F39C12;border:1px solid rgba(243,156,18,0.3);}
 .status-badge.sent{background:rgba(46,204,113,0.15);color:var(--green-light);border:1px solid rgba(46,204,113,0.3);}
 
 /* ── TABLE ── */
 .mock-table{width:100%;border-collapse:collapse;font-size:0.75rem;margin:12px 0;}
 .mock-table th{text-align:left;padding:10px 12px;color:rgba(255,255,255,0.45);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;font-size:0.68rem;border-bottom:1px solid rgba(255,255,255,0.1);}
-.mock-table td{padding:10px 12px;color:rgba(255,255,255,0.75);border-bottom:1px solid rgba(255,255,255,0.05);}
-.mock-table tr:hover td{background:rgba(255,255,255,0.03);}
+.mock-table td{padding:10px 12px;color:rgba(255,255,255,0.75);border-bottom:1px solid rgba(255,255,255,0.05);transition:all 0.3s;}
+.mock-table tr{transition:all 0.3s;}
+.mock-table tr:hover td{background:rgba(255,255,255,0.05);}
+.mock-table tr.removed td{text-decoration:line-through;opacity:0.3;}
+.remove-btn{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#E74C3C;padding:2px 8px;border-radius:4px;font-size:0.65rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all 0.2s;}
+.remove-btn:hover{background:rgba(231,76,60,0.3);}
+.undo-btn{background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3);color:var(--green-light);padding:2px 8px;border-radius:4px;font-size:0.65rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all 0.2s;}
 .table-summary{display:flex;gap:20px;justify-content:center;padding:16px;background:rgba(255,255,255,0.04);border-radius:10px;margin-top:12px;flex-wrap:wrap;}
 .table-summary-item{text-align:center;}
 .table-summary-item .val{font-size:1rem;font-weight:700;color:#fff;}
 .table-summary-item .lbl{font-size:0.68rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.04em;}
+
+/* ── PROGRESS BAR (phase) ── */
+.phase-progress{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;margin:8px 0;}
+.phase-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;width:0;transition:width 1.2s cubic-bezier(0.22,1,0.36,1);}
 
 /* ── DOC PREVIEW ── */
 .doc-preview{background:rgba(255,255,255,0.95);border-radius:10px;padding:28px;color:var(--navy);font-size:0.82rem;line-height:1.7;max-width:600px;margin:0 auto;}
@@ -155,8 +219,19 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 .doc-preview .doc-value{font-weight:600;color:var(--navy);}
 
 /* ── APPROVE BUTTON ── */
-.approve-btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:0.88rem;border:none;cursor:default;margin:12px 0;font-family:'DM Sans',sans-serif;}
+.approve-btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:0.88rem;border:none;cursor:pointer;margin:12px 0;font-family:'DM Sans',sans-serif;transition:all 0.2s;position:relative;overflow:hidden;}
+.approve-btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.approve-btn:active{transform:scale(0.97);}
 .approve-btn.gold{background:var(--gold);}
+.approve-btn.clicked{pointer-events:none;}
+
+/* ── SUCCESS ANIMATION ── */
+.success-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.success-overlay.show{opacity:1;pointer-events:auto;}
+.success-check{width:80px;height:80px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:#fff;transform:scale(0);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+.success-overlay.show .success-check{transform:scale(1);}
+.confetti{position:absolute;width:8px;height:8px;border-radius:2px;animation:confettiFall 1s ease-out forwards;}
+@keyframes confettiFall{0%{opacity:1;transform:translate(0,0) rotate(0deg);}100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(720deg);}}
 
 /* ── TIMELINE ── */
 .timeline{margin:16px 0;}
@@ -167,7 +242,8 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 .timeline-dates{color:rgba(255,255,255,0.4);font-size:0.72rem;white-space:nowrap;}
 
 /* ── EQUIPMENT ── */
-.equip-row{display:flex;gap:8px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:6px;font-size:0.78rem;color:rgba(255,255,255,0.7);}
+.equip-row{display:flex;gap:8px;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:6px;font-size:0.78rem;color:rgba(255,255,255,0.7);transition:background 0.2s;}
+.equip-row:hover{background:rgba(255,255,255,0.07);}
 .equip-name{flex:1;color:#fff;font-weight:600;}
 .equip-status{padding:3px 10px;border-radius:6px;font-size:0.7rem;font-weight:600;}
 .equip-status.in-use{background:rgba(46,204,113,0.15);color:var(--green-light);}
@@ -192,19 +268,32 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 
 /* ── ANALYTICS GRID ── */
 .analytics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
-.analytics-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px;text-align:center;}
+.analytics-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:10px;padding:18px;text-align:center;backdrop-filter:blur(8px);transition:transform 0.3s;}
+.analytics-card:hover{transform:translateY(-2px);}
 .analytics-card .a-value{font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:2px;}
 .analytics-card .a-label{font-size:0.7rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;}
 
 /* ── CHAT UI ── */
-.chat-ui{max-width:600px;margin:0 auto;background:rgba(0,0,0,0.3);border-radius:16px;overflow:hidden;}
+.chat-ui{max-width:600px;margin:0 auto;background:rgba(0,0,0,0.3);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px);}
 .chat-header{padding:14px 20px;background:rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px;}
 .chat-avatar{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;}
 .chat-name{color:#fff;font-weight:600;font-size:0.88rem;}
-.chat-msgs{padding:20px;display:flex;flex-direction:column;gap:14px;}
-.chat-msg{max-width:85%;padding:12px 16px;border-radius:14px;font-size:0.82rem;line-height:1.6;}
+.chat-msgs{padding:20px;display:flex;flex-direction:column;gap:14px;min-height:300px;}
+.chat-msg{max-width:85%;padding:12px 16px;border-radius:14px;font-size:0.82rem;line-height:1.6;opacity:0;transform:translateY(10px);transition:all 0.4s;}
+.chat-msg.visible{opacity:1;transform:translateY(0);}
 .chat-msg.user{background:var(--gold);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
 .chat-msg.ai{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.85);align-self:flex-start;border-bottom-left-radius:4px;}
+.typing-dots{display:inline-flex;gap:4px;padding:12px 16px;background:rgba(255,255,255,0.08);border-radius:14px;border-bottom-left-radius:4px;align-self:flex-start;}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);animation:typingBounce 1.2s infinite;}
+.typing-dots span:nth-child(2){animation-delay:0.15s;}
+.typing-dots span:nth-child(3){animation-delay:0.3s;}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+.chat-input-wrap{display:flex;gap:8px;padding:14px 20px;background:rgba(255,255,255,0.04);border-top:1px solid rgba(255,255,255,0.08);}
+.chat-input{flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:10px 14px;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.82rem;outline:none;transition:border-color 0.2s;}
+.chat-input:focus{border-color:var(--gold-light);}
+.chat-input::placeholder{color:rgba(255,255,255,0.3);}
+.chat-send-btn{background:var(--gold);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;transition:all 0.2s;}
+.chat-send-btn:hover{filter:brightness(1.1);}
 
 /* ── FINAL CTA ── */
 .final-cta{text-align:center;margin-top:32px;}
@@ -218,12 +307,14 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 .photo-thumb{flex:1;height:64px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:rgba(255,255,255,0.35);text-align:center;padding:4px;}
 
 /* ── CLIENT PORTAL (white) ── */
-.portal-frame{background:#fff;border-radius:16px;padding:32px;color:var(--navy);box-shadow:var(--shadow-lg);max-width:800px;margin:0 auto;}
+.portal-frame{background:#fff;border-radius:16px;padding:32px;color:var(--navy);box-shadow:var(--shadow-lg);max-width:800px;margin:0 auto;position:relative;overflow:hidden;}
+.portal-frame::before{content:'';position:absolute;top:-80px;right:-80px;width:250px;height:250px;background:radial-gradient(circle,rgba(168,128,14,0.08),transparent 70%);pointer-events:none;}
 .portal-title{font-family:'Playfair Display',serif;font-size:1.2rem;text-align:center;margin-bottom:4px;}
 .portal-company{text-align:center;color:var(--muted);font-size:0.82rem;margin-bottom:24px;}
 .portal-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.portal-tier{border:2px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:all 0.3s;}
-.portal-tier.chosen{border-color:var(--gold);background:rgba(168,128,14,0.04);box-shadow:0 0 16px rgba(168,128,14,0.12);}
+.portal-tier{border:2px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:all 0.3s;cursor:pointer;}
+.portal-tier:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+.portal-tier.chosen{border-color:var(--gold);background:rgba(168,128,14,0.04);box-shadow:0 0 20px rgba(168,128,14,0.12);}
 .portal-tier .pt-name{font-weight:700;font-size:0.88rem;color:var(--navy);margin-bottom:2px;}
 .portal-tier .pt-price{font-size:1.2rem;font-weight:700;color:var(--gold);margin-bottom:10px;}
 .portal-tier .pt-list{list-style:none;font-size:0.7rem;color:var(--muted);line-height:1.8;text-align:left;padding:0 4px;}
@@ -236,7 +327,8 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 
 /* ── CONVERSATIONS TIMELINE ── */
 .convo-timeline{margin-top:16px;}
-.convo-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.78rem;align-items:flex-start;}
+.convo-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.78rem;align-items:flex-start;transition:background 0.2s;}
+.convo-item:hover{background:rgba(255,255,255,0.02);}
 .convo-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;font-weight:700;}
 .convo-icon.ai-sent{background:rgba(168,128,14,0.2);color:var(--gold-light);}
 .convo-icon.client{background:rgba(46,204,113,0.2);color:var(--green-light);}
@@ -255,7 +347,7 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 .sync-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.2);padding:6px 14px;border-radius:8px;font-size:0.72rem;font-weight:600;color:var(--green-light);}
 
 /* ── CONFIRM DIALOG ── */
-.confirm-dialog{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:18px;text-align:center;margin:16px auto;max-width:400px;}
+.confirm-dialog{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;padding:18px;text-align:center;margin:16px auto;max-width:400px;backdrop-filter:blur(8px);}
 .confirm-dialog p{font-size:0.88rem;color:#fff;margin-bottom:12px;}
 
 /* ── TWO COL ── */
@@ -267,6 +359,10 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 .cost-item .c-val{font-size:1rem;font-weight:700;color:#fff;}
 .cost-item .c-lbl{font-size:0.68rem;color:rgba(255,255,255,0.4);text-transform:uppercase;}
 .cost-item.under .c-val{color:var(--green-light);}
+
+/* ── GRADIENT ACCENT ── */
+.gradient-accent{position:relative;}
+.gradient-accent::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(168,128,14,0.06),transparent 65%);pointer-events:none;z-index:0;}
 
 /* ── FOOTER ── */
 footer{background:var(--navy);padding:40px 32px;text-align:center;}
@@ -283,16 +379,19 @@ footer a:hover{color:#fff;}
   .two-col{grid-template-columns:1fr;}
   .nav-links a:not(.btn-nav){display:none;}
   .scene-title-text{font-size:0.88rem;}
+  .chapter-title{font-size:1.4rem;}
 }
 @media(max-width:480px){
   .kpi-row{grid-template-columns:1fr 1fr;}
   .tier-grid,.portal-tiers{grid-template-columns:1fr;}
   .analytics-grid{grid-template-columns:1fr;}
-  .scene-container{padding:160px 16px 40px;}
+  .scene-container{padding:165px 16px 80px;}
   .scene-header{padding:10px 16px;}
   .mock-table{font-size:0.65rem;}
   .mock-table th,.mock-table td{padding:6px 8px;}
   .payment-track{flex-direction:column;}
+  .scene-dots{bottom:12px;padding:8px 12px;}
+  .scene-dot{width:8px;height:8px;}
 }
 </style>
 </head>
@@ -320,6 +419,7 @@ footer a:hover{color:#fff;}
     <div class="scene-title-text" id="sceneTitle">It's Monday morning</div>
   </div>
   <div class="scene-nav">
+    <button class="play-btn" id="btnPlay" onclick="toggleAutoPlay()">&#9654; Play All</button>
     <button class="scene-btn back" id="btnBack" disabled onclick="goBack()">&#8592; Back</button>
     <button class="scene-btn next" id="btnNext" onclick="goNext()">Next &#8594;</button>
   </div>
@@ -327,58 +427,60 @@ footer a:hover{color:#fff;}
 
 <div class="scene-container">
 
-<!-- ══════════════ SCENE 1 ══════════════ -->
+<!-- SCENE 1 -->
 <div class="scene active" data-scene="1">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 1</span>It's Monday morning</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/dashboard</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/dashboard</div>
     </div>
     <div class="browser-body">
-      <div style="font-size:1.4rem;font-weight:700;margin-bottom:20px;">Good morning, Coach &#x1F44B;</div>
-      <div class="kpi-row">
-        <div class="kpi-card gold"><div class="kpi-value">$105,900</div><div class="kpi-label">Pipeline</div></div>
-        <div class="kpi-card"><div class="kpi-value">3</div><div class="kpi-label">Active Jobs</div></div>
-        <div class="kpi-card"><div class="kpi-value">12</div><div class="kpi-label">Open Leads</div></div>
-        <div class="kpi-card green"><div class="kpi-value">$41,350</div><div class="kpi-label">Revenue</div></div>
+      <div class="stagger stagger-2" style="font-size:1.4rem;font-weight:700;margin-bottom:20px;">Good morning, Coach &#x1F44B;</div>
+      <div class="kpi-row stagger stagger-3">
+        <div class="kpi-card gold"><div class="kpi-value" data-count="105900" data-prefix="$" data-comma>$0</div><div class="kpi-label">Pipeline</div></div>
+        <div class="kpi-card"><div class="kpi-value" data-count="3">0</div><div class="kpi-label">Active Jobs</div></div>
+        <div class="kpi-card"><div class="kpi-value" data-count="12">0</div><div class="kpi-label">Open Leads</div></div>
+        <div class="kpi-card green"><div class="kpi-value" data-count="41350" data-prefix="$" data-comma>$0</div><div class="kpi-label">Revenue</div></div>
       </div>
-      <div class="alert-badge">&#x1F534; 3 alerts need attention</div>
-      <div class="ai-rec">
+      <div class="stagger stagger-4 alert-badge">&#x1F534; <span data-count="3">0</span> alerts need attention</div>
+      <div class="ai-rec stagger stagger-5">
         <span class="ai-icon">&#x1F916;</span>
-        <span><strong>AI Recommendation:</strong> Call Jennifer Caldwell first &mdash; Score 95, ready to book.</span>
+        <span><strong>AI Recommendation:</strong> Call Jennifer Caldwell first &mdash; Score <span data-count="95">0</span>, ready to book.</span>
       </div>
     </div>
   </div>
-  <div class="scene-caption">Your day starts here. Every lead, job, and dollar &mdash; one screen.</div>
+  <div class="scene-caption stagger stagger-6">Your day starts here. Every lead, job, and dollar &mdash; one screen.</div>
 </div>
 
-<!-- ══════════════ SCENE 2 ══════════════ -->
+<!-- SCENE 2 -->
 <div class="scene" data-scene="2">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 2</span>A new lead just came in</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/leads</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/leads</div>
     </div>
     <div class="browser-body">
-      <div class="notif-slide">
+      <div class="notif-slide stagger stagger-2" id="scene2Notif">
         <span class="notif-dot"></span>
         <span style="color:#fff;font-weight:600;">&#x1F525; New Lead &mdash; Jennifer Caldwell</span>
         <span style="margin-left:auto;font-size:0.72rem;color:rgba(255,255,255,0.4);">Just now</span>
       </div>
-      <div class="lead-card">
+      <div class="lead-card stagger stagger-3">
         <h4>Jennifer Caldwell</h4>
         <div class="lead-row">
           <span>Service: <strong>Full Landscape</strong></span>
           <span>Source: <strong>Google</strong></span>
-          <span><span class="score-badge">Score: 95</span></span>
+          <span><span class="score-badge">Score: <span data-count="95">0</span></span></span>
         </div>
       </div>
-      <div class="email-preview">
+      <div class="email-preview stagger stagger-4">
         <div class="email-from">From: your-company@email.com</div>
         <div class="email-subject">Re: Your landscape project inquiry</div>
         <div class="email-body">Hi Jennifer, thanks for reaching out! I'd love to learn more about your backyard project. Based on what you've described, we specialize in exactly this kind of transformation. Would Tuesday or Wednesday work for a quick site visit?</div>
       </div>
-      <div class="pipeline-mini">
+      <div class="pipeline-mini stagger stagger-5">
         <div class="pipeline-stage passed">New</div>
         <div class="pipeline-stage active">Contacted</div>
         <div class="pipeline-stage">Qualified</div>
@@ -387,183 +489,192 @@ footer a:hover{color:#fff;}
       </div>
     </div>
   </div>
-  <div class="scene-caption">AI responded in 47 seconds &mdash; before she even closed the browser tab.</div>
+  <div class="scene-caption stagger stagger-6">AI responded in <span data-count="47">0</span> seconds &mdash; before she even closed the browser tab.</div>
 </div>
 
-<!-- ══════════════ SCENE 3 ══════════════ -->
+<!-- SCENE 3 -->
 <div class="scene" data-scene="3">
-  <div class="phone-frame">
-    <div class="phone-notch"></div>
+  <div class="chapter-title"><span class="chapter-num">Scene 3</span>Your salesman visits the property</div>
+  <div class="phone-frame stagger stagger-1">
     <div class="phone-body">
-      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Site Visit &mdash; JOB-009</div>
-      <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:16px;">Jennifer Caldwell &mdash; 123 Oak St</div>
-      <div class="section-label">Site Notes</div>
-      <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px;font-size:0.78rem;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:14px;">Large backyard, gentle slope, existing dead lawn. Client wants full redesign with patio, plantings, and lighting.</div>
-      <div class="section-label">Measurements</div>
-      <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px;font-size:0.78rem;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:14px;">
+      <div class="stagger stagger-2" style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Site Visit &mdash; JOB-009</div>
+      <div class="stagger stagger-2" style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:16px;">Jennifer Caldwell &mdash; 123 Oak St</div>
+      <div class="section-label stagger stagger-3">Site Notes</div>
+      <div class="stagger stagger-3" style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px;font-size:0.78rem;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:14px;">Large backyard, gentle slope, existing dead lawn. Client wants full redesign with patio, plantings, and lighting.</div>
+      <div class="section-label stagger stagger-4">Measurements</div>
+      <div class="stagger stagger-4" style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px;font-size:0.78rem;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:14px;">
         Patio area: 20x25 &bull; Walkway: 4x60 &bull; Planting beds: ~400 sq ft<br>
-        <strong style="color:#fff;">Total: 1,400 sq ft</strong> &bull; Quality tier: <span style="color:var(--gold-light);font-weight:600;">High-End</span>
+        <strong style="color:#fff;">Total: <span data-count="1400" data-comma>0</span> sq ft</strong> &bull; Quality tier: <span style="color:var(--gold-light);font-weight:600;">High-End</span>
       </div>
-      <div class="section-label">Photos</div>
-      <div class="photo-row">
+      <div class="section-label stagger stagger-5">Photos</div>
+      <div class="photo-row stagger stagger-5">
         <div class="photo-thumb">Backyard overview</div>
         <div class="photo-thumb">Slope detail</div>
         <div class="photo-thumb">Existing patio</div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">Marcus fills in site visit notes. Photos upload automatically to the client page.</div>
+  <div class="scene-caption stagger stagger-6">Marcus fills in site visit notes. Photos upload automatically to the client page.</div>
 </div>
 
-<!-- ══════════════ SCENE 4 ══════════════ -->
-<div class="scene" data-scene="4">
-  <div class="browser-frame">
+<!-- SCENE 4 -->
+<div class="scene gradient-accent" data-scene="4">
+  <div class="chapter-title"><span class="chapter-num">Scene 4</span>AI generates a 4-tier proposal</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/proposals/JOB-009</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/proposals/JOB-009</div>
     </div>
     <div class="browser-body">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <div class="stagger stagger-2" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
         <div style="font-size:1.1rem;font-weight:700;color:#fff;">4-Tier Proposal &mdash; Caldwell Landscape</div>
         <span class="status-badge pending">&#x1F4C4; Pending Review</span>
       </div>
-      <div class="tier-grid">
-        <div class="tier-card">
+      <div class="tier-grid stagger stagger-3" id="tierGrid">
+        <div class="tier-card" data-tier="budget" onclick="selectTier(this)">
+          <span class="tier-selected-badge">Selected &#x2713;</span>
           <div class="tier-name">Budget</div>
-          <div class="tier-price">$14,000</div>
+          <div class="tier-price">$<span data-count="14000" data-comma>0</span></div>
           <ul class="tier-list"><li>Basic paver patio</li><li>Sod installation</li><li>Minimal plantings</li><li>Standard edging</li></ul>
         </div>
-        <div class="tier-card">
+        <div class="tier-card" data-tier="mid" onclick="selectTier(this)">
+          <span class="tier-selected-badge">Selected &#x2713;</span>
           <div class="tier-name">Mid-Range</div>
-          <div class="tier-price">$22,000</div>
+          <div class="tier-price">$<span data-count="22000" data-comma>0</span></div>
           <ul class="tier-list"><li>Upgraded pavers</li><li>Drip irrigation</li><li>Shrubs &amp; perennials</li><li>Mulch &amp; edging</li></ul>
         </div>
-        <div class="tier-card selected">
+        <div class="tier-card selected" data-tier="high" onclick="selectTier(this)">
+          <span class="tier-selected-badge">Selected &#x2713;</span>
           <div class="tier-name">High-End</div>
-          <div class="tier-price">$32,000</div>
+          <div class="tier-price">$<span data-count="32000" data-comma>0</span></div>
           <ul class="tier-list"><li>Natural stone patio</li><li>Smart irrigation</li><li>Landscape lighting</li><li>Premium plantings</li></ul>
         </div>
-        <div class="tier-card">
+        <div class="tier-card" data-tier="luxury" onclick="selectTier(this)">
+          <span class="tier-selected-badge">Selected &#x2713;</span>
           <div class="tier-name">Luxury</div>
-          <div class="tier-price">$48,000</div>
+          <div class="tier-price">$<span data-count="48000" data-comma>0</span></div>
           <ul class="tier-list"><li>Outdoor kitchen</li><li>Fire pit &amp; water feature</li><li>Mature trees</li><li>Full outdoor living</li></ul>
         </div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">4 options generated from site visit notes. Owner reviews before sending to client.</div>
+  <div class="scene-caption stagger stagger-4">4 options generated from site visit notes. Click a tier to select it. Owner reviews before sending to client.</div>
 </div>
 
-<!-- ══════════════ SCENE 5 ══════════════ -->
+<!-- SCENE 5 -->
 <div class="scene" data-scene="5">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 5</span>Owner reviews and approves</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/proposals/JOB-009/review</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/proposals/JOB-009/review</div>
     </div>
     <div class="browser-body">
-      <div class="section-label">Documents</div>
-      <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);padding:14px 18px;border-radius:10px;margin-bottom:16px;flex-wrap:wrap;">
+      <div class="section-label stagger stagger-2">Documents</div>
+      <div class="stagger stagger-2" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);padding:14px 18px;border-radius:10px;margin-bottom:16px;flex-wrap:wrap;">
         <span style="color:#fff;font-weight:600;flex:1;">&#x1F4C4; Landscape Proposal &mdash; Caldwell</span>
         <span style="color:var(--gold-light);font-size:0.82rem;cursor:default;margin-right:8px;">Open &#x2197;</span>
-        <button class="approve-btn" style="margin:0;font-size:0.78rem;padding:8px 18px;">Approve &amp; Send &#x2713;</button>
+        <button class="approve-btn" id="scene5ApproveBtn" onclick="approveAndSend()" style="margin:0;font-size:0.78rem;padding:8px 18px;">Approve &amp; Send &#x2713;</button>
       </div>
-      <div class="confirm-dialog">
+      <div class="confirm-dialog stagger stagger-3">
         <p>Send this proposal to Jennifer Caldwell?</p>
-        <button class="approve-btn" style="margin:0;font-size:0.82rem;">Confirm &amp; Send</button>
+        <button class="approve-btn" onclick="approveAndSend()" style="margin:0;font-size:0.82rem;">Confirm &amp; Send</button>
       </div>
-      <div class="email-preview" style="margin-top:16px;">
+      <div class="email-preview stagger stagger-4" style="margin-top:16px;">
         <div class="email-from">To: jennifer@email.com</div>
         <div class="email-subject">Your Landscape Proposal from Landcare Unlimited</div>
         <div class="email-body">Hi Jennifer, your personalized landscape proposal is ready! Click below to view your 4 options and select the one that fits best.</div>
       </div>
-      <div style="margin-top:14px;display:flex;align-items:center;gap:8px;">
-        <span class="status-badge sent">&#x2713; Sent</span>
-        <span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Status updated from "Pending Review"</span>
+      <div class="stagger stagger-5" style="margin-top:14px;display:flex;align-items:center;gap:8px;" id="scene5Status">
+        <span class="status-badge pending" id="scene5Badge">&#x1F4C4; Pending Review</span>
+        <span id="scene5StatusText" style="font-size:0.72rem;color:rgba(255,255,255,0.4);"></span>
       </div>
     </div>
   </div>
-  <div class="scene-caption">One click. The AI generates it, you review it, you approve it. Nothing goes to a client without your sign-off.</div>
+  <div class="scene-caption stagger stagger-6">One click. The AI generates it, you review it, you approve it. Nothing goes to a client without your sign-off.</div>
 </div>
 
-<!-- ══════════════ SCENE 6 ══════════════ -->
+<!-- SCENE 6 -->
 <div class="scene" data-scene="6">
-  <div class="portal-frame">
-    <div class="portal-title">Your Landscape Proposal</div>
-    <div class="portal-company">Landcare Unlimited</div>
-    <div class="portal-tiers">
+  <div class="chapter-title"><span class="chapter-num">Scene 6</span>The client picks a tier</div>
+  <div class="portal-frame stagger stagger-1">
+    <div class="portal-title stagger stagger-2">Your Landscape Proposal</div>
+    <div class="portal-company stagger stagger-2">Landcare Unlimited</div>
+    <div class="portal-tiers stagger stagger-3">
       <div class="portal-tier">
         <div class="pt-name">Budget</div>
-        <div class="pt-price">$14,000</div>
+        <div class="pt-price">$<span data-count="14000" data-comma>0</span></div>
         <ul class="pt-list"><li>Basic paver patio</li><li>Sod &amp; minimal plantings</li></ul>
       </div>
       <div class="portal-tier">
         <div class="pt-name">Mid-Range</div>
-        <div class="pt-price">$22,000</div>
+        <div class="pt-price">$<span data-count="22000" data-comma>0</span></div>
         <ul class="pt-list"><li>Upgraded pavers</li><li>Irrigation &amp; shrubs</li></ul>
       </div>
       <div class="portal-tier chosen">
         <div class="pt-name">High-End &#x2714;</div>
-        <div class="pt-price">$32,000</div>
+        <div class="pt-price">$<span data-count="32000" data-comma>0</span></div>
         <ul class="pt-list"><li>Natural stone patio</li><li>Smart irrigation &amp; lighting</li><li>Premium plantings</li></ul>
       </div>
       <div class="portal-tier">
         <div class="pt-name">Luxury</div>
-        <div class="pt-price">$48,000</div>
+        <div class="pt-price">$<span data-count="48000" data-comma>0</span></div>
         <ul class="pt-list"><li>Full outdoor living</li><li>Kitchen, fire pit, water feature</li></ul>
       </div>
     </div>
-    <div class="client-note"><strong>Jennifer's note:</strong> "Love the High-End option! Can we swap the Japanese maple for a Redbud?"</div>
+    <div class="client-note stagger stagger-4"><strong>Jennifer's note:</strong> "Love the High-End option! Can we swap the Japanese maple for a Redbud?"</div>
   </div>
-  <div class="scene-caption">Jennifer picks High-End ($32k) from her personal client portal. Her feedback goes straight into the CRM.</div>
+  <div class="scene-caption stagger stagger-5">Jennifer picks High-End ($<span data-count="32000" data-comma>0</span>k) from her personal client portal. Her feedback goes straight into the CRM.</div>
 </div>
 
-<!-- ══════════════ SCENE 7 ══════════════ -->
+<!-- SCENE 7 -->
 <div class="scene" data-scene="7">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 7</span>AI builds the detailed estimate</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/estimates/JOB-009</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/estimates/JOB-009</div>
     </div>
     <div class="browser-body">
-      <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:14px;">Detailed Estimate &mdash; Caldwell Landscape</div>
-      <div style="overflow-x:auto;">
-        <table class="mock-table">
-          <thead><tr><th>Material</th><th>Qty</th><th>Unit Cost</th><th>Total</th><th>Supplier</th></tr></thead>
+      <div class="stagger stagger-2" style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:14px;">Detailed Estimate &mdash; Caldwell Landscape</div>
+      <div class="stagger stagger-3" style="overflow-x:auto;">
+        <table class="mock-table" id="materialsTable">
+          <thead><tr><th>Material</th><th>Qty</th><th>Unit Cost</th><th>Total</th><th>Supplier</th><th></th></tr></thead>
           <tbody>
-            <tr><td>Natural stone pavers</td><td>500 sq ft</td><td>$8.40/sqft</td><td style="color:#fff;font-weight:600;">$4,200</td><td>ABC Stone Supply</td></tr>
-            <tr><td>Green Giant arborvitae (6-7ft)</td><td>12</td><td>$150 ea</td><td style="color:#fff;font-weight:600;">$1,800</td><td>Mill Creek Nursery</td></tr>
-            <tr><td>Smart irrigation (8-zone)</td><td>1 system</td><td>$3,200</td><td style="color:#fff;font-weight:600;">$3,200</td><td>A1 Irrigation</td></tr>
-            <tr><td>Path lights (low voltage)</td><td>12</td><td>$85 ea</td><td style="color:#fff;font-weight:600;">$1,020</td><td>Home Depot Pro</td></tr>
-            <tr><td>Redbud tree (2" caliper)</td><td>1</td><td>$350</td><td style="color:#fff;font-weight:600;">$350</td><td>Local nursery</td></tr>
-            <tr><td>Mulch (premium hardwood)</td><td>8 yards</td><td>$45/yd</td><td style="color:#fff;font-weight:600;">$360</td><td>Kurtz Brothers</td></tr>
+            <tr><td>Natural stone pavers</td><td>500 sq ft</td><td>$8.40/sqft</td><td style="color:#fff;font-weight:600;">$4,200</td><td>ABC Stone Supply</td><td><button class="remove-btn" onclick="toggleRow(this)">Remove</button></td></tr>
+            <tr><td>Green Giant arborvitae (6-7ft)</td><td>12</td><td>$150 ea</td><td style="color:#fff;font-weight:600;">$1,800</td><td>Mill Creek Nursery</td><td><button class="remove-btn" onclick="toggleRow(this)">Remove</button></td></tr>
+            <tr><td>Smart irrigation (8-zone)</td><td>1 system</td><td>$3,200</td><td style="color:#fff;font-weight:600;">$3,200</td><td>A1 Irrigation</td><td><button class="remove-btn" onclick="toggleRow(this)">Remove</button></td></tr>
+            <tr><td>Path lights (low voltage)</td><td>12</td><td>$85 ea</td><td style="color:#fff;font-weight:600;">$1,020</td><td>Home Depot Pro</td><td><button class="remove-btn" onclick="toggleRow(this)">Remove</button></td></tr>
+            <tr><td>Redbud tree (2" caliper)</td><td>1</td><td>$350</td><td style="color:#fff;font-weight:600;">$350</td><td>Local nursery</td><td><button class="remove-btn" onclick="toggleRow(this)">Remove</button></td></tr>
+            <tr><td>Mulch (premium hardwood)</td><td>8 yards</td><td>$45/yd</td><td style="color:#fff;font-weight:600;">$360</td><td>Kurtz Brothers</td><td><button class="remove-btn" onclick="toggleRow(this)">Remove</button></td></tr>
           </tbody>
         </table>
       </div>
-      <div class="table-summary">
-        <div class="table-summary-item"><div class="val">$10,930</div><div class="lbl">Materials</div></div>
-        <div class="table-summary-item"><div class="val">$12,800</div><div class="lbl">Labor</div></div>
-        <div class="table-summary-item"><div class="val" style="color:var(--gold-light);">28%</div><div class="lbl">Margin</div></div>
-        <div class="table-summary-item"><div class="val" style="color:var(--green-light);">$32,000</div><div class="lbl">Total</div></div>
+      <div class="table-summary stagger stagger-4">
+        <div class="table-summary-item"><div class="val">$<span data-count="10930" data-comma>0</span></div><div class="lbl">Materials</div></div>
+        <div class="table-summary-item"><div class="val">$<span data-count="12800" data-comma>0</span></div><div class="lbl">Labor</div></div>
+        <div class="table-summary-item"><div class="val" style="color:var(--gold-light);"><span data-count="28">0</span>%</div><div class="lbl">Margin</div></div>
+        <div class="table-summary-item"><div class="val" style="color:var(--green-light);">$<span data-count="32000" data-comma>0</span></div><div class="lbl">Total</div></div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">Every material, every cost, every supplier &mdash; calculated from real prices. The owner can edit anything before approving.</div>
+  <div class="scene-caption stagger stagger-5">Every material, every cost, every supplier &mdash; calculated from real prices. Try removing a row!</div>
 </div>
 
-<!-- ══════════════ SCENE 8 ══════════════ -->
+<!-- SCENE 8 -->
 <div class="scene" data-scene="8">
+  <div class="chapter-title"><span class="chapter-num">Scene 8</span>Contract generated and signed</div>
   <div class="two-col">
-    <div>
+    <div class="stagger stagger-1">
       <div class="doc-preview">
         <h4>SERVICE CONTRACT</h4>
         <div class="doc-company">Landcare Unlimited</div>
         <div class="doc-row"><span class="doc-label">Client</span><span class="doc-value">Jennifer Caldwell</span></div>
         <div class="doc-row"><span class="doc-label">Scope</span><span class="doc-value">Full Backyard Landscape (High-End)</span></div>
-        <div class="doc-row"><span class="doc-label">Total</span><span class="doc-value" style="color:var(--gold);">$32,000</span></div>
-        <div class="doc-row"><span class="doc-label">Deposit (30%)</span><span class="doc-value">$9,600</span></div>
-        <div class="doc-row"><span class="doc-label">Midpoint (40%)</span><span class="doc-value">$12,800</span></div>
-        <div class="doc-row"><span class="doc-label">Completion (30%)</span><span class="doc-value">$9,600</span></div>
+        <div class="doc-row"><span class="doc-label">Total</span><span class="doc-value" style="color:var(--gold);">$<span data-count="32000" data-comma>0</span></span></div>
+        <div class="doc-row"><span class="doc-label">Deposit (30%)</span><span class="doc-value">$<span data-count="9600" data-comma>0</span></span></div>
+        <div class="doc-row"><span class="doc-label">Midpoint (40%)</span><span class="doc-value">$<span data-count="12800" data-comma>0</span></span></div>
+        <div class="doc-row"><span class="doc-label">Completion (30%)</span><span class="doc-value">$<span data-count="9600" data-comma>0</span></span></div>
         <div class="doc-row"><span class="doc-label">Timeline</span><span class="doc-value">May 1 &ndash; May 22, 2026</span></div>
         <div style="text-align:center;margin-top:16px;">
           <button class="approve-btn" style="font-size:0.82rem;">Approve &amp; Send &#x2713;</button>
@@ -571,7 +682,7 @@ footer a:hover{color:#fff;}
       </div>
     </div>
     <div>
-      <div class="browser-frame" style="margin-bottom:16px;">
+      <div class="browser-frame stagger stagger-2" style="margin-bottom:16px;">
         <div class="browser-body" style="padding:20px;min-height:auto;">
           <div class="section-label">Welcome Email</div>
           <div class="email-preview" style="margin-top:0;">
@@ -581,30 +692,31 @@ footer a:hover{color:#fff;}
           </div>
         </div>
       </div>
-      <div class="browser-frame">
+      <div class="browser-frame stagger stagger-3">
         <div class="browser-body" style="padding:20px;min-height:auto;">
           <div class="section-label">Deposit Invoice</div>
           <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.06);padding:14px;border-radius:10px;">
-            <div><div style="color:#fff;font-weight:700;font-size:1.1rem;">$9,600</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">30% deposit &mdash; Due on signing</div></div>
+            <div><div style="color:#fff;font-weight:700;font-size:1.1rem;">$<span data-count="9600" data-comma>0</span></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.4);">30% deposit &mdash; Due on signing</div></div>
             <span class="status-badge sent">Sent &#x2713;</span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">Contract, welcome email, and deposit invoice &mdash; all generated and sent automatically after your approval.</div>
+  <div class="scene-caption stagger stagger-4">Contract, welcome email, and deposit invoice &mdash; all generated and sent automatically after your approval.</div>
 </div>
 
-<!-- ══════════════ SCENE 9 ══════════════ -->
+<!-- SCENE 9 -->
 <div class="scene" data-scene="9">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 9</span>Job kicks off &mdash; phases planned</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/jobs/JOB-009/phases</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/jobs/JOB-009/phases</div>
     </div>
     <div class="browser-body">
-      <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:14px;">Job Phases &mdash; Caldwell Landscape</div>
-      <div class="timeline">
+      <div class="stagger stagger-2" style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:14px;">Job Phases &mdash; Caldwell Landscape</div>
+      <div class="timeline stagger stagger-3">
         <div class="timeline-item"><div class="timeline-phase">1</div><div class="timeline-name">Demo &amp; Clearing</div><div class="timeline-crew">Marcus + Danny</div><div class="timeline-dates">May 1&ndash;3</div></div>
         <div class="timeline-item"><div class="timeline-phase">2</div><div class="timeline-name">Grading &amp; Drainage</div><div class="timeline-crew">Danny</div><div class="timeline-dates">May 4&ndash;5</div></div>
         <div class="timeline-item"><div class="timeline-phase">3</div><div class="timeline-name">Irrigation Install</div><div class="timeline-crew">A1 Irrigation (sub)</div><div class="timeline-dates">May 6&ndash;8</div></div>
@@ -613,85 +725,89 @@ footer a:hover{color:#fff;}
         <div class="timeline-item"><div class="timeline-phase">6</div><div class="timeline-name">Landscape Lighting</div><div class="timeline-crew">Elite Electric (sub)</div><div class="timeline-dates">May 19&ndash;20</div></div>
         <div class="timeline-item"><div class="timeline-phase">7</div><div class="timeline-name">Final Walkthrough</div><div class="timeline-crew">Coach</div><div class="timeline-dates">May 22</div></div>
       </div>
-      <div class="email-preview" style="margin-top:16px;">
+      <div class="email-preview stagger stagger-4" style="margin-top:16px;">
         <div class="email-from">To: a1irrigation@email.com</div>
         <div class="email-subject">Sub Confirmation &mdash; JOB-009, May 6&ndash;8</div>
         <div class="email-body">Hi A1 Irrigation, you're confirmed for the irrigation install at 123 Oak St, May 6&ndash;8. Please see attached scope &amp; materials list.</div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">AI breaks the job into phases, assigns crew, notifies subs, and creates calendar events &mdash; automatically.</div>
+  <div class="scene-caption stagger stagger-5">AI breaks the job into phases, assigns crew, notifies subs, and creates calendar events &mdash; automatically.</div>
 </div>
 
-<!-- ══════════════ SCENE 10 ══════════════ -->
+<!-- SCENE 10 -->
 <div class="scene" data-scene="10">
-  <div class="phone-frame">
-    <div class="phone-notch"></div>
+  <div class="chapter-title"><span class="chapter-num">Scene 10</span>The crew goes to work</div>
+  <div class="phone-frame stagger stagger-1">
     <div class="phone-body">
-      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Danny's Field View</div>
-      <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:4px;">Hardscape / Patio &mdash; JOB-009</div>
-      <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:16px;">123 Oak St &bull; Phase 4 of 7</div>
-      <button class="approve-btn" style="width:100%;justify-content:center;font-size:1rem;padding:14px;margin-bottom:16px;border-radius:12px;">&#x23F1; Clock In</button>
-      <div class="section-label">Phase Checklist</div>
-      <ul class="check-list" style="margin-bottom:16px;">
+      <div class="stagger stagger-2" style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Danny's Field View</div>
+      <div class="stagger stagger-2" style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:4px;">Hardscape / Patio &mdash; JOB-009</div>
+      <div class="stagger stagger-2" style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:12px;">123 Oak St &bull; Phase 4 of 7</div>
+      <div class="phase-progress stagger stagger-3"><div class="phase-progress-fill" data-fill="57"></div></div>
+      <div class="stagger stagger-3" style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-bottom:16px;text-align:right;"><span data-count="57">0</span>% complete</div>
+      <button class="approve-btn stagger stagger-3" style="width:100%;justify-content:center;font-size:1rem;padding:14px;margin-bottom:16px;border-radius:12px;">&#x23F1; Clock In</button>
+      <div class="section-label stagger stagger-4">Phase Checklist</div>
+      <ul class="check-list stagger stagger-4" style="margin-bottom:16px;">
         <li><span class="check-icon">&#x2713;</span> Excavate patio area</li>
         <li><span class="check-icon">&#x2713;</span> Compact base material</li>
         <li><span class="check-icon" style="color:rgba(255,255,255,0.2);">&#x25CB;</span> <span style="color:rgba(255,255,255,0.5);">Lay natural stone pavers</span></li>
         <li><span class="check-icon" style="color:rgba(255,255,255,0.2);">&#x25CB;</span> <span style="color:rgba(255,255,255,0.5);">Edge &amp; joint sand</span></li>
       </ul>
-      <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <div class="stagger stagger-5" style="display:flex;gap:8px;margin-bottom:16px;">
         <button class="approve-btn gold" style="flex:1;justify-content:center;font-size:0.82rem;padding:10px;margin:0;">&#x1F4F8; Upload Photo</button>
         <button class="approve-btn" style="flex:1;justify-content:center;font-size:0.82rem;padding:10px;margin:0;background:var(--red);">&#x26A0; Flag Issue</button>
       </div>
-      <div style="background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.25);border-radius:8px;padding:12px;font-size:0.78rem;color:#E74C3C;">
+      <div class="stagger stagger-6" style="background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.25);border-radius:8px;padding:12px;font-size:0.78rem;color:#E74C3C;">
         <strong>Issue Flagged:</strong> Found buried irrigation line &mdash; change order needed
       </div>
     </div>
   </div>
-  <div class="scene-caption">Field workers see only what they need. Clock in, take photos, flag issues. Everything syncs to the CRM.</div>
+  <div class="scene-caption stagger stagger-7">Field workers see only what they need. Clock in, take photos, flag issues. Everything syncs to the CRM.</div>
 </div>
 
-<!-- ══════════════ SCENE 11 ══════════════ -->
+<!-- SCENE 11 -->
 <div class="scene" data-scene="11">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 11</span>Equipment &amp; inventory tracking</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/jobs/JOB-009/equipment</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/jobs/JOB-009/equipment</div>
     </div>
     <div class="browser-body">
-      <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:16px;">Equipment &amp; Inventory &mdash; JOB-009</div>
-      <div class="section-label">Equipment</div>
-      <div class="equip-row"><span class="equip-name">Truck #1</span><span style="color:rgba(255,255,255,0.5);">JOB-009 &bull; Marcus</span><span class="equip-status in-use">&#x2713; In Use</span></div>
-      <div class="equip-row"><span class="equip-name">Skid Steer</span><span style="color:rgba(255,255,255,0.5);">JOB-009 &bull; Danny</span><span class="equip-status in-use">&#x2713; In Use</span></div>
-      <div class="equip-row"><span class="equip-name">Trailer #2</span><span style="color:rgba(255,255,255,0.5);">&mdash;</span><span class="equip-status available">Available</span></div>
-
-      <div class="section-label" style="margin-top:20px;">Materials</div>
-      <div class="equip-row"><span class="equip-name">Natural stone pavers</span><span style="color:rgba(255,255,255,0.5);">500/500 sq ft on-site</span><span class="equip-status delivered">&#x2713; Delivered</span></div>
-      <div class="equip-row"><span class="equip-name">Green Giant arborvitae</span><span style="color:rgba(255,255,255,0.5);">Arriving May 14</span><span class="equip-status ordered">&#x1F7E1; Ordered</span></div>
-      <div class="equip-row"><span class="equip-name">Smart irrigation system</span><span style="color:rgba(255,255,255,0.5);">Installed by A1</span><span class="equip-status installed">&#x2713; Installed</span></div>
-
-      <div class="cost-tracker">
-        <div class="cost-item"><div class="c-val">$10,930</div><div class="c-lbl">Budget</div></div>
+      <div class="stagger stagger-2" style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:16px;">Equipment &amp; Inventory &mdash; JOB-009</div>
+      <div class="section-label stagger stagger-3">Equipment</div>
+      <div class="equip-row stagger stagger-3"><span class="equip-name">Truck #1</span><span style="color:rgba(255,255,255,0.5);">JOB-009 &bull; Marcus</span><span class="equip-status in-use">&#x2713; In Use</span></div>
+      <div class="equip-row stagger stagger-3"><span class="equip-name">Skid Steer</span><span style="color:rgba(255,255,255,0.5);">JOB-009 &bull; Danny</span><span class="equip-status in-use">&#x2713; In Use</span></div>
+      <div class="equip-row stagger stagger-3"><span class="equip-name">Trailer #2</span><span style="color:rgba(255,255,255,0.5);">&mdash;</span><span class="equip-status available">Available</span></div>
+      <div class="section-label stagger stagger-4" style="margin-top:20px;">Materials</div>
+      <div class="equip-row stagger stagger-4"><span class="equip-name">Natural stone pavers</span><span style="color:rgba(255,255,255,0.5);">500/500 sq ft on-site</span><span class="equip-status delivered">&#x2713; Delivered</span></div>
+      <div class="equip-row stagger stagger-4"><span class="equip-name">Green Giant arborvitae</span><span style="color:rgba(255,255,255,0.5);">Arriving May 14</span><span class="equip-status ordered">&#x1F7E1; Ordered</span></div>
+      <div class="equip-row stagger stagger-5"><span class="equip-name">Smart irrigation system</span><span style="color:rgba(255,255,255,0.5);">Installed by A1</span><span class="equip-status installed">&#x2713; Installed</span></div>
+      <div class="cost-tracker stagger stagger-5">
+        <div class="cost-item"><div class="c-val">$<span data-count="10930" data-comma>0</span></div><div class="c-lbl">Budget</div></div>
         <div style="color:rgba(255,255,255,0.3);font-size:1.2rem;">&#x2192;</div>
-        <div class="cost-item"><div class="c-val">$10,200</div><div class="c-lbl">Actual</div></div>
+        <div class="cost-item"><div class="c-val">$<span data-count="10200" data-comma>0</span></div><div class="c-lbl">Actual</div></div>
         <div style="color:rgba(255,255,255,0.3);font-size:1.2rem;">&#x2192;</div>
-        <div class="cost-item under"><div class="c-val">-$730</div><div class="c-lbl">Under Budget</div></div>
+        <div class="cost-item under"><div class="c-val">-$<span data-count="730">0</span></div><div class="c-lbl">Under Budget</div></div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">Know where every truck, tool, and material is. Real-time costs vs estimate.</div>
+  <div class="scene-caption stagger stagger-6">Know where every truck, tool, and material is. Real-time costs vs estimate.</div>
 </div>
 
-<!-- ══════════════ SCENE 12 ══════════════ -->
+<!-- SCENE 12 -->
 <div class="scene" data-scene="12">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 12</span>AI keeps the client informed</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/jobs/JOB-009/communications</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/jobs/JOB-009/communications</div>
     </div>
     <div class="browser-body">
-      <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:14px;">Client Communications &mdash; Jennifer Caldwell</div>
-      <div class="email-preview" style="margin-bottom:16px;margin-top:0;">
+      <div class="stagger stagger-2" style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:14px;">Client Communications &mdash; Jennifer Caldwell</div>
+      <div class="stagger stagger-2" style="margin-bottom:8px;font-size:0.72rem;color:rgba(255,255,255,0.4);">Phase 4 progress</div>
+      <div class="phase-progress stagger stagger-2"><div class="phase-progress-fill" data-fill="80"></div></div>
+      <div class="email-preview stagger stagger-3" style="margin-bottom:16px;margin-top:12px;">
         <div class="email-from">To: jennifer@email.com &bull; Weekly Update</div>
         <div class="email-subject">Your Weekly Progress Update &mdash; Caldwell Landscape</div>
         <div class="email-body">
@@ -700,13 +816,13 @@ footer a:hover{color:#fff;}
           On track for May 22 completion. &#x1F4F7; Photo attached.
         </div>
       </div>
-      <div class="email-preview" style="margin-bottom:16px;margin-top:0;">
+      <div class="email-preview stagger stagger-4" style="margin-bottom:16px;margin-top:0;">
         <div class="email-from">To: jennifer@email.com &bull; Satisfaction Check</div>
         <div class="email-subject">Quick check-in &mdash; how's everything going?</div>
         <div class="email-body">Hi Jennifer, we're at the halfway mark! Wanted to make sure everything is meeting your expectations. Any concerns or changes?</div>
       </div>
-      <div class="section-label">Conversation Timeline</div>
-      <div class="convo-timeline">
+      <div class="section-label stagger stagger-5">Conversation Timeline</div>
+      <div class="convo-timeline stagger stagger-5">
         <div class="convo-item"><div class="convo-icon ai-sent">AI</div><div class="convo-text"><strong>Personalized outreach</strong> sent to Jennifer</div><div class="convo-date">Apr 14</div></div>
         <div class="convo-item"><div class="convo-icon client">JC</div><div class="convo-text">Jennifer <strong>replied</strong> &mdash; interested in site visit</div><div class="convo-date">Apr 14</div></div>
         <div class="convo-item"><div class="convo-icon ai-sent">AI</div><div class="convo-text"><strong>Proposal</strong> sent (4 tiers)</div><div class="convo-date">Apr 18</div></div>
@@ -717,27 +833,28 @@ footer a:hover{color:#fff;}
       </div>
     </div>
   </div>
-  <div class="scene-caption">Every Monday, your clients get a progress update with photos. You never have to write it.</div>
+  <div class="scene-caption stagger stagger-6">Every Monday, your clients get a progress update with photos. You never have to write it.</div>
 </div>
 
-<!-- ══════════════ SCENE 13 ══════════════ -->
+<!-- SCENE 13 -->
 <div class="scene" data-scene="13">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 13</span>Invoicing &amp; payments</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/invoices/JOB-009</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/invoices/JOB-009</div>
     </div>
     <div class="browser-body">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <div class="stagger stagger-2" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
         <div style="font-size:1.05rem;font-weight:700;color:#fff;">Invoicing &mdash; Caldwell Landscape</div>
         <div class="sync-badge">&#x1F4E6; QuickBooks Synced</div>
       </div>
-      <div style="background:rgba(255,255,255,0.95);border-radius:12px;padding:24px;color:var(--navy);margin-bottom:16px;">
+      <div class="stagger stagger-3" style="background:rgba(255,255,255,0.95);border-radius:12px;padding:24px;color:var(--navy);margin-bottom:16px;">
         <div style="text-align:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:4px;">INVOICE</div>
         <div style="text-align:center;color:var(--muted);font-size:0.78rem;margin-bottom:16px;">Landcare Unlimited</div>
         <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;">
           <span style="color:var(--muted);">Midpoint Payment</span>
-          <span style="font-weight:700;color:var(--navy);">$12,800</span>
+          <span style="font-weight:700;color:var(--navy);">$<span data-count="12800" data-comma>0</span></span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;">
           <span style="color:var(--muted);">Due Date</span>
@@ -747,38 +864,39 @@ footer a:hover{color:#fff;}
           <button class="approve-btn gold" style="margin:0;font-size:0.88rem;border-radius:10px;">Pay Now</button>
         </div>
       </div>
-      <div class="payment-track">
-        <div class="payment-item"><div class="p-label">Deposit</div><div class="p-amount">$9,600</div><div class="p-status paid">PAID &#x2713;</div></div>
-        <div class="payment-item"><div class="p-label">Midpoint</div><div class="p-amount">$12,800</div><div class="p-status paid">PAID &#x2713;</div></div>
-        <div class="payment-item"><div class="p-label">Final</div><div class="p-amount">$9,600</div><div class="p-status pending">Pending</div></div>
+      <div class="payment-track stagger stagger-4">
+        <div class="payment-item"><div class="p-label">Deposit</div><div class="p-amount">$<span data-count="9600" data-comma>0</span></div><div class="p-status paid">PAID &#x2713;</div></div>
+        <div class="payment-item"><div class="p-label">Midpoint</div><div class="p-amount">$<span data-count="12800" data-comma>0</span></div><div class="p-status paid">PAID &#x2713;</div></div>
+        <div class="payment-item"><div class="p-label">Final</div><div class="p-amount">$<span data-count="9600" data-comma>0</span></div><div class="p-status pending">Pending</div></div>
       </div>
-      <div class="email-preview" style="margin-top:12px;">
+      <div class="email-preview stagger stagger-5" style="margin-top:12px;">
         <div class="email-from">Auto-Reminder</div>
         <div class="email-subject">Friendly reminder &mdash; final payment due May 25</div>
         <div class="email-body">Hi Jennifer, just a friendly reminder that your final payment of $9,600 is due May 25. Click below to pay securely online.</div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">AI generates invoices, you approve them, clients pay online. QuickBooks stays in sync.</div>
+  <div class="scene-caption stagger stagger-6">AI generates invoices, you approve them, clients pay online. QuickBooks stays in sync.</div>
 </div>
 
-<!-- ══════════════ SCENE 14 ══════════════ -->
+<!-- SCENE 14 -->
 <div class="scene" data-scene="14">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 14</span>Job complete</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/jobs/JOB-009/complete</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/jobs/JOB-009/complete</div>
     </div>
     <div class="browser-body">
-      <div style="font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:16px;text-align:center;">&#x1F389; Job Complete &mdash; Caldwell Landscape</div>
-      <ul class="check-list" style="max-width:400px;margin:0 auto 20px;">
-        <li><span class="check-icon">&#x2713;</span> All 7 phases complete</li>
+      <div class="stagger stagger-2" style="font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:16px;text-align:center;">&#x1F389; Job Complete &mdash; Caldwell Landscape</div>
+      <ul class="check-list stagger stagger-3" style="max-width:400px;margin:0 auto 20px;">
+        <li><span class="check-icon">&#x2713;</span> All <span data-count="7">0</span> phases complete</li>
         <li><span class="check-icon">&#x2713;</span> Final invoice sent and paid</li>
         <li><span class="check-icon">&#x2713;</span> Client satisfaction: 5/5</li>
         <li><span class="check-icon">&#x2713;</span> Google review requested</li>
         <li><span class="check-icon">&#x2713;</span> 30-day check-in scheduled</li>
       </ul>
-      <div class="two-col" style="gap:14px;">
+      <div class="two-col stagger stagger-4" style="gap:14px;">
         <div class="email-preview" style="margin-top:0;">
           <div class="email-from">Review Request</div>
           <div class="email-subject">We loved working on your backyard!</div>
@@ -790,57 +908,59 @@ footer a:hover{color:#fff;}
           <div class="email-body">Hi Jennifer, it's been a month since we finished your landscape project. How's everything looking? Need any adjustments?</div>
         </div>
       </div>
-      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;margin-top:16px;text-align:center;">
+      <div class="stagger stagger-5" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;margin-top:16px;text-align:center;">
         <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Client Profile</div>
         <div style="display:flex;justify-content:center;gap:28px;flex-wrap:wrap;">
-          <div><div style="font-size:1.1rem;font-weight:700;color:#fff;">$32,000</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.4);">Lifetime Value</div></div>
-          <div><div style="font-size:1.1rem;font-weight:700;color:#fff;">1</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.4);">Jobs</div></div>
+          <div><div style="font-size:1.1rem;font-weight:700;color:#fff;">$<span data-count="32000" data-comma>0</span></div><div style="font-size:0.68rem;color:rgba(255,255,255,0.4);">Lifetime Value</div></div>
+          <div><div style="font-size:1.1rem;font-weight:700;color:#fff;"><span data-count="1">0</span></div><div style="font-size:0.68rem;color:rgba(255,255,255,0.4);">Jobs</div></div>
           <div><div style="font-size:1.1rem;font-weight:700;color:var(--green-light);">Excellent</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.4);">Satisfaction</div></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="scene-caption">Job closeout, review request, and 30-day follow-up &mdash; all automatic. Your reputation grows without effort.</div>
+  <div class="scene-caption stagger stagger-6">Job closeout, review request, and 30-day follow-up &mdash; all automatic. Your reputation grows without effort.</div>
 </div>
 
-<!-- ══════════════ SCENE 15 ══════════════ -->
+<!-- SCENE 15 -->
 <div class="scene" data-scene="15">
-  <div class="browser-frame">
+  <div class="chapter-title"><span class="chapter-num">Scene 15</span>The big picture</div>
+  <div class="browser-frame stagger stagger-1">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/analytics</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/analytics</div>
     </div>
     <div class="browser-body">
-      <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:16px;">Business Analytics &mdash; May 2026</div>
-      <div class="analytics-grid">
-        <div class="analytics-card"><div class="a-value" style="color:var(--gold-light);">$87,400</div><div class="a-label">Revenue This Month</div></div>
-        <div class="analytics-card"><div class="a-value">68%</div><div class="a-label">Close Rate</div></div>
-        <div class="analytics-card"><div class="a-value">$18,200</div><div class="a-label">Avg Job Value</div></div>
-        <div class="analytics-card"><div class="a-value" style="color:var(--green-light);">28%</div><div class="a-label">Profit Margin</div></div>
-        <div class="analytics-card"><div class="a-value">$42k</div><div class="a-label">Top: Landscape Design</div></div>
-        <div class="analytics-card"><div class="a-value">94%</div><div class="a-label">Top Performer: Marcus</div></div>
+      <div class="stagger stagger-2" style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:16px;">Business Analytics &mdash; May 2026</div>
+      <div class="analytics-grid stagger stagger-3">
+        <div class="analytics-card"><div class="a-value" style="color:var(--gold-light);">$<span data-count="87400" data-comma>0</span></div><div class="a-label">Revenue This Month</div></div>
+        <div class="analytics-card"><div class="a-value"><span data-count="68">0</span>%</div><div class="a-label">Close Rate</div></div>
+        <div class="analytics-card"><div class="a-value">$<span data-count="18200" data-comma>0</span></div><div class="a-label">Avg Job Value</div></div>
+        <div class="analytics-card"><div class="a-value" style="color:var(--green-light);"><span data-count="28">0</span>%</div><div class="a-label">Profit Margin</div></div>
+        <div class="analytics-card"><div class="a-value">$<span data-count="42">0</span>k</div><div class="a-label">Top: Landscape Design</div></div>
+        <div class="analytics-card"><div class="a-value"><span data-count="94">0</span>%</div><div class="a-label">Top Performer: Marcus</div></div>
       </div>
-      <div class="section-label">Team Performance</div>
-      <div class="team-row">
-        <div class="team-member"><div class="team-avatar">M</div><div class="team-name">Marcus</div><div class="team-score">94%</div></div>
-        <div class="team-member"><div class="team-avatar">D</div><div class="team-name">Danny</div><div class="team-score">91%</div></div>
-        <div class="team-member"><div class="team-avatar">K</div><div class="team-name">Kevin</div><div class="team-score">88%</div></div>
+      <div class="section-label stagger stagger-4">Team Performance</div>
+      <div class="team-row stagger stagger-4">
+        <div class="team-member"><div class="team-avatar">M</div><div class="team-name">Marcus</div><div class="team-score"><span data-count="94">0</span>%</div></div>
+        <div class="team-member"><div class="team-avatar">D</div><div class="team-name">Danny</div><div class="team-score"><span data-count="91">0</span>%</div></div>
+        <div class="team-member"><div class="team-avatar">K</div><div class="team-name">Kevin</div><div class="team-score"><span data-count="88">0</span>%</div></div>
       </div>
-      <div class="ai-rec" style="margin-top:16px;">
+      <div class="ai-rec stagger stagger-5" style="margin-top:16px;">
         <span class="ai-icon">&#x1F9E0;</span>
-        <span><strong>Learning Agent:</strong> Patio estimates have been 12% low on stone. Adjusting future quotes to improve accuracy.</span>
+        <span><strong>Learning Agent:</strong> Patio estimates have been <span data-count="12">0</span>% low on stone. Adjusting future quotes to improve accuracy.</span>
       </div>
     </div>
   </div>
-  <div class="scene-caption">See your entire business at a glance. The AI learns from every job and makes your next estimate smarter.</div>
+  <div class="scene-caption stagger stagger-6">See your entire business at a glance. The AI learns from every job and makes your next estimate smarter.</div>
 </div>
 
-<!-- ══════════════ SCENE 16 ══════════════ -->
+<!-- SCENE 16 -->
 <div class="scene" data-scene="16">
-  <div class="browser-frame" style="max-width:700px;margin:0 auto;">
+  <div class="chapter-title"><span class="chapter-num">Scene 16</span>Ask your AI anything</div>
+  <div class="browser-frame stagger stagger-1" style="max-width:700px;margin:0 auto;">
     <div class="browser-chrome">
       <span class="browser-dot r"></span><span class="browser-dot y"></span><span class="browser-dot g"></span>
-      <span class="browser-url">app.specsystems.ai/assistant</span>
+      <div class="browser-url-bar"><span class="lock">&#x1F512;</span> app.specsystems.ai/assistant</div>
     </div>
     <div class="browser-body" style="padding:0;min-height:auto;">
       <div class="chat-ui">
@@ -848,17 +968,17 @@ footer a:hover{color:#fff;}
           <div class="chat-avatar">AI</div>
           <div class="chat-name">SPEC Assistant</div>
         </div>
-        <div class="chat-msgs">
-          <div class="chat-msg user">What should I focus on today?</div>
-          <div class="chat-msg ai">
+        <div class="chat-msgs" id="chatMsgs">
+          <div class="chat-msg user" data-chat-delay="0">What should I focus on today?</div>
+          <div class="chat-msg ai" data-chat-delay="800" data-typing>
             Good morning, Coach. Here's your priority list:<br><br>
             <strong>1. Call Jennifer Caldwell</strong> &mdash; Score 95, ready to book a site visit.<br>
             <strong>2. Review 2 proposals</strong> &mdash; Davis ($18k) and Morgan ($24k) are awaiting your approval.<br>
             <strong>3. Final walkthrough</strong> &mdash; Thompson job completes today at 2 PM.<br><br>
             Pipeline value: <strong>$105,900</strong> across 12 open leads. You're at <strong>$41,350</strong> revenue this month.
           </div>
-          <div class="chat-msg user">Set a revenue goal of $50k this month</div>
-          <div class="chat-msg ai">
+          <div class="chat-msg user" data-chat-delay="2400">Set a revenue goal of $50k this month</div>
+          <div class="chat-msg ai" data-chat-delay="3200" data-typing>
             Goal set! You're at <strong>$41,350 &mdash; $8,650 to go.</strong><br><br>
             Here are 3 leads that could close this week:<br>
             &bull; Davis Fence &mdash; $18k (proposal sent, following up tomorrow)<br>
@@ -867,10 +987,14 @@ footer a:hover{color:#fff;}
             Close Davis and Patel and you hit <strong>$65,850</strong>. Want me to prioritize outreach?
           </div>
         </div>
+        <div class="chat-input-wrap">
+          <input type="text" class="chat-input" id="chatInput" placeholder="Ask the AI anything..." onkeydown="if(event.key==='Enter')sendChat()">
+          <button class="chat-send-btn" onclick="sendChat()">Send</button>
+        </div>
       </div>
     </div>
   </div>
-  <div class="final-cta">
+  <div class="final-cta stagger stagger-2">
     <h3>This is SPEC Systems.</h3>
     <p>16 AI agents. One system. Your entire business &mdash; automated.</p>
     <a href="https://calendly.com/spencerwalraven5" target="_blank" class="btn-gold-big">Book a Demo &#8594;</a>
@@ -878,6 +1002,14 @@ footer a:hover{color:#fff;}
 </div>
 
 </div><!-- end scene-container -->
+
+<!-- SCENE DOTS -->
+<div class="scene-dots" id="sceneDots"></div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-check">&#x2713;</div>
+</div>
 
 <footer>
   <div class="footer-links">
@@ -912,44 +1044,348 @@ const titles = [
 ];
 
 let current = 1;
+let direction = 'right';
+let autoPlayInterval = null;
+let scene5AutoDone = false;
 
-function update() {
-  document.querySelectorAll('.scene').forEach(function(s) {
-    s.classList.remove('active','visible');
-    s.style.display = 'none';
-  });
-  var el = document.querySelector('[data-scene="'+current+'"]');
-  el.style.display = 'block';
-  el.classList.add('active');
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      el.classList.add('visible');
-    });
-  });
+// Build dots
+(function buildDots(){
+  var dots = document.getElementById('sceneDots');
+  for(var i=1;i<=TOTAL;i++){
+    var d=document.createElement('button');
+    d.className='scene-dot'+(i===1?' active':'');
+    d.setAttribute('data-dot',i);
+    d.title='Scene '+i+': '+titles[i-1];
+    d.onclick=(function(n){return function(){direction=n>current?'right':'left';current=n;update();};})(i);
+    dots.appendChild(d);
+  }
+})();
 
-  document.getElementById('progressBar').style.width = ((current/TOTAL)*100)+'%';
-  document.getElementById('sceneLabel').textContent = 'Scene '+current+' of '+TOTAL;
-  document.getElementById('sceneTitle').textContent = titles[current-1];
-  document.getElementById('btnBack').disabled = (current === 1);
-  document.getElementById('btnNext').textContent = (current === TOTAL) ? 'Restart \u21BB' : 'Next \u2192';
+// Number counter
+function animateCounters(container){
+  var els = container.querySelectorAll('[data-count]');
+  els.forEach(function(el){
+    if(el.dataset.counted) return;
+    el.dataset.counted='1';
+    var target = parseInt(el.dataset.count);
+    var prefix = el.dataset.prefix||'';
+    var useComma = el.hasAttribute('data-comma');
+    var duration = Math.min(1200, Math.max(400, target/50));
+    var start = performance.now();
+    function tick(now){
+      var elapsed = now - start;
+      var progress = Math.min(elapsed/duration,1);
+      // ease out cubic
+      var ease = 1 - Math.pow(1-progress,3);
+      var val = Math.round(ease * target);
+      el.textContent = prefix + (useComma ? val.toLocaleString() : val);
+      if(progress<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
 }
 
-function goNext() {
-  if (current === TOTAL) { current = 1; } else { current++; }
+// Stagger reveal
+function revealStaggers(container){
+  var staggers = container.querySelectorAll('.stagger');
+  staggers.forEach(function(s){ s.classList.add('visible'); });
+  // Chapter title
+  var ct = container.querySelector('.chapter-title');
+  if(ct) setTimeout(function(){ ct.classList.add('visible'); },50);
+}
+
+// Progress bar fills
+function animateProgressBars(container){
+  var fills = container.querySelectorAll('.phase-progress-fill[data-fill]');
+  fills.forEach(function(f){
+    setTimeout(function(){ f.style.width = f.dataset.fill+'%'; },500);
+  });
+}
+
+// KPI pulse
+function pulseKPIs(container){
+  var cards = container.querySelectorAll('.kpi-card');
+  cards.forEach(function(c,i){
+    setTimeout(function(){ c.classList.add('pulse'); },600+i*150);
+  });
+}
+
+// Scene 2 notification animation
+function animateScene2(container){
+  var notif = container.querySelector('.notif-slide');
+  if(notif){
+    setTimeout(function(){ notif.classList.add('animate-in'); },500);
+  }
+}
+
+// Scene 5 auto-advance
+function autoAdvanceScene5(){
+  if(scene5AutoDone) return;
+  setTimeout(function(){
+    var badge = document.getElementById('scene5Badge');
+    var text = document.getElementById('scene5StatusText');
+    if(badge && document.querySelector('[data-scene="5"].active')){
+      badge.className = 'status-badge sent';
+      badge.innerHTML = '&#x2713; Sent';
+      text.textContent = 'Status updated from "Pending Review"';
+      scene5AutoDone = true;
+    }
+  },2500);
+}
+
+// Scene 16 chat typing animation
+function animateChat(){
+  var msgs = document.querySelectorAll('#chatMsgs .chat-msg');
+  msgs.forEach(function(m){
+    m.style.opacity='0';
+    m.style.transform='translateY(10px)';
+    m.classList.remove('visible');
+    delete m.dataset.shown;
+  });
+  msgs.forEach(function(m){
+    var delay = parseInt(m.dataset.chatDelay)||0;
+    var isTyping = m.hasAttribute('data-typing');
+    if(isTyping){
+      var content = m.innerHTML;
+      m.innerHTML='';
+      setTimeout(function(){
+        // Show typing dots first
+        var dots = document.createElement('div');
+        dots.className='typing-dots';
+        dots.innerHTML='<span></span><span></span><span></span>';
+        m.parentNode.insertBefore(dots,m);
+        m.classList.add('visible');
+        setTimeout(function(){
+          dots.remove();
+          m.innerHTML = content;
+          m.classList.add('visible');
+        },600);
+      },delay);
+    } else {
+      setTimeout(function(){ m.classList.add('visible'); },delay);
+    }
+  });
+}
+
+// Scene-specific animations
+function runSceneAnimations(sceneNum, container){
+  revealStaggers(container);
+  setTimeout(function(){ animateCounters(container); },300);
+  animateProgressBars(container);
+  if(sceneNum===1) pulseKPIs(container);
+  if(sceneNum===2) animateScene2(container);
+  if(sceneNum===5){ scene5AutoDone=false; autoAdvanceScene5(); }
+  if(sceneNum===16) animateChat();
+}
+
+function resetScene(container){
+  container.querySelectorAll('.stagger').forEach(function(s){ s.classList.remove('visible'); });
+  var ct = container.querySelector('.chapter-title');
+  if(ct) ct.classList.remove('visible');
+  container.querySelectorAll('[data-count]').forEach(function(el){ delete el.dataset.counted; });
+  container.querySelectorAll('.notif-slide').forEach(function(n){ n.classList.remove('animate-in'); });
+  container.querySelectorAll('.phase-progress-fill').forEach(function(f){ f.style.width='0'; });
+  container.querySelectorAll('.kpi-card').forEach(function(c){ c.classList.remove('pulse'); });
+}
+
+function update(){
+  var outClass = direction==='right'?'slide-out-left':'slide-out-right';
+  var inClass = direction==='right'?'slide-in-right':'slide-in-left';
+
+  var allScenes = document.querySelectorAll('.scene');
+  var activeScene = document.querySelector('.scene.active');
+
+  if(activeScene){
+    activeScene.classList.add(outClass);
+    setTimeout(function(){
+      activeScene.classList.remove('active',outClass,'slide-in-right','slide-in-left','slide-out-left','slide-out-right');
+      activeScene.style.display='none';
+      resetScene(activeScene);
+    },300);
+  }
+
+  setTimeout(function(){
+    var el = document.querySelector('[data-scene="'+current+'"]');
+    el.style.display='block';
+    el.classList.add('active',inClass);
+    setTimeout(function(){
+      el.classList.remove(inClass);
+      runSceneAnimations(current, el);
+    },400);
+  }, activeScene?300:0);
+
+  document.getElementById('progressBar').style.width=((current/TOTAL)*100)+'%';
+  document.getElementById('sceneLabel').textContent='Scene '+current+' of '+TOTAL;
+  document.getElementById('sceneTitle').textContent=titles[current-1];
+  document.getElementById('btnBack').disabled=(current===1);
+  document.getElementById('btnNext').textContent=(current===TOTAL)?'Restart \u21BB':'Next \u2192';
+
+  // Update dots
+  document.querySelectorAll('.scene-dot').forEach(function(d){
+    d.classList.toggle('active',parseInt(d.dataset.dot)===current);
+  });
+}
+
+function goNext(){
+  direction='right';
+  if(current===TOTAL){current=1;}else{current++;}
   update();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function goBack() {
-  if (current > 1) { current--; update(); window.scrollTo({top:0,behavior:'smooth'}); }
+function goBack(){
+  if(current>1){direction='left';current--;update();window.scrollTo({top:0,behavior:'smooth'});}
 }
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goNext(); }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); goBack(); }
+// Auto-play
+function toggleAutoPlay(){
+  var btn = document.getElementById('btnPlay');
+  if(autoPlayInterval){
+    clearInterval(autoPlayInterval);
+    autoPlayInterval=null;
+    btn.textContent='\u25B6 Play All';
+    btn.classList.remove('playing');
+  } else {
+    btn.textContent='\u25A0 Stop';
+    btn.classList.add('playing');
+    autoPlayInterval=setInterval(function(){
+      if(current===TOTAL){
+        clearInterval(autoPlayInterval);
+        autoPlayInterval=null;
+        btn.textContent='\u25B6 Play All';
+        btn.classList.remove('playing');
+      } else {
+        goNext();
+      }
+    },8000);
+  }
+}
+
+// Tier card interaction
+function selectTier(card){
+  var grid = card.closest('.tier-grid');
+  grid.querySelectorAll('.tier-card').forEach(function(c){
+    c.classList.remove('selected','dimmed');
+  });
+  card.classList.add('selected');
+  grid.querySelectorAll('.tier-card:not(.selected)').forEach(function(c){
+    c.classList.add('dimmed');
+  });
+  setTimeout(function(){
+    grid.querySelectorAll('.tier-card').forEach(function(c){ c.classList.remove('dimmed'); });
+  },1500);
+}
+
+// Materials table remove/undo
+function toggleRow(btn){
+  var row = btn.closest('tr');
+  if(row.classList.contains('removed')){
+    row.classList.remove('removed');
+    btn.textContent='Remove';
+    btn.className='remove-btn';
+  } else {
+    row.classList.add('removed');
+    btn.textContent='Undo';
+    btn.className='undo-btn';
+  }
+}
+
+// Approve & Send with confetti
+function approveAndSend(){
+  var badge = document.getElementById('scene5Badge');
+  var text = document.getElementById('scene5StatusText');
+  if(badge){
+    badge.className='status-badge sent';
+    badge.innerHTML='&#x2713; Sent';
+    text.textContent='Proposal sent successfully!';
+    scene5AutoDone=true;
+  }
+  // Show success overlay
+  var overlay = document.getElementById('successOverlay');
+  overlay.classList.add('show');
+  // Confetti
+  var colors=['#C9A227','#2ECC71','#E74C3C','#3498DB','#F39C12','#fff'];
+  for(var i=0;i<20;i++){
+    var c=document.createElement('div');
+    c.className='confetti';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.left=(50+Math.random()*40-20)+'%';
+    c.style.top='50%';
+    c.style.setProperty('--tx',(Math.random()*200-100)+'px');
+    c.style.setProperty('--ty',(Math.random()*200-100)+'px');
+    c.style.animationDelay=(Math.random()*0.3)+'s';
+    overlay.appendChild(c);
+  }
+  setTimeout(function(){
+    overlay.classList.remove('show');
+    overlay.querySelectorAll('.confetti').forEach(function(c){c.remove();});
+  },1500);
+}
+
+// Chat send
+var aiResponses=[
+  "I can help with that! Based on your current pipeline, I'd suggest focusing on the 3 highest-scored leads first. Want me to draft personalized follow-up emails for each?",
+  "Great question. Your team completed 12 phases this month with a 94% quality score. Marcus is your top performer. I'd recommend scheduling a training session for the newer crew members.",
+  "Looking at your numbers, you're trending 18% above last month. If you close the Davis and Morgan proposals, you'll hit a new monthly record. Want me to set up automated reminders?",
+  "I've analyzed your last 20 estimates. Your stone material costs are running 12% over budget on average. I've adjusted the pricing model to improve accuracy going forward."
+];
+var aiResponseIdx=0;
+
+function sendChat(){
+  var input=document.getElementById('chatInput');
+  var text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  var msgs=document.getElementById('chatMsgs');
+
+  // Add user msg
+  var userMsg=document.createElement('div');
+  userMsg.className='chat-msg user visible';
+  userMsg.textContent=text;
+  msgs.appendChild(userMsg);
+  msgs.scrollTop=msgs.scrollHeight;
+
+  // Typing dots
+  var dots=document.createElement('div');
+  dots.className='typing-dots';
+  dots.innerHTML='<span></span><span></span><span></span>';
+  msgs.appendChild(dots);
+  msgs.scrollTop=msgs.scrollHeight;
+
+  setTimeout(function(){
+    dots.remove();
+    var aiMsg=document.createElement('div');
+    aiMsg.className='chat-msg ai visible';
+    aiMsg.textContent=aiResponses[aiResponseIdx%aiResponses.length];
+    aiResponseIdx++;
+    msgs.appendChild(aiMsg);
+    msgs.scrollTop=msgs.scrollHeight;
+  },1200);
+}
+
+// Keyboard nav
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();goNext();}
+  if(e.key==='ArrowLeft'){e.preventDefault();goBack();}
 });
 
-update();
+// Touch swipe
+var touchStartX=0;
+document.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){
+  var diff=e.changedTouches[0].clientX-touchStartX;
+  if(Math.abs(diff)>60){
+    if(diff<0)goNext();else goBack();
+  }
+},{passive:true});
+
+// Init
+(function init(){
+  var el=document.querySelector('[data-scene="1"]');
+  el.style.display='block';
+  el.classList.add('active');
+  setTimeout(function(){ runSceneAnimations(1,el); },100);
+})();
 </script>
 
 </body>
