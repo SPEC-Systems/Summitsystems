@@ -437,6 +437,7 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,0.06);pa
   .agents-grid{grid-template-columns:repeat(2,1fr);}
   .comparison-table{font-size:0.82rem;}
   .step-connector{display:none;}
+  #pricing .container > div[style*="grid-template-columns:repeat(4"]{grid-template-columns:repeat(2,1fr) !important;}
 }
 @media(max-width:860px){
   .hero-grid{grid-template-columns:1fr;gap:48px;}
@@ -949,30 +950,89 @@ footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,0.06);pa
     <div class="section-header reveal">
       <span class="section-label">Pricing</span>
       <h2>Simple, transparent pricing</h2>
-      <p>One plan. Everything included. Done-for-you setup and a dedicated configuration call.</p>
+      <p>Every plan includes unlimited leads. Pick the package that fits your team.</p>
     </div>
-    <div class="pricing-wrapper">
-      <div class="pricing-card">
-        <div class="pricing-badge">Everything Included</div>
-        <div class="pricing-tier">Full CRM</div>
-        <div class="pricing-name">All 16 Agents</div>
-        <div class="pricing-setup">One-time setup: <strong>$3,000</strong></div>
-        <div class="pricing-monthly">
-          <span class="price">$300</span><span class="per">/month</span>
-        </div>
-        <div class="pricing-divider"></div>
-        <ul class="pricing-features">
-          <li><span class="check">✓</span>All 16 agents included</li>
-          <li><span class="check">✓</span>Unlimited leads &amp; jobs</li>
-          <li><span class="check">✓</span>Gmail + Calendar + SMS integration</li>
-          <li><span class="check">✓</span>AI chat assistant</li>
-          <li><span class="check">✓</span>Done-for-you setup</li>
-          <li><span class="check">✓</span>Ongoing support &amp; updates</li>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1100px;margin:0 auto;">
+
+      <!-- Lead Machine -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);margin-bottom:10px;">Starter</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:16px;">Lead Machine</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;">One-time setup: <strong style="color:var(--navy);">$1,500</strong></div>
+        <div style="margin-bottom:20px;"><span style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--navy);">$300</span><span style="font-size:0.85rem;color:var(--muted);">/month</span></div>
+        <div style="height:1px;background:var(--border);margin:0 -24px 20px;"></div>
+        <ul style="list-style:none;text-align:left;font-size:0.82rem;color:var(--muted);line-height:2.2;">
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>5 AI agents</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Unlimited leads</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Lead scoring &amp; auto-response</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Nurture follow-ups</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>SMS notifications</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>CRM dashboard</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>2 users</li>
         </ul>
-        <a href="https://calendly.com/spencerwalraven5" class="pricing-cta" target="_blank">Book Your Setup Call</a>
+        <a href="https://calendly.com/spencerwalraven5" target="_blank" style="display:block;margin-top:24px;padding:12px;border-radius:9px;border:2px solid var(--navy);color:var(--navy);font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.2s;">Get Started</a>
       </div>
+
+      <!-- Sales Engine -->
+      <div style="background:var(--navy);border:2px solid var(--gold);border-radius:16px;padding:32px 24px;text-align:center;position:relative;box-shadow:0 20px 60px rgba(14,28,47,0.18),0 0 40px rgba(168,128,14,0.08);">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:4px 14px;border-radius:20px;">Most Popular</div>
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.5);margin-bottom:10px;">Growth</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:#fff;margin-bottom:16px;">Sales Engine</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.5);margin-bottom:8px;">One-time setup: <strong style="color:#fff;">$3,500</strong></div>
+        <div style="margin-bottom:20px;"><span style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:#fff;">$600</span><span style="font-size:0.85rem;color:rgba(255,255,255,0.5);">/month</span></div>
+        <div style="height:1px;background:rgba(255,255,255,0.1);margin:0 -24px 20px;"></div>
+        <ul style="list-style:none;text-align:left;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:2.2;">
+          <li><span style="color:var(--gold-light);font-weight:700;margin-right:6px;">✓</span>10 AI agents</li>
+          <li><span style="color:var(--gold-light);font-weight:700;margin-right:6px;">✓</span>Everything in Lead Machine</li>
+          <li><span style="color:var(--gold-light);font-weight:700;margin-right:6px;">✓</span>4-tier proposal generation</li>
+          <li><span style="color:var(--gold-light);font-weight:700;margin-right:6px;">✓</span>Detailed estimates + materials</li>
+          <li><span style="color:var(--gold-light);font-weight:700;margin-right:6px;">✓</span>Contract generation</li>
+          <li><span style="color:var(--gold-light);font-weight:700;margin-right:6px;">✓</span>AI chat assistant</li>
+          <li><span style="color:var(--gold-light);font-weight:700;margin-right:6px;">✓</span>5 users</li>
+        </ul>
+        <a href="https://calendly.com/spencerwalraven5" target="_blank" style="display:block;margin-top:24px;padding:12px;border-radius:9px;background:var(--gold);color:#fff;font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.2s;">Get Started</a>
+      </div>
+
+      <!-- Full Operations -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);margin-bottom:10px;">Scale</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:16px;">Full Operations</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;">One-time setup: <strong style="color:var(--navy);">$7,500</strong></div>
+        <div style="margin-bottom:20px;"><span style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--navy);">$1,000</span><span style="font-size:0.85rem;color:var(--muted);">/month</span></div>
+        <div style="height:1px;background:var(--border);margin:0 -24px 20px;"></div>
+        <ul style="list-style:none;text-align:left;font-size:0.82rem;color:var(--muted);line-height:2.2;">
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>All 16 agents</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Everything in Sales Engine</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Job planning &amp; phases</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Team management &amp; time clock</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>QuickBooks integration</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Invoicing &amp; payment tracking</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Unlimited users</li>
+        </ul>
+        <a href="https://calendly.com/spencerwalraven5" target="_blank" style="display:block;margin-top:24px;padding:12px;border-radius:9px;border:2px solid var(--navy);color:var(--navy);font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.2s;">Get Started</a>
+      </div>
+
+      <!-- Custom Build -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);margin-bottom:10px;">Enterprise</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:16px;">Custom Build</div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;">One-time setup: <strong style="color:var(--navy);">$12,000+</strong></div>
+        <div style="margin-bottom:20px;"><span style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--navy);">$1,500</span><span style="font-size:0.85rem;color:var(--muted);">+/month</span></div>
+        <div style="height:1px;background:var(--border);margin:0 -24px 20px;"></div>
+        <ul style="list-style:none;text-align:left;font-size:0.82rem;color:var(--muted);line-height:2.2;">
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>All 16 agents + custom</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Everything in Full Ops</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Custom workflow agents</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Monthly strategy call</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Priority support</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Dedicated onboarding</li>
+          <li><span style="color:var(--green);font-weight:700;margin-right:6px;">✓</span>Unlimited users</li>
+        </ul>
+        <a href="https://calendly.com/spencerwalraven5" target="_blank" style="display:block;margin-top:24px;padding:12px;border-radius:9px;border:2px solid var(--navy);color:var(--navy);font-weight:700;font-size:0.85rem;text-decoration:none;transition:all 0.2s;">Contact Us</a>
+      </div>
+
     </div>
-    <p class="pricing-note">No contracts. Cancel anytime. <a href="https://calendly.com/spencerwalraven5" target="_blank">Questions? Let's talk.</a></p>
+    <p class="pricing-note" style="margin-top:28px;">No contracts. Cancel anytime. Unlimited leads on every plan. <a href="https://calendly.com/spencerwalraven5" target="_blank">Questions? Let's talk.</a></p>
     <div style="text-align:center;">
       <span class="pricing-roi">Most businesses see ROI in the first month</span>
     </div>
