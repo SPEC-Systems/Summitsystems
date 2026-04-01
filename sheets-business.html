@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPEC Sheets — Business Templates by Industry</title>
+<meta name="description" content="Professional business templates for landscaping, roofing, HVAC, plumbing, and more. Proposals, contracts, estimates, invoices — ready to download.">
+<link rel="icon" type="image/svg+xml" href="logo-icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#F7F4EF;--cream-alt:#EDE9E0;--white:#FFFFFF;--navy:#0E1C2F;--navy-mid:#1B3455;
+  --gold:#A8800E;--gold-light:#C9A227;--gold-bg:rgba(168,128,14,0.08);
+  --green:#1A7A5E;--green-bg:rgba(26,122,94,0.08);
+  --muted:#6B6B6B;--text:#111111;--border:#DDD9D0;--border-light:#EAE6DE;
+  --shadow:0 2px 16px rgba(14,28,47,0.07);--shadow-md:0 6px 32px rgba(14,28,47,0.10);--shadow-lg:0 16px 56px rgba(14,28,47,0.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+.container{max-width:1140px;margin:0 auto;padding:0 32px;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0;background:rgba(247,244,239,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light);}
+nav .container{display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-img{height:30px;width:auto;}
+.logo-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:6px;}
+.logo-back{font-size:0.75rem;opacity:0.5;font-weight:400;font-family:'DM Sans',sans-serif;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.83rem;font-weight:500;transition:color 0.18s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--navy);}
+.btn-nav{background:var(--gold);color:#fff!important;border:none;padding:9px 22px;border-radius:7px;font-weight:600;font-size:0.82rem;cursor:pointer;transition:all 0.18s;font-family:inherit;text-decoration:none;white-space:nowrap;}
+.btn-nav:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:var(--shadow-md);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all 0.25s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);padding:20px 32px 28px;z-index:199;flex-direction:column;gap:18px;box-shadow:var(--shadow-md);}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{color:var(--navy);text-decoration:none;font-size:0.95rem;font-weight:500;padding:8px 0;border-bottom:1px solid var(--border-light);}
+
+/* SUB-NAV */
+.sub-nav{background:var(--white);border-bottom:1px solid var(--border-light);padding:0;margin-top:64px;}
+.sub-nav .container{display:flex;align-items:center;gap:32px;height:48px;overflow-x:auto;}
+.sub-nav a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;white-space:nowrap;padding:12px 0;border-bottom:2px solid transparent;transition:all 0.18s;}
+.sub-nav a:hover{color:var(--navy);}
+.sub-nav a.active{color:var(--navy);border-bottom-color:var(--gold);}
+.free-pill{background:var(--green-bg);color:var(--green);font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:4px;}
+
+/* HERO */
+.page-hero{padding:48px 0 40px;text-align:center;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;line-height:1.1;color:var(--navy);margin-bottom:14px;}
+.page-hero h1 em{font-style:italic;color:var(--gold);}
+.page-hero p{font-size:1rem;color:var(--muted);max-width:540px;margin:0 auto;}
+
+/* SECTIONS */
+.section{padding:64px 0;}
+.section-header{text-align:center;margin-bottom:40px;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:600;color:var(--navy);margin-bottom:8px;}
+.section-header p{font-size:0.92rem;color:var(--muted);}
+
+/* INDUSTRY GRID */
+.industry-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.industry-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px 20px;text-align:center;transition:all 0.3s;cursor:pointer;text-decoration:none;color:inherit;}
+.industry-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--gold);}
+.industry-card .emoji{font-size:28px;display:block;margin-bottom:10px;}
+.industry-card h3{font-size:0.92rem;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.industry-card .count{font-size:0.75rem;color:var(--muted);}
+.industry-card .coming{font-size:0.68rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;}
+
+/* DOC TYPES */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
+.doc-chip{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-size:0.85rem;font-weight:500;color:var(--navy);text-align:center;transition:all 0.2s;}
+.doc-chip:hover{border-color:var(--gold);background:var(--gold-bg);}
+
+/* FEATURED PACK */
+.featured{background:var(--white);border-top:1px solid var(--border-light);padding:80px 0;}
+.featured-card{max-width:700px;margin:0 auto;background:var(--cream);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.featured-left{background:var(--cream-alt);padding:40px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-right:1px solid var(--border-light);}
+.featured-left .emoji{font-size:56px;margin-bottom:12px;}
+.featured-left .product-badge{display:inline-block;background:var(--gold-bg);color:var(--gold);font-size:0.7rem;font-weight:700;padding:4px 12px;border-radius:99px;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;}
+.featured-right{padding:40px 32px;}
+.featured-right h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--navy);margin-bottom:10px;}
+.featured-right p{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.featured-right ul{list-style:none;padding:0;margin-bottom:24px;}
+.featured-right ul li{font-size:0.82rem;color:var(--muted);line-height:2.2;display:flex;align-items:center;gap:6px;}
+.featured-right ul .check{color:var(--green);font-weight:700;}
+.featured-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.product-price{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--navy);}
+.product-formats{display:flex;gap:6px;}
+.format-badge{font-size:0.65rem;font-weight:600;padding:3px 8px;border-radius:4px;color:#fff;}
+.format-badge.gdocs{background:#4285F4;}
+.format-badge.gsheets{background:#0F9D58;}
+.format-badge.word{background:#2B579A;}
+.format-badge.excel{background:#217346;}
+.btn-primary{background:var(--navy);color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:0.93rem;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;width:100%;justify-content:center;}
+.btn-primary:hover{background:var(--navy-mid);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+
+/* FREE LEAD MAGNET */
+.free-banner{background:var(--green-bg);border:2px dashed var(--green);border-radius:16px;padding:40px;text-align:center;max-width:600px;margin:0 auto;}
+.free-banner h3{font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:8px;}
+.free-banner p{font-size:0.88rem;color:var(--muted);margin-bottom:20px;}
+.btn-green{background:var(--green);color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:0.93rem;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-green:hover{filter:brightness(1.1);transform:translateY(-2px);}
+
+/* CROSS-SELL */
+.cross-sell{padding:80px 0;text-align:center;background:var(--cream-alt);}
+.cross-sell h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;color:var(--navy);margin-bottom:10px;}
+.cross-sell p{font-size:0.95rem;color:var(--muted);margin-bottom:24px;max-width:520px;margin-left:auto;margin-right:auto;}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);padding:52px 0 32px;}
+.footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:48px;margin-bottom:44px;}
+.footer-brand{flex:1;max-width:280px;}
+.footer-logo-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:#fff;}
+.footer-brand p{font-size:0.83rem;color:rgba(255,255,255,0.45);margin-top:10px;line-height:1.7;}
+.footer-links-row{display:flex;gap:28px;align-items:center;flex-wrap:wrap;}
+.footer-links-row a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.85rem;transition:color 0.18s;}
+.footer-links-row a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;text-align:center;}
+.footer-bottom p{font-size:0.78rem;color:rgba(255,255,255,0.3);}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .featured-card{grid-template-columns:1fr;}
+  .featured-left{border-right:none;border-bottom:1px solid var(--border-light);padding:32px;}
+  .page-hero h1{font-size:2.2rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .footer-inner{flex-direction:column;gap:24px;}
+}
+@media(max-width:600px){
+  .page-hero h1{font-size:1.8rem;}
+  .page-hero{padding:36px 0 28px;}
+  .section{padding:48px 0;}
+  .industry-grid{grid-template-columns:repeat(2,1fr);}
+  .sub-nav .container{gap:20px;}
+  .footer-links-row{flex-direction:column;gap:12px;align-items:flex-start;}
+}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),transform 0.7s cubic-bezier(0.22,1,0.36,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="logo-icon.svg" alt="SPEC" class="logo-img">
+      <span class="logo-name"><span class="logo-back">&larr;</span> SPEC Sheets</span>
+    </a>
+    <div class="nav-links">
+      <a href="sheets.html">Templates</a>
+      <a href="sheets-business.html" class="active">Business</a>
+      <a href="sheets-life.html">Life</a>
+      <a href="index.html">SPEC Home</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="sheets.html">All Templates</a>
+  <a href="sheets-business.html">Business Templates</a>
+  <a href="sheets-life.html">Life Templates</a>
+  <a href="index.html">SPEC Home</a>
+</div>
+
+<div class="sub-nav">
+  <div class="container">
+    <a href="sheets.html">All Templates</a>
+    <a href="sheets-business.html" class="active">Business</a>
+    <a href="sheets-life.html">Life</a>
+    <a href="sheets.html#free-templates">Free Templates <span class="free-pill">FREE</span></a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container reveal">
+    <h1>Business <em>Templates</em></h1>
+    <p>Professional documents for service businesses — organized by industry and document type. Built from real workflows.</p>
+  </div>
+</section>
+
+<!-- BY INDUSTRY -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Browse by Industry</h2>
+      <p>Find templates designed for your specific trade.</p>
+    </div>
+    <div class="industry-grid reveal">
+      <a href="#gumroad-landscaping-pack" class="industry-card"><span class="emoji">🌿</span><h3>Landscaping</h3><span class="count">5 templates</span></a>
+      <div class="industry-card"><span class="emoji">🏠</span><h3>Roofing</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">❄️</span><h3>HVAC</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">🔧</span><h3>Plumbing</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">🎨</span><h3>Painting</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">⚡</span><h3>Electrical</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">🏗️</span><h3>General Contracting</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">✨</span><h3>Cleaning Services</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">🏡</span><h3>Real Estate</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">💼</span><h3>Consulting</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">🖌️</span><h3>Freelance / Creative</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">🍽️</span><h3>Restaurant</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">💪</span><h3>Fitness</h3><span class="coming">Coming Soon</span></div>
+      <div class="industry-card"><span class="emoji">🔩</span><h3>Auto / Mechanic</h3><span class="coming">Coming Soon</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BY DOC TYPE -->
+<section class="section" style="background:var(--white);border-top:1px solid var(--border-light);">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Browse by Document Type</h2>
+      <p>Know what you need? Jump straight to the template type.</p>
+    </div>
+    <div class="doc-grid reveal">
+      <div class="doc-chip">Proposals</div>
+      <div class="doc-chip">Contracts</div>
+      <div class="doc-chip">Estimates</div>
+      <div class="doc-chip">Invoices</div>
+      <div class="doc-chip">Project Plans</div>
+      <div class="doc-chip">Budgets</div>
+      <div class="doc-chip">Client Intake Forms</div>
+      <div class="doc-chip">Onboarding Checklists</div>
+      <div class="doc-chip">SOPs</div>
+      <div class="doc-chip">Employee Handbooks</div>
+      <div class="doc-chip">Meeting Agendas</div>
+      <div class="doc-chip">Business Plans</div>
+      <div class="doc-chip">Marketing Plans</div>
+      <div class="doc-chip">Social Media Calendars</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED: LANDSCAPING PACK -->
+<section class="featured">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Featured Pack</h2>
+    </div>
+    <div class="featured-card reveal">
+      <div class="featured-left">
+        <span class="emoji">🌿</span>
+        <span class="product-badge">Best Seller</span>
+      </div>
+      <div class="featured-right">
+        <h3>Landscaping Business Pack</h3>
+        <p>Everything you need to run a professional landscaping business — from first client call to final invoice.</p>
+        <ul>
+          <li><span class="check">&#10003;</span> Landscaping Proposal Template</li>
+          <li><span class="check">&#10003;</span> Service Contract Template</li>
+          <li><span class="check">&#10003;</span> Job Estimate Template</li>
+          <li><span class="check">&#10003;</span> Invoice Template</li>
+          <li><span class="check">&#10003;</span> Client Intake Form</li>
+        </ul>
+        <div class="featured-meta">
+          <span class="product-price">$49</span>
+          <div class="product-formats">
+            <span class="format-badge gdocs">Docs</span>
+            <span class="format-badge word">Word</span>
+          </div>
+        </div>
+        <a href="#gumroad-landscaping-pack" class="btn-primary" target="_blank">Buy on Gumroad &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE LEAD MAGNET -->
+<section class="section">
+  <div class="container">
+    <div class="free-banner reveal">
+      <h3>Free: Contractor Estimate Template</h3>
+      <p>Professional estimate template — plug in your logo and start sending quotes today. No credit card needed.</p>
+      <div class="product-formats" style="justify-content:center;margin-bottom:20px;">
+        <span class="format-badge gdocs">Docs</span>
+        <span class="format-badge word">Word</span>
+      </div>
+      <a href="#gumroad-free-estimate" class="btn-green" target="_blank">Download Free &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- CROSS-SELL -->
+<section class="cross-sell">
+  <div class="container reveal">
+    <h2>Need these documents to write themselves?</h2>
+    <p>SPEC Systems generates proposals, contracts, estimates, and invoices from your client conversations — automatically.</p>
+    <a href="systems.html" class="btn-primary">Explore SPEC Systems &rarr;</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-name">SPEC</div>
+        <p>Professional templates for business and life. A template for everything.</p>
+      </div>
+      <div class="footer-links-row">
+        <a href="index.html">Home</a>
+        <a href="sheets.html">All Templates</a>
+        <a href="sheets-business.html">Business</a>
+        <a href="sheets-life.html">Life</a>
+        <a href="systems.html">SPEC Systems</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 SPEC. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileNav.classList.toggle('open'); });
+document.querySelectorAll('.mobile-nav a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); }); });
+const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }}); }, { threshold: 0.08, rootMargin: '-30px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
