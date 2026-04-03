@@ -290,11 +290,31 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 #agents{padding:120px 0;background:var(--white);}
 /* ── Agent Showcase: Sticky Scroll ── */
 .agents-scroll-wrap{height:400vh;position:relative;}
-.agents-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden;}
+.agents-sticky{
+  position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden;
+  background:var(--navy);
+}
 .agents-split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
 .agents-left{max-width:480px;position:relative;min-height:300px;}
-.agents-title{font-size:2rem;font-weight:800;color:var(--navy);margin:8px 0 16px;letter-spacing:-0.02em;}
-.agents-progress{height:3px;background:var(--border-light);border-radius:2px;margin-bottom:28px;overflow:hidden;}
+.agents-title{font-size:2rem;font-weight:800;color:#f5f0e8;margin:8px 0 16px;letter-spacing:-0.02em;}
+#agents .section-label{color:var(--gold);}
+/* Step indicators */
+.agents-steps{display:flex;gap:6px;margin-bottom:16px;}
+.agents-step{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:6px;
+  font-size:0.7rem;font-weight:600;
+  color:var(--muted-light);background:transparent;border:1px solid transparent;
+  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+  cursor:default;
+}
+.agents-step .step-num{font-weight:800;font-size:0.65rem;letter-spacing:0.06em;}
+.agents-step .step-label{display:none;}
+.agents-step-active{
+  color:var(--gold);background:rgba(168,128,14,0.08);border-color:rgba(168,128,14,0.2);
+}
+.agents-step-active .step-label{display:inline;}
+.agents-progress{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;margin-bottom:28px;overflow:hidden;}
 .agents-progress-fill{height:100%;background:var(--gold);border-radius:2px;width:25%;transition:width 0.5s cubic-bezier(0.22,1,0.36,1);}
 /* Phase slides — crossfade with staggered children */
 .phase-slide{
@@ -323,12 +343,12 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 .phase-slide.phase-active .phase-num{opacity:1;transform:translateY(0);transition-delay:0.05s;}
 .phase-slide.phase-active .phase-name{opacity:1;transform:translateY(0);transition-delay:0.1s;}
 .phase-slide.phase-active .phase-desc{opacity:1;transform:translateY(0);transition-delay:0.15s;}
-.phase-num{font-size:0.65rem;font-weight:700;color:var(--muted-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
-.phase-name{font-size:1.4rem;font-weight:800;color:var(--navy);letter-spacing:-0.01em;margin-bottom:8px;}
-.phase-desc{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.phase-num{font-size:0.65rem;font-weight:700;color:rgba(245,240,232,0.4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
+.phase-name{font-size:1.4rem;font-weight:800;color:#f5f0e8;letter-spacing:-0.01em;margin-bottom:8px;}
+.phase-desc{font-size:0.88rem;color:rgba(245,240,232,0.6);line-height:1.6;margin-bottom:16px;}
 .phase-agents-list{display:flex;flex-direction:column;gap:8px;}
-.phase-agent-row{font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:8px;}
-.phase-agent-row strong{color:var(--navy);font-weight:600;}
+.phase-agent-row{font-size:0.8rem;color:rgba(245,240,232,0.5);display:flex;align-items:center;gap:8px;}
+.phase-agent-row strong{color:rgba(245,240,232,0.85);font-weight:600;}
 .phase-agent-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 /* Right demo panels — crossfade with staggered cards */
 .agents-right{position:relative;min-height:420px;}
@@ -385,38 +405,67 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 .demo-panel.demo-panel-active .dp-bar-row:nth-child(2){opacity:1;transform:translateX(0);transition-delay:0.3s;}
 .demo-panel.demo-panel-active .dp-bar-row:nth-child(3){opacity:1;transform:translateX(0);transition-delay:0.4s;}
 .demo-panel.demo-panel-active .dp-bar-row:nth-child(4){opacity:1;transform:translateX(0);transition-delay:0.5s;}
-.dp-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.dp-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:18px 20px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
 .dp-card-sm{padding:14px 18px;}
-.dp-header{font-size:0.75rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.dp-header{font-size:0.75rem;font-weight:700;color:rgba(245,240,232,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
 .dp-dot{width:7px;height:7px;border-radius:50%;animation:status-breathe 2s ease-in-out infinite;}
 .dp-dot-green{background:#2a7a5e;}
 .dp-dot-blue{background:#2d4a6e;}
 .dp-dot-purple{background:#6B3FA0;}
 .dp-body{display:flex;flex-direction:column;gap:8px;}
 .dp-msg{font-size:0.82rem;line-height:1.55;padding:10px 14px;border-radius:12px;max-width:88%;}
-.dp-msg-in{background:var(--cream);border:1px solid var(--border-light);color:var(--navy);border-radius:12px 12px 12px 3px;}
-.dp-msg-out{background:var(--gold-bg);border:1px solid rgba(168,128,14,0.15);color:var(--navy);margin-left:auto;border-radius:12px 12px 3px 12px;}
+.dp-msg-in{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(245,240,232,0.8);border-radius:12px 12px 12px 3px;}
+.dp-msg-out{background:rgba(168,128,14,0.12);border:1px solid rgba(168,128,14,0.2);color:rgba(245,240,232,0.85);margin-left:auto;border-radius:12px 12px 3px 12px;}
 .dp-meta{font-size:0.7rem;color:var(--gold);font-weight:600;}
-.dp-row{font-size:0.82rem;color:var(--muted);padding:4px 0;display:flex;align-items:center;gap:8px;}
-.dp-row-pending{opacity:0.5;}
-.dp-check{color:#2a7a5e;font-weight:700;}
-.dp-pending{color:var(--muted-light);font-size:0.6rem;}
-.dp-doc-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.dp-row{font-size:0.82rem;color:rgba(245,240,232,0.6);padding:4px 0;display:flex;align-items:center;gap:8px;}
+.dp-row-pending{opacity:0.4;}
+.dp-check{color:#3dbd7a;font-weight:700;}
+.dp-pending{color:rgba(245,240,232,0.3);font-size:0.6rem;}
+.dp-doc-title{font-size:1rem;font-weight:700;color:#f5f0e8;margin-bottom:10px;}
 .dp-tiers{display:flex;flex-direction:column;gap:6px;}
-.dp-tier{display:flex;justify-content:space-between;padding:8px 12px;border-radius:8px;font-size:0.82rem;background:var(--cream);border:1px solid var(--border-light);}
-.dp-tier-hl{background:var(--gold-bg);border-color:rgba(168,128,14,0.2);}
-.dp-tier-name{color:var(--muted);font-weight:500;}
-.dp-tier-price{color:var(--navy);font-weight:700;}
-.dp-bar-row{display:flex;align-items:center;gap:8px;font-size:0.75rem;color:var(--muted);padding:3px 0;}
+.dp-tier{display:flex;justify-content:space-between;padding:8px 12px;border-radius:8px;font-size:0.82rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);}
+.dp-tier-hl{background:rgba(168,128,14,0.1);border-color:rgba(168,128,14,0.2);}
+.dp-tier-name{color:rgba(245,240,232,0.5);font-weight:500;}
+.dp-tier-price{color:#f5f0e8;font-weight:700;}
+.dp-bar-row{display:flex;align-items:center;gap:8px;font-size:0.75rem;color:rgba(245,240,232,0.5);padding:3px 0;}
 .dp-bar-row span:first-child{width:65px;flex-shrink:0;}
-.dp-bar-row span:last-child{width:45px;text-align:right;flex-shrink:0;font-weight:600;color:var(--navy);}
-.dp-bar{flex:1;height:5px;background:var(--border-light);border-radius:3px;overflow:hidden;}
+.dp-bar-row span:last-child{width:45px;text-align:right;flex-shrink:0;font-weight:600;color:rgba(245,240,232,0.8);}
+.dp-bar{flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
 .dp-bar-fill{height:100%;border-radius:3px;width:0;transition:width 1s cubic-bezier(0.22,1,0.36,1) 0.4s;}
 .demo-panel-active .dp-bar-fill{width:var(--w);}
 @keyframes status-breathe{0%,100%{opacity:0.6;box-shadow:0 0 0 0 rgba(42,122,94,0.4);}50%{opacity:1;box-shadow:0 0 0 4px rgba(42,122,94,0);}}
 
+/* ── AGENTS CTA ── */
+#agents-cta{padding:80px 0;background:var(--navy);text-align:center;}
+.agents-cta-inner{max-width:560px;margin:0 auto;}
+.agents-cta-count{
+  display:inline-block;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;
+  color:var(--gold);background:rgba(168,128,14,0.1);border:1px solid rgba(168,128,14,0.2);
+  padding:5px 14px;border-radius:20px;margin-bottom:16px;
+}
+.agents-cta-title{font-size:2rem;font-weight:800;color:#f5f0e8;letter-spacing:-0.02em;margin-bottom:12px;}
+.agents-cta-desc{font-size:0.95rem;color:rgba(245,240,232,0.6);line-height:1.6;max-width:480px;margin:0 auto;}
+#agents-cta .btn-primary{background:var(--gold);color:var(--navy);}
+#agents-cta .btn-primary:hover{background:#c4960e;}
+#agents-cta .btn-secondary{color:rgba(245,240,232,0.7);border-color:rgba(245,240,232,0.15);}
+#agents-cta .btn-secondary:hover{color:#f5f0e8;border-color:rgba(245,240,232,0.3);}
+
 /* ── COMPARISON ── */
 #comparison{padding:120px 0;background:var(--cream);}
+/* Staggered table rows */
+.comparison-table tbody tr{
+  opacity:0;transform:translateY(12px);
+  transition:opacity 0.4s ease, transform 0.4s ease;
+}
+.comparison-table tbody tr.visible{opacity:1;transform:translateY(0);}
+.comparison-table td.spec-col{position:relative;}
+.comparison-table tbody tr:hover .spec-col{color:var(--gold);}
 .comparison-table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);}
 .comparison-table thead tr{background:var(--navy);}
 .comparison-table th{padding:18px 24px;text-align:left;font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.06em;text-transform:uppercase;}
@@ -748,6 +797,12 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
           <div class="agents-left">
             <span class="section-label">The full team</span>
             <h2 class="agents-title">Meet your 16 AI agents</h2>
+            <div class="agents-steps">
+              <div class="agents-step agents-step-active" data-step="0"><span class="step-num">01</span><span class="step-label">Lead &amp; Sales</span></div>
+              <div class="agents-step" data-step="1"><span class="step-num">02</span><span class="step-label">Estimates</span></div>
+              <div class="agents-step" data-step="2"><span class="step-num">03</span><span class="step-label">Job Mgmt</span></div>
+              <div class="agents-step" data-step="3"><span class="step-num">04</span><span class="step-label">Growth</span></div>
+            </div>
             <div class="agents-progress">
               <div class="agents-progress-fill"></div>
             </div>
@@ -869,6 +924,21 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AGENTS CTA ── -->
+<section id="agents-cta">
+  <div class="container" style="text-align:center;">
+    <div class="agents-cta-inner reveal">
+      <span class="agents-cta-count">16 agents. Zero manual work.</span>
+      <h2 class="agents-cta-title">That's your entire office &mdash; automated.</h2>
+      <p class="agents-cta-desc">From the first lead to the final review, every step is handled. See the full system run a real job, start to finish.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">
+        <a href="demo.html" class="btn-primary">Watch the Demo &rarr;</a>
+        <a href="https://calendly.com/spencerwalraven5" target="_blank" class="btn-secondary">Book a Call</a>
       </div>
     </div>
   </div>
@@ -1360,6 +1430,7 @@ const agentsWrap = document.querySelector('.agents-scroll-wrap');
 const phaseSlides = document.querySelectorAll('.phase-slide');
 const demoPanels = document.querySelectorAll('.demo-panel');
 const progressFill = document.querySelector('.agents-progress-fill');
+const agentSteps = document.querySelectorAll('.agents-step');
 let currentPhase = -1;
 
 function setPhase(idx) {
@@ -1367,9 +1438,12 @@ function setPhase(idx) {
   currentPhase = idx;
   phaseSlides.forEach(s => s.classList.remove('phase-active'));
   demoPanels.forEach(p => { p.classList.remove('demo-panel-active'); });
+  agentSteps.forEach(s => s.classList.remove('agents-step-active'));
   const activeSlide = document.querySelector('.phase-slide[data-phase="' + idx + '"]');
   const activePanel = document.querySelector('.demo-panel[data-phase="' + idx + '"]');
+  const activeStep = document.querySelector('.agents-step[data-step="' + idx + '"]');
   if (activeSlide) activeSlide.classList.add('phase-active');
+  if (activeStep) activeStep.classList.add('agents-step-active');
   if (activePanel) {
     activePanel.classList.add('demo-panel-active');
     // Reset and re-trigger bar fills
@@ -1405,6 +1479,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroLeft = document.querySelector('.hero-left');
   if (heroLeft) heroLeft.style.opacity = '1';
 });
+
+// Comparison table row reveals
+const tableRows = document.querySelectorAll('.comparison-table tbody tr');
+const tableObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+tableRows.forEach(r => tableObserver.observe(r));
 </script>
 </body>
 </html>
