@@ -453,17 +453,20 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 /* Phase slides — crossfade with staggered children */
 .phase-slide{
   position:absolute;top:0;left:0;width:100%;
-  opacity:0;transform:translateY(20px);
-  transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  opacity:0;transform:translateX(60px);
+  transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
   pointer-events:none;
 }
 .phase-slide.phase-active{
   position:relative;
-  opacity:1;transform:translateY(0);
+  opacity:1;transform:translateX(0);
   pointer-events:auto;
 }
+.phase-slide.phase-exit{
+  opacity:0;transform:translateX(-60px);
+}
 .phase-slide .phase-agent-row{
-  opacity:0;transform:translateX(-12px);
+  opacity:0;transform:translateX(16px);
   transition:opacity 0.4s ease, transform 0.4s ease;
 }
 .phase-slide.phase-active .phase-agent-row:nth-child(1){opacity:1;transform:translateX(0);transition-delay:0.15s;}
@@ -471,12 +474,12 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 .phase-slide.phase-active .phase-agent-row:nth-child(3){opacity:1;transform:translateX(0);transition-delay:0.35s;}
 .phase-slide.phase-active .phase-agent-row:nth-child(4){opacity:1;transform:translateX(0);transition-delay:0.45s;}
 .phase-slide .phase-num,.phase-slide .phase-name,.phase-slide .phase-desc{
-  opacity:0;transform:translateY(10px);
-  transition:opacity 0.5s ease, transform 0.5s ease;
+  opacity:0;transform:translateX(20px);
+  transition:opacity 0.4s ease, transform 0.4s ease;
 }
-.phase-slide.phase-active .phase-num{opacity:1;transform:translateY(0);transition-delay:0.05s;}
-.phase-slide.phase-active .phase-name{opacity:1;transform:translateY(0);transition-delay:0.1s;}
-.phase-slide.phase-active .phase-desc{opacity:1;transform:translateY(0);transition-delay:0.15s;}
+.phase-slide.phase-active .phase-num{opacity:1;transform:translateX(0);transition-delay:0.05s;}
+.phase-slide.phase-active .phase-name{opacity:1;transform:translateX(0);transition-delay:0.1s;}
+.phase-slide.phase-active .phase-desc{opacity:1;transform:translateX(0);transition-delay:0.15s;}
 .phase-num{font-size:0.65rem;font-weight:700;color:rgba(245,240,232,0.4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
 .phase-name{font-size:1.4rem;font-weight:800;color:#f5f0e8;letter-spacing:-0.01em;margin-bottom:8px;}
 .phase-desc{font-size:0.88rem;color:rgba(245,240,232,0.6);line-height:1.6;margin-bottom:16px;}
@@ -489,13 +492,13 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 .demo-panel{
   position:absolute;top:0;left:0;right:0;
   display:flex;flex-direction:column;gap:12px;
-  opacity:0;transform:translateY(24px) scale(0.97);
-  transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  opacity:0;transform:translateX(80px) scale(0.97);
+  transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
   pointer-events:none;
 }
 .demo-panel.demo-panel-active{
   position:relative;
-  opacity:1;transform:translateY(0) scale(1);
+  opacity:1;transform:translateX(0) scale(1);
   pointer-events:auto;
 }
 .demo-panel .dp-card{
@@ -1766,9 +1769,15 @@ let currentPhase = -1;
 
 function setPhase(idx) {
   if (idx === currentPhase) return;
+  const prev = currentPhase;
   currentPhase = idx;
-  phaseSlides.forEach(s => s.classList.remove('phase-active'));
+  phaseSlides.forEach(s => { s.classList.remove('phase-active'); s.classList.remove('phase-exit'); });
   demoPanels.forEach(p => { p.classList.remove('demo-panel-active'); });
+  // Add exit class to previous phase for left-slide-out
+  if (prev >= 0 && prev < idx) {
+    const prevSlide = document.querySelector('.phase-slide[data-phase="' + prev + '"]');
+    if (prevSlide) prevSlide.classList.add('phase-exit');
+  }
   agentSteps.forEach(s => s.classList.remove('agents-step-active'));
   const activeSlide = document.querySelector('.phase-slide[data-phase="' + idx + '"]');
   const activePanel = document.querySelector('.demo-panel[data-phase="' + idx + '"]');
