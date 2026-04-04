@@ -95,6 +95,57 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
 .btn-hero{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;padding:16px 32px;border-radius:10px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:all 0.2s;}
 .btn-hero:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:var(--shadow-md);}
 
+/* ── PROCESS SCROLL VIDEO ── */
+.process-scroll-wrap{height:300vh;position:relative;}
+.process-sticky{
+  position:sticky;top:0;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;background:var(--navy);
+}
+.process-inner{
+  position:relative;width:100%;max-width:1200px;margin:0 auto;padding:0 40px;
+  display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:center;
+}
+.process-text{position:relative;min-height:200px;}
+.process-phase{
+  position:absolute;top:0;left:0;width:100%;
+  opacity:0;transform:translateX(40px);
+  transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  pointer-events:none;
+}
+.process-phase.process-active{
+  position:relative;opacity:1;transform:translateX(0);pointer-events:auto;
+}
+.process-phase.process-exit{opacity:0;transform:translateX(-40px);}
+.process-step-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(168,128,14,0.15);border:1px solid rgba(168,128,14,0.3);
+  color:var(--gold);font-size:0.75rem;font-weight:700;margin-bottom:12px;
+}
+.process-step-title{
+  font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:600;
+  color:#f5f0e8;letter-spacing:-0.02em;margin-bottom:10px;
+}
+.process-step-desc{font-size:0.92rem;color:rgba(245,240,232,0.55);line-height:1.7;max-width:380px;}
+.process-video-wrap{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.process-video-wrap video{width:100%;display:block;}
+/* Progress dots */
+.process-dots{display:flex;gap:8px;margin-top:24px;}
+.process-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(245,240,232,0.15);
+  transition:all 0.4s ease;
+}
+.process-dot.active{background:var(--gold);transform:scale(1.2);}
+/* Progress bar under video */
+.process-bar{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:12px;overflow:hidden;}
+.process-bar-fill{height:100%;background:var(--gold);border-radius:2px;width:33%;transition:width 0.5s cubic-bezier(0.22,1,0.36,1);}
+@media(max-width:768px){
+  .process-inner{grid-template-columns:1fr;gap:24px;}
+  .process-scroll-wrap{height:250vh;}
+}
+
 /* ── SECTIONS ── */
 .section{padding:80px 32px;max-width:1100px;margin:0 auto;width:100%;}
 .section-header{text-align:center;margin-bottom:56px;}
@@ -364,30 +415,55 @@ footer a:hover{color:#fff;}
   </div>
 </div>
 
-<!-- OUR PROCESS -->
-<div class="section reveal">
-  <div class="section-header">
-    <h2>Our Process</h2>
-    <p>Simple, transparent, and built around your timeline.</p>
+<!-- OUR PROCESS — SCROLL VIDEO -->
+<section id="process-section">
+  <div class="process-scroll-wrap">
+    <div class="process-sticky">
+      <div class="process-inner">
+        <div class="process-text">
+          <div class="process-phase process-active" data-step="0">
+            <div class="process-step-num">1</div>
+            <div class="process-step-title">Strategy</div>
+            <div class="process-step-desc">We learn your goals, audience, and brand. Then we map out the site architecture, user flows, and content strategy before a single pixel is designed.</div>
+            <div class="process-dots">
+              <div class="process-dot active"></div>
+              <div class="process-dot"></div>
+              <div class="process-dot"></div>
+            </div>
+          </div>
+          <div class="process-phase" data-step="1">
+            <div class="process-step-num">2</div>
+            <div class="process-step-title">Design &amp; Build</div>
+            <div class="process-step-desc">Clean, modern design built mobile-first. Every page is SEO optimized, AI-ready, and crafted to convert visitors into customers. We build in Next.js for speed.</div>
+            <div class="process-dots">
+              <div class="process-dot"></div>
+              <div class="process-dot active"></div>
+              <div class="process-dot"></div>
+            </div>
+          </div>
+          <div class="process-phase" data-step="2">
+            <div class="process-step-num">3</div>
+            <div class="process-step-title">Launch &amp; Support</div>
+            <div class="process-step-desc">We deploy to production, set up analytics and monitoring, and provide ongoing support. Your site stays fast, secure, and updated while you focus on your business.</div>
+            <div class="process-dots">
+              <div class="process-dot"></div>
+              <div class="process-dot"></div>
+              <div class="process-dot active"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="process-video-wrap">
+            <video id="processVideo" muted playsInline preload="auto" src="process-scroll.mp4"></video>
+          </div>
+          <div class="process-bar">
+            <div class="process-bar-fill" id="processBarFill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Strategy</h3>
-      <p>We learn your goals, audience, and brand. Then map out the site.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>Design &amp; Build</h3>
-      <p>Clean, modern design. Mobile-first. SEO optimized from day one.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Launch &amp; Support</h3>
-      <p>We launch, monitor, and maintain. You focus on your business.</p>
-    </div>
-  </div>
-</div>
+</section>
 
 <!-- WHY SPEC DIGITAL -->
 <div class="section reveal">
@@ -481,6 +557,52 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.08, rootMargin: '-30px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Process Scroll Video ──
+const processWrap = document.querySelector('.process-scroll-wrap');
+const processVideo = document.getElementById('processVideo');
+const processBarFill = document.getElementById('processBarFill');
+const processPhases = document.querySelectorAll('.process-phase');
+let currentProcessStep = -1;
+let targetTime = 0;
+let currentTime = 0;
+
+function setProcessStep(idx) {
+  if (idx === currentProcessStep) return;
+  const prev = currentProcessStep;
+  currentProcessStep = idx;
+  processPhases.forEach(p => { p.classList.remove('process-active'); p.classList.remove('process-exit'); });
+  if (prev >= 0 && prev < idx) {
+    const prevPhase = document.querySelector('.process-phase[data-step="' + prev + '"]');
+    if (prevPhase) prevPhase.classList.add('process-exit');
+  }
+  const active = document.querySelector('.process-phase[data-step="' + idx + '"]');
+  if (active) active.classList.add('process-active');
+  if (processBarFill) processBarFill.style.width = ((idx + 1) * 33.33) + '%';
+}
+
+function lerpProcessVideo() {
+  if (!processVideo || !processVideo.duration) { requestAnimationFrame(lerpProcessVideo); return; }
+  currentTime += (targetTime - currentTime) * 0.08;
+  if (Math.abs(currentTime - targetTime) > 0.01) {
+    processVideo.currentTime = Math.max(0, Math.min(currentTime, processVideo.duration - 0.01));
+  }
+  requestAnimationFrame(lerpProcessVideo);
+}
+if (processVideo) requestAnimationFrame(lerpProcessVideo);
+
+window.addEventListener('scroll', function() {
+  if (!processWrap || !processVideo) return;
+  const rect = processWrap.getBoundingClientRect();
+  const scrollH = processWrap.offsetHeight - window.innerHeight;
+  if (scrollH <= 0) return;
+  const progress = Math.max(0, Math.min(1, -rect.top / scrollH));
+  if (processVideo.duration) {
+    targetTime = progress * processVideo.duration;
+  }
+  const step = Math.min(2, Math.floor(progress * 3));
+  setProcessStep(step);
+});
 
 // Value icon draw on scroll
 const valueObs = new IntersectionObserver((entries) => {
