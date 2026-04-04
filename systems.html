@@ -294,8 +294,8 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
   position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden;
   background:var(--navy);
 }
-.agents-split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.agents-left{max-width:480px;position:relative;min-height:300px;}
+.agents-split{display:grid;grid-template-columns:2fr 3fr;gap:48px;align-items:center;max-width:1300px;margin:0 auto;padding:0 40px;}
+.agents-left{position:relative;min-height:300px;}
 .agents-title{font-size:2rem;font-weight:800;color:#f5f0e8;margin:8px 0 16px;letter-spacing:-0.02em;}
 #agents .section-label{color:var(--gold);}
 /* Step indicators */
@@ -351,7 +351,7 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 .phase-agent-row strong{color:rgba(245,240,232,0.85);font-weight:600;}
 .phase-agent-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 /* Right demo panels — crossfade with staggered cards */
-.agents-right{position:relative;min-height:420px;}
+.agents-right{position:relative;min-height:500px;}
 .demo-panel{
   position:absolute;top:0;left:0;right:0;
   display:flex;flex-direction:column;gap:12px;
@@ -368,8 +368,12 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
   opacity:0;transform:translateY(16px);
   transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
 }
-.demo-panel.demo-panel-active .dp-card:nth-child(1){opacity:1;transform:translateY(0);transition-delay:0.1s;}
-.demo-panel.demo-panel-active .dp-card:nth-child(2){opacity:1;transform:translateY(0);transition-delay:0.25s;}
+.demo-panel.demo-panel-active .dp-grid-2{opacity:1;}
+.demo-panel .dp-grid-2 .dp-card, .demo-panel .dp-grid-2 > div .dp-card{opacity:0;transform:translateY(16px);transition:all 0.5s cubic-bezier(0.22,1,0.36,1);}
+.demo-panel.demo-panel-active .dp-grid-2 > .dp-card{opacity:1;transform:translateY(0);transition-delay:0.1s;}
+.demo-panel.demo-panel-active .dp-grid-2 > div .dp-card:nth-child(1){opacity:1;transform:translateY(0);transition-delay:0.15s;}
+.demo-panel.demo-panel-active .dp-grid-2 > div .dp-card:nth-child(2){opacity:1;transform:translateY(0);transition-delay:0.3s;}
+.demo-panel.demo-panel-active .dp-grid-2 > div .dp-card:nth-child(3){opacity:1;transform:translateY(0);transition-delay:0.45s;}
 /* Chat messages stagger */
 .demo-panel .dp-msg{
   opacity:0;transform:translateY(8px) scale(0.96);
@@ -405,6 +409,7 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
 .demo-panel.demo-panel-active .dp-bar-row:nth-child(2){opacity:1;transform:translateX(0);transition-delay:0.3s;}
 .demo-panel.demo-panel-active .dp-bar-row:nth-child(3){opacity:1;transform:translateX(0);transition-delay:0.4s;}
 .demo-panel.demo-panel-active .dp-bar-row:nth-child(4){opacity:1;transform:translateX(0);transition-delay:0.5s;}
+.dp-grid-2{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;align-items:start;}
 .dp-card{
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.08);
@@ -412,6 +417,8 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
   box-shadow:0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
 }
+.dp-card-tall{display:flex;flex-direction:column;height:100%;}
+.dp-card-tall .dp-body{flex:1;}
 .dp-card-sm{padding:14px 18px;}
 .dp-header{font-size:0.75rem;font-weight:700;color:rgba(245,240,232,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
 .dp-dot{width:7px;height:7px;border-radius:50%;animation:status-breathe 2s ease-in-out infinite;}
@@ -554,6 +561,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 @media(max-width:1024px){
   .agents-split{grid-template-columns:1fr;gap:30px;}
   .agents-right{min-height:auto;}
+  .dp-grid-2{grid-template-columns:1fr;}
   .solutions-grid{grid-template-columns:repeat(2,1fr);}
   .comparison-table{font-size:0.82rem;}
   .step-connector{display:none;}
@@ -854,72 +862,153 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
           <!-- Right: animated demo panel -->
           <div class="agents-right">
             <div class="demo-panel demo-panel-active" data-phase="0">
-              <div class="dp-card">
-                <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Lead Agent</div>
-                <div class="dp-body">
-                  <div class="dp-msg dp-msg-in">Hi, I saw your ad. Can you do a backyard redesign?</div>
-                  <div class="dp-msg dp-msg-out">Absolutely! I'd love to help. Based on your area, here are some recent projects we've done nearby. Can I schedule a free site visit this week?</div>
-                  <div class="dp-meta">Responded in 47 seconds</div>
+              <div class="dp-grid-2">
+                <div class="dp-card dp-card-tall">
+                  <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Lead Agent</div>
+                  <div class="dp-body">
+                    <div class="dp-msg dp-msg-in">Hi, I saw your ad. Can you do a backyard redesign?</div>
+                    <div class="dp-msg dp-msg-out">Absolutely! I'd love to help. Based on your area, here are some recent projects we've done nearby. Can I schedule a free site visit this week?</div>
+                    <div class="dp-msg dp-msg-in">Yes! What about Thursday morning?</div>
+                    <div class="dp-msg dp-msg-out">Thursday at 10 AM works perfectly. I've sent a calendar invite with the address confirmation. See you then!</div>
+                    <div class="dp-meta">Responded in 47 seconds</div>
+                  </div>
                 </div>
-              </div>
-              <div class="dp-card dp-card-sm">
-                <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Nurture Agent</div>
-                <div class="dp-row"><span class="dp-check">&#10003;</span> Day 1: Introduction sent</div>
-                <div class="dp-row"><span class="dp-check">&#10003;</span> Day 3: Before &amp; after photos</div>
-                <div class="dp-row dp-row-pending"><span class="dp-pending">&#9679;</span> Day 7: Final follow-up</div>
-              </div>
-            </div>
-            <div class="demo-panel" data-phase="1">
-              <div class="dp-card">
-                <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Proposal Agent</div>
-                <div class="dp-body">
-                  <div class="dp-doc-title">Henderson Patio Redesign</div>
-                  <div class="dp-tiers">
-                    <div class="dp-tier"><span class="dp-tier-name">Budget</span><span class="dp-tier-price">$12,400</span></div>
-                    <div class="dp-tier"><span class="dp-tier-name">Mid-Range</span><span class="dp-tier-price">$18,700</span></div>
-                    <div class="dp-tier dp-tier-hl"><span class="dp-tier-name">High-End</span><span class="dp-tier-price">$24,200</span></div>
-                    <div class="dp-tier"><span class="dp-tier-name">Luxury</span><span class="dp-tier-price">$31,800</span></div>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Lead Scoring</div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Source</span><span style="margin-left:auto;color:#f5f0e8;font-weight:600;">Google Ads</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Budget</span><span style="margin-left:auto;color:#f5f0e8;font-weight:600;">$15K-25K</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Score</span><span style="margin-left:auto;color:#3dbd7a;font-weight:700;">92 / 100</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Priority</span><span style="margin-left:auto;color:var(--gold);font-weight:600;">High</span></div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Nurture Agent</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Day 1: Introduction sent</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Day 3: Before &amp; after photos</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Day 5: Pricing guide</div>
+                    <div class="dp-row dp-row-pending"><span class="dp-pending">&#9679;</span> Day 7: Final follow-up</div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Schedule Agent</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Calendar synced</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Site visit: Thu 10 AM</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Reminder sent to client</div>
                   </div>
                 </div>
               </div>
-              <div class="dp-card dp-card-sm">
-                <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Estimate Agent</div>
-                <div class="dp-bar-row"><span>Materials</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:72%;background:#2d4a6e;"></div></div><span>$8,640</span></div>
-                <div class="dp-bar-row"><span>Labor</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:58%;background:var(--gold);"></div></div><span>$6,960</span></div>
-                <div class="dp-bar-row"><span>Margin</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:35%;background:#2a7a5e;"></div></div><span>$2,600</span></div>
+            </div>
+            <div class="demo-panel" data-phase="1">
+              <div class="dp-grid-2">
+                <div class="dp-card dp-card-tall">
+                  <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Proposal Agent</div>
+                  <div class="dp-body">
+                    <div class="dp-doc-title">Henderson Patio Redesign</div>
+                    <div style="font-size:0.72rem;color:rgba(245,240,232,0.4);margin-bottom:12px;">Generated from site visit notes &mdash; 4 tier options</div>
+                    <div class="dp-tiers">
+                      <div class="dp-tier"><span class="dp-tier-name">Budget</span><span class="dp-tier-price">$12,400</span></div>
+                      <div class="dp-tier"><span class="dp-tier-name">Mid-Range</span><span class="dp-tier-price">$18,700</span></div>
+                      <div class="dp-tier dp-tier-hl"><span class="dp-tier-name">High-End</span><span class="dp-tier-price">$24,200</span></div>
+                      <div class="dp-tier"><span class="dp-tier-name">Luxury</span><span class="dp-tier-price">$31,800</span></div>
+                    </div>
+                    <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);">
+                      <div class="dp-meta">Client selected: High-End</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Estimate Agent</div>
+                    <div class="dp-bar-row"><span>Materials</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:72%;background:#2d4a6e;"></div></div><span>$8,640</span></div>
+                    <div class="dp-bar-row"><span>Labor</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:58%;background:var(--gold);"></div></div><span>$6,960</span></div>
+                    <div class="dp-bar-row"><span>Overhead</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:25%;background:#6B3FA0;"></div></div><span>$3,200</span></div>
+                    <div class="dp-bar-row"><span>Margin</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:35%;background:#2a7a5e;"></div></div><span>$5,400</span></div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Contract Agent</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Scope of work generated</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Payment terms: 50/25/25</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Sent for e-signature</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Signed by client</div>
+                    <div class="dp-meta" style="margin-top:8px;">Signed in 2 hours</div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Deposit Invoice</div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Amount</span><span style="margin-left:auto;color:#f5f0e8;font-weight:700;">$12,100</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Status</span><span style="margin-left:auto;color:#3dbd7a;font-weight:600;">Paid</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">QuickBooks</span><span style="margin-left:auto;color:#3dbd7a;font-weight:600;">Synced</span></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="demo-panel" data-phase="2">
-              <div class="dp-card">
-                <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Client Agent</div>
-                <div class="dp-body">
-                  <div class="dp-msg dp-msg-out">Week 2 update: Hardscaping is 100% complete. Planting and irrigation begin Monday. Here are today's progress photos.</div>
-                  <div class="dp-msg dp-msg-in">This looks amazing, thank you for the updates!</div>
+              <div class="dp-grid-2">
+                <div class="dp-card dp-card-tall">
+                  <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Client Agent</div>
+                  <div class="dp-body">
+                    <div class="dp-msg dp-msg-out">Week 2 update: Hardscaping is 100% complete. Planting and irrigation begin Monday. Here are today's progress photos.</div>
+                    <div class="dp-msg dp-msg-in">This looks amazing, thank you for the updates!</div>
+                    <div class="dp-msg dp-msg-out">Great to hear! The crew is ahead of schedule. We expect planting to wrap by Wednesday.</div>
+                    <div class="dp-meta">Auto-sent from job progress data</div>
+                  </div>
                 </div>
-              </div>
-              <div class="dp-card dp-card-sm">
-                <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Job Planning</div>
-                <div class="dp-bar-row"><span>Demo</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:100%;background:#2a7a5e;"></div></div><span>Done</span></div>
-                <div class="dp-bar-row"><span>Hardscape</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:100%;background:#2a7a5e;"></div></div><span>Done</span></div>
-                <div class="dp-bar-row"><span>Planting</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:40%;background:var(--gold);"></div></div><span>40%</span></div>
-                <div class="dp-bar-row"><span>Lighting</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:0%;background:#2d4a6e;"></div></div><span>Next</span></div>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-blue"></span>Job Phases</div>
+                    <div class="dp-bar-row"><span>Demo</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:100%;background:#2a7a5e;"></div></div><span>Done</span></div>
+                    <div class="dp-bar-row"><span>Hardscape</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:100%;background:#2a7a5e;"></div></div><span>Done</span></div>
+                    <div class="dp-bar-row"><span>Planting</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:65%;background:var(--gold);"></div></div><span>65%</span></div>
+                    <div class="dp-bar-row"><span>Irrigation</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:20%;background:#2d4a6e;"></div></div><span>20%</span></div>
+                    <div class="dp-bar-row"><span>Lighting</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:0%;background:#2d4a6e;"></div></div><span>Next</span></div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Crew Dispatch</div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Crew A</span><span style="margin-left:auto;color:#3dbd7a;font-weight:600;">On-site</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Crew B</span><span style="margin-left:auto;color:var(--gold);font-weight:600;">En route</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Materials</span><span style="margin-left:auto;color:#3dbd7a;font-weight:600;">Delivered</span></div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-green"></span>Mid-Job Invoice</div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Amount</span><span style="margin-left:auto;color:#f5f0e8;font-weight:700;">$6,050</span></div>
+                    <div class="dp-row"><span style="color:rgba(245,240,232,0.4);">Status</span><span style="margin-left:auto;color:#3dbd7a;font-weight:600;">Paid</span></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="demo-panel" data-phase="3">
-              <div class="dp-card">
-                <div class="dp-header"><span class="dp-dot dp-dot-purple"></span>Completion Agent</div>
-                <div class="dp-body">
-                  <div class="dp-row"><span class="dp-check">&#10003;</span> Job marked complete</div>
-                  <div class="dp-row"><span class="dp-check">&#10003;</span> Final invoice sent &mdash; $24,200</div>
-                  <div class="dp-row"><span class="dp-check">&#10003;</span> Google review request sent</div>
-                  <div class="dp-row"><span class="dp-check">&#10003;</span> 30-day check-in scheduled</div>
+              <div class="dp-grid-2">
+                <div class="dp-card dp-card-tall">
+                  <div class="dp-header"><span class="dp-dot dp-dot-purple"></span>Completion Agent</div>
+                  <div class="dp-body">
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> All phases marked complete</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Final walkthrough approved</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Final invoice sent &mdash; $6,050</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Payment received</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Google review request sent</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> 30-day check-in scheduled</div>
+                    <div class="dp-meta" style="margin-top:10px;">Total collected: $24,200</div>
+                  </div>
                 </div>
-              </div>
-              <div class="dp-card dp-card-sm">
-                <div class="dp-header"><span class="dp-dot dp-dot-purple"></span>Performance</div>
-                <div class="dp-bar-row"><span>Crew A</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:94%;background:#2a7a5e;"></div></div><span>94</span></div>
-                <div class="dp-bar-row"><span>Crew B</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:78%;background:var(--gold);"></div></div><span>78</span></div>
-                <div class="dp-bar-row"><span>Accuracy</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:92%;background:#6B3FA0;"></div></div><span>92%</span></div>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-purple"></span>Performance Scores</div>
+                    <div class="dp-bar-row"><span>Crew A</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:94%;background:#2a7a5e;"></div></div><span>94</span></div>
+                    <div class="dp-bar-row"><span>Crew B</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:78%;background:var(--gold);"></div></div><span>78</span></div>
+                    <div class="dp-bar-row"><span>On-time</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:100%;background:#2a7a5e;"></div></div><span>100%</span></div>
+                    <div class="dp-bar-row"><span>Accuracy</span><div class="dp-bar"><div class="dp-bar-fill" style="--w:92%;background:#6B3FA0;"></div></div><span>92%</span></div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-purple"></span>Learning Agent</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Job data analyzed</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Pricing models updated</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Estimate accuracy: +3.2%</div>
+                  </div>
+                  <div class="dp-card">
+                    <div class="dp-header"><span class="dp-dot dp-dot-purple"></span>Marketing Agent</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Before/after post created</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Review: 5 stars received</div>
+                    <div class="dp-row"><span class="dp-check">&#10003;</span> Re-engagement email queued</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -944,21 +1033,6 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
   </div>
 </section>
 
-<!-- ── SPEC2 SHOWCASE VIDEO ── -->
-<section id="spec2-video" style="padding:0;background:var(--navy);position:relative;overflow:hidden;">
-  <div style="position:relative;max-width:1400px;margin:0 auto;">
-    <video
-      autoPlay
-      muted
-      loop
-      playsInline
-      playbackRate="0.8"
-      style="width:100%;display:block;opacity:0.85;"
-      src="spec2-showcase.mp4"
-    ></video>
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg, var(--navy) 0%, transparent 15%, transparent 85%, var(--navy) 100%);pointer-events:none;"></div>
-  </div>
-</section>
 
 <!-- ── COMPARISON ── -->
 <section id="comparison">
@@ -1495,10 +1569,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroLeft = document.querySelector('.hero-left');
   if (heroLeft) heroLeft.style.opacity = '1';
 });
-
-// SPEC2 showcase video playback speed
-const spec2Video = document.querySelector('#spec2-video video');
-if (spec2Video) spec2Video.playbackRate = 0.8;
 
 // Comparison table row reveals
 const tableRows = document.querySelectorAll('.comparison-table tbody tr');
