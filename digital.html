@@ -147,11 +147,9 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
   font-size:0.95rem;color:rgba(245,240,232,0.75);line-height:1.7;max-width:460px;margin:0 auto;
   text-shadow:0 1px 16px rgba(14,28,47,0.8), 0 2px 32px rgba(14,28,47,0.5);
 }
-/* Progress dots - vertical on side */
+/* Progress dots - horizontal on desktop */
 .process-dots{
-  display:flex;flex-direction:column;gap:10px;
-  position:absolute;right:24px;top:50%;transform:translateY(-50%);
-  z-index:4;
+  display:flex;gap:10px;margin-top:24px;justify-content:center;
 }
 .process-dot{
   width:8px;height:8px;border-radius:50%;
@@ -159,8 +157,13 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
   transition:all 0.4s ease;
 }
 .process-dot.active{background:var(--gold);transform:scale(1.3);}
-/* Progress bar hidden */
-.process-bar{display:none;}
+/* Progress bar - horizontal at bottom on desktop */
+.process-bar{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  width:160px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;
+  z-index:3;
+}
+.process-bar-fill{height:100%;background:var(--gold);border-radius:2px;width:33%;transition:width 0.5s cubic-bezier(0.22,1,0.36,1);}
 /* Centered vignette behind text */
 .process-video-wrap::after{
   content:'';position:absolute;inset:0;
@@ -171,8 +174,12 @@ nav{padding:20px 0;background:rgba(247,244,239,0.96);backdrop-filter:blur(24px);
   .process-scroll-wrap{height:250vh;}
   .process-video-wrap video{width:95%;border-radius:10px;}
   .process-step-desc{font-size:0.88rem;max-width:320px;}
-  .process-dots{right:14px;gap:8px;}
-  .process-bar{right:14px;height:80px;margin-top:50px;}
+  .process-dots{
+    flex-direction:column;gap:8px;
+    position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    margin-top:0;justify-content:flex-start;
+  }
+  .process-bar{display:none;}
 }
 
 /* ── SECTIONS ── */
@@ -608,7 +615,7 @@ function setProcessStep(idx) {
   }
   const active = document.querySelector('.process-phase[data-step="' + idx + '"]');
   if (active) active.classList.add('process-active');
-  if (processBarFill) processBarFill.style.height = ((idx + 1) * 33.33) + '%';
+  if (processBarFill) processBarFill.style.width = ((idx + 1) * 33.33) + '%';
 }
 
 function lerpProcessVideo() {
