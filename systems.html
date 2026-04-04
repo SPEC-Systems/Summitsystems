@@ -116,14 +116,6 @@ nav .container{display:flex;align-items:center;justify-content:space-between;gap
   overflow:hidden;
 }
 #hero::before{display:none;}
-.hero-canvas{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-  pointer-events:none;
-}
 #hero .container{position:relative;z-index:2;}
 #hero .hero-h1, #hero .hero-h1 em{color:#f5f0e8;}
 #hero .hero-sub{color:rgba(245,240,232,0.8);}
@@ -629,7 +621,6 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 
 <!-- ── HERO ── -->
 <section id="hero">
-  <canvas id="constellation" class="hero-canvas"></canvas>
   <div class="container">
     <div class="hero-grid">
       <div class="hero-left">
@@ -1359,95 +1350,6 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 </footer>
 
 <script>
-// ── Constellation Mesh ──
-(function() {
-  const canvas = document.getElementById('constellation');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let w, h, particles = [];
-  const COUNT = 140;
-  const DIST = 200;
-  const GOLD = { r: 198, g: 158, b: 44 };
-  const WHITE = { r: 220, g: 220, b: 230 };
-
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = rect.width; h = rect.height;
-    canvas.width = w * dpr; canvas.height = h * dpr;
-    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function init() {
-    particles = [];
-    for (let i = 0; i < COUNT; i++) {
-      const isGold = Math.random() < 0.2;
-      particles.push({
-        x: Math.random() * w, y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
-        r: isGold ? 3 : (Math.random() * 1.8 + 0.8),
-        color: isGold ? GOLD : WHITE,
-        alpha: isGold ? 0.9 : (Math.random() * 0.5 + 0.25),
-        isGold: isGold,
-        phase: Math.random() * Math.PI * 2
-      });
-    }
-  }
-
-  function draw(t) {
-    ctx.clearRect(0, 0, w, h);
-    for (const p of particles) {
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < -10) p.x = w + 10;
-      if (p.x > w + 10) p.x = -10;
-      if (p.y < -10) p.y = h + 10;
-      if (p.y > h + 10) p.y = -10;
-    }
-    // Lines
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < DIST) {
-          const op = (1 - d / DIST) * 0.25;
-          const gold = particles[i].isGold || particles[j].isGold;
-          ctx.strokeStyle = gold
-            ? 'rgba(198,158,44,' + (op * 2) + ')'
-            : 'rgba(220,220,230,' + op + ')';
-          ctx.lineWidth = gold ? 1 : 0.7;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    // Dots
-    for (const p of particles) {
-      let a = p.alpha;
-      if (p.isGold) a = 0.6 + Math.sin(t * 0.0015 + p.phase) * 0.35;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + a + ')';
-      ctx.fill();
-      if (p.isGold) {
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
-        g.addColorStop(0, 'rgba(198,158,44,' + (a * 0.4) + ')');
-        g.addColorStop(1, 'rgba(198,158,44,0)');
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r * 6, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', () => { resize(); init(); });
-  resize(); init(); requestAnimationFrame(draw);
-})();
 
 // Nav hamburger
 const hamburger = document.getElementById('hamburger');
