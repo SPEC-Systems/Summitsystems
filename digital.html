@@ -451,7 +451,7 @@ footer a:hover{color:#fff;}
       <div class="process-inner">
         <!-- Video background -->
         <div class="process-video-wrap">
-          <video id="processVideo" muted playsInline preload="auto" src="process-scroll.mp4"></video>
+          <video id="processVideo" muted playsinline webkit-playsinline preload="auto" src="process-scroll.mp4"></video>
         </div>
         <!-- Text overlay -->
         <div class="process-text-overlay">
@@ -619,7 +619,23 @@ function lerpProcessVideo() {
   }
   requestAnimationFrame(lerpProcessVideo);
 }
-if (processVideo) requestAnimationFrame(lerpProcessVideo);
+if (processVideo) {
+  // Force video to load on mobile
+  processVideo.load();
+  processVideo.currentTime = 0.01;
+  // iOS needs a play attempt to unlock seeking
+  const unlockVideo = function() {
+    processVideo.play().then(() => {
+      processVideo.pause();
+      processVideo.currentTime = 0;
+    }).catch(() => {});
+    document.removeEventListener('touchstart', unlockVideo);
+    document.removeEventListener('scroll', unlockVideo);
+  };
+  document.addEventListener('touchstart', unlockVideo, { once: true });
+  document.addEventListener('scroll', unlockVideo, { once: true });
+  requestAnimationFrame(lerpProcessVideo);
+}
 
 window.addEventListener('scroll', function() {
   if (!processWrap || !processVideo) return;
