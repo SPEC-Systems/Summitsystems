@@ -559,17 +559,17 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
 </section>
 
 <!-- ── ROBOT AGENT ANIMATION ── -->
-<section id="robot-video" style="padding:0;background:var(--navy);position:relative;overflow:hidden;">
-  <div style="position:relative;max-width:900px;margin:0 auto;">
+<section id="robot-video" style="padding:0;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg, var(--cream) 0%, #1f262e 18%, #1f262e 82%, var(--navy) 100%);z-index:0;"></div>
+  <div style="position:relative;max-width:800px;margin:0 auto;z-index:1;">
     <video
       autoPlay
       muted
       loop
       playsInline
-      style="width:100%;display:block;opacity:0.9;"
+      style="width:100%;display:block;mix-blend-mode:lighten;"
       src="robot-agent.mp4"
     ></video>
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg, var(--navy) 0%, transparent 20%, transparent 80%, var(--navy) 100%);pointer-events:none;"></div>
   </div>
 </section>
 
