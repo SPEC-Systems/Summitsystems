@@ -944,6 +944,22 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);paddin
   </div>
 </section>
 
+<!-- ── SPEC2 SHOWCASE VIDEO ── -->
+<section id="spec2-video" style="padding:0;background:var(--navy);position:relative;overflow:hidden;">
+  <div style="position:relative;max-width:1400px;margin:0 auto;">
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      playbackRate="0.8"
+      style="width:100%;display:block;opacity:0.85;"
+      src="spec2-showcase.mp4"
+    ></video>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg, var(--navy) 0%, transparent 15%, transparent 85%, var(--navy) 100%);pointer-events:none;"></div>
+  </div>
+</section>
+
 <!-- ── COMPARISON ── -->
 <section id="comparison">
   <div class="container">
@@ -1479,6 +1495,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroLeft = document.querySelector('.hero-left');
   if (heroLeft) heroLeft.style.opacity = '1';
 });
+
+// SPEC2 showcase video playback speed
+const spec2Video = document.querySelector('#spec2-video video');
+if (spec2Video) spec2Video.playbackRate = 0.8;
 
 // Comparison table row reveals
 const tableRows = document.querySelectorAll('.comparison-table tbody tr');
