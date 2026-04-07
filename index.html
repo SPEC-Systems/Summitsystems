@@ -58,14 +58,9 @@ nav{padding:20px 0;background:rgba(14,28,47,0.4);backdrop-filter:blur(24px);bord
 /* ── CARDS ── */
 .cards-section{padding:80px 32px 100px;}
 /* ── Home Video Animation ── */
-.home-video-wrap{max-width:1200px;margin:0 auto;padding:80px 32px;}
+.home-video-wrap{width:100%;margin:0 auto;padding:0;}
 .home-video-inner{position:relative;overflow:hidden;}
-.home-video-el{width:100%;height:auto;display:block;opacity:0.9;}
-.home-video-fade-radial{position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse at center,transparent 50%,#1a2a3a 85%);}
-.home-video-fade-left{position:absolute;top:0;left:0;bottom:0;width:120px;pointer-events:none;z-index:3;background:linear-gradient(to right,#1a2a3a,transparent);}
-.home-video-fade-right{position:absolute;top:0;right:0;bottom:0;width:120px;pointer-events:none;z-index:3;background:linear-gradient(to left,#1a2a3a,transparent);}
-.home-video-fade-top{position:absolute;top:0;left:0;right:0;height:80px;pointer-events:none;z-index:3;background:linear-gradient(to bottom,#1a2a3a,transparent);}
-.home-video-fade-bottom{position:absolute;bottom:0;left:0;right:0;height:80px;pointer-events:none;z-index:3;background:linear-gradient(to top,#1a2a3a,transparent);}
+.home-video-el{width:100%;height:auto;display:block;}
 .cards-header{text-align:center;margin-bottom:48px;}
 .cards-header h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);font-weight:600;margin-bottom:8px;}
 .cards-header p{font-size:0.92rem;color:var(--muted);}
@@ -231,15 +226,10 @@ footer a:hover{color:#fff;}
   </div>
 </div>
 
-<section class="home-video-section" style="background:#1a2a3a;overflow:hidden;">
+<section class="home-video-section" style="background:#0E1C2F;overflow:hidden;margin:0;padding:0;">
   <div class="home-video-wrap">
     <div class="home-video-inner">
       <video class="home-video-el" autoplay muted loop playsinline src="spec-hero.mp4"></video>
-      <div class="home-video-fade-radial"></div>
-      <div class="home-video-fade-left"></div>
-      <div class="home-video-fade-right"></div>
-      <div class="home-video-fade-top"></div>
-      <div class="home-video-fade-bottom"></div>
     </div>
   </div>
 </section>
