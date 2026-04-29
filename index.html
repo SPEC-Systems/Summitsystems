@@ -6,8 +6,8 @@
 <title>SPEC — AI-Powered Business Solutions</title>
 <meta name="description" content="SPEC builds AI systems that run your business. CRM automation, custom agents, and professional websites.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" type="image/svg+xml" href="logo-icon.svg">
-<link rel="apple-touch-icon" href="spec-seal.png">
+<link rel="icon" type="image/png" href="spec-seal-transparent.png">
+<link rel="apple-touch-icon" href="spec-seal-transparent.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -123,6 +123,8 @@ footer a:hover{color:#fff;}
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),transform 0.7s cubic-bezier(0.22,1,0.36,1);}
 .reveal.visible{opacity:1;transform:translateY(0);}
+
+.seal-logo{height:48px;width:48px;display:block;object-fit:contain;}
 </style>
 </head>
 <body>
@@ -130,8 +132,7 @@ footer a:hover{color:#fff;}
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <div class="logo-mark"><svg viewBox="0 0 48 48" fill="none" stroke="#C9A227" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter"><path d="M 15 22 L 24 14 L 33 22"/><path d="M 13 30 L 24 22 L 35 30"/><path d="M 11 38 L 24 30 L 37 38"/></svg></div>
-      <span class="logo-name">SPEC</span>
+      <img src="spec-seal-transparent.png" alt="SPEC Systems" class="seal-logo">
     </a>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -147,6 +148,7 @@ footer a:hover{color:#fff;}
 <section id="home-hero" style="position:relative;overflow:hidden;padding:120px 32px 40px;min-height:400px;">
   <canvas id="heroGrid" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
   <div style="position:relative;z-index:1;text-align:center;max-width:800px;margin:0 auto;">
+    <img src="spec-primary-transparent.png" alt="SPEC Systems" style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto 32px;">
     <div class="hero-badge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(14,28,47,0.06);border:1px solid var(--border);border-radius:99px;padding:6px 16px;font-size:0.75rem;font-weight:600;color:var(--navy);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:24px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;"></span> AI-Powered Solutions</div>
     <h1 style="font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:700;line-height:1.08;letter-spacing:-0.03em;color:var(--navy);margin-bottom:24px;">We build systems that <em style="font-style:italic;color:var(--gold);">run</em> your business.</h1>
     <p style="font-size:1.15rem;color:var(--muted);line-height:1.7;max-width:600px;margin:0 auto 16px;">From AI-powered CRMs to custom agents to professional websites — SPEC handles the work so you can focus on what you do best.</p>
